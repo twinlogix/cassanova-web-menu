@@ -1,6 +1,17 @@
-<ul>
-  <li *ngFor="let product of products">
-    <!-- <div class="product"> -->
+<!-- Header -->
+<div class="center">
+  <div class="button-container">
+    <button routerLink="/categories">Categorie</button>
+  </div>
+                                        <!-- Category name loaded -->
+  <div class="category-name-container" *ngIf="categoryName.length > 1">
+    <h2>{{categoryName[1]}}</h2>
+  </div>
+</div>
+<!-- Products -->
+<div *ngIf="products.length > 0" class="center">
+  <ul>
+    <li *ngFor="let product of products">
       <div class="img-container">
         <img src="{{product.imageUrls[0]}}"/>
       </div>
@@ -8,7 +19,17 @@
         <span class="product-name">{{product.name}}</span>
         <span class="product-price">{{product.price}}</span>
         <span class="product-description">{{product.description}}</span>
-     </div>
-    <!-- </div> -->
-  </li>
-</ul>
+      </div>
+    </li>
+    <!-- Load More -->
+    <li *ngIf="checkLoadMore()">
+      <div class = "center load-more-container" >
+        <button (click)="loadMore()">Load more</button>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- No products to shows -->
+<div *ngIf="checkLoadEnded() && !products.length" class="center">
+  <span class="no-product">Nessun prodotto da mostrare</span>
+</div>

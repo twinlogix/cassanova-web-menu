@@ -1,9 +1,45 @@
+.center{
+  clear: both;
+  width: 80%;
+  margin: auto;
+  padding: 3%;
+}
+
+.load-more-container{
+  text-align: center;
+}
+
+.no-product{
+  clear: both;
+  display: block;
+  width: 100%;
+  border: 2px red solid;
+  text-align: center;
+  font-size: 120%;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.button-container{
+  float: left;
+  display: inline-block;
+}
+
+.category-name-container{
+  text-align: center;
+  display: block;
+}
+
+h2 {
+  text-align: center;
+  height: 50%;
+}
+
 /* Remove default list display */
 ul {
   list-style: none;
   padding-left: 0px;
   border: 1px solid black;
-  width: 80%;
   margin: auto;
 }
 

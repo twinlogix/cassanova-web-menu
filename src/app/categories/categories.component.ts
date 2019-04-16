@@ -9,14 +9,14 @@ import {CategoryService} from '../category.service';
 })
 export class CategoriesComponent implements OnInit {
 
-  private categories: Category[];
+  private categories: Category[] = [];
 
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit() { this.getCategories(); }
 
   getCategories(): void {
-    this.categoryService.getCategories().subscribe( categories => this.categories = categories);
+    this.categoryService.getCategories().subscribe( categories =>  this.categories = categories );
   }
 
 }

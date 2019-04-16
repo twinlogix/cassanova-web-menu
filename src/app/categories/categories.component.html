@@ -1,4 +1,4 @@
-<ul>
+<ul *ngIf="categories.length">
   <li *ngFor="let category of categories" clickable routerLink="/categories/{{category.id}}">
     <!--< a routerLink="/categories/{{category.id}}"> -->
       <div class="img-container">
