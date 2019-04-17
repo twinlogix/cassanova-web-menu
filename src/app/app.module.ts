@@ -7,12 +7,14 @@ import { CategoriesComponent } from './categories/categories.component';
 import { ProductsComponent } from './products/products.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TokenInterceptor} from './token-interceptor';
+import { NoHTMLPipe } from './no-html.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoriesComponent,
-    ProductsComponent
+    ProductsComponent,
+    NoHTMLPipe
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,9 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 
+// const idSalesPoint = 333;
+const idSalesPoint = 311;
+const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'
 })
@@ -17,7 +20,6 @@ export class ProductService {
 
   private products: Map<string, Product[]> = new Map();
   private categoriesState: Map<string, string[]> = new Map(); // [0] State, [1] Category Name, [2] Number products
-  // private start = 0;
   private requestUrl;
 
   constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService) { }
@@ -53,37 +55,33 @@ export class ProductService {
         categoryState.push(products[0].category.description);  // Added category name
         categoryState.push(totalCount); // Added number of category's product
       } // Save category name
-      // this.incrementStart(products.length);
       console.log(`${start + products.length} products loaded of ${totalCount}`); // TODO remove log
       for (const product of products) {
         console.log(product); // TODO remove log
-        // TODO take foto and price from product
-        const productItem = new Product(product.id, product.description, product.descriptionLabel, 10, ['/assets/hamburger.jpg']);
+        const descriptionLong = product.hasOwnProperty('descriptionExtended') ? product.descriptionExtended : '';
+        const images: string[] = [];
+        if (product.hasOwnProperty('images')) {
+          for (const image of product.images) {
+            // @ts-ignore
+            images.push(image.imageUrl);
+          }
+        } else { images.push(defaultImageUrl); }
+        const productItem = new Product(product.id, product.description, descriptionLong, product.prices[0].value, images);
         this.products.get(idCategory).push(productItem); // Save product into categories' products map
         result.push(productItem); // Add product to result
       }
-  /*
-      if (this.start >= totalCount) {
-        console.log('All category have been loaded'); // TODO remove log
-        this.resetStart();
-        this.updateRequestUrl(idCategory);
-        this.categoryNames.get(idCategory)[0] = 'true'; // Products loaded
-      } else {
-        this.updateRequestUrl(idCategory);
-        this.loadProducts(idCategory);
-      }
-   */
+
       if (start + limit >= totalCount) { // All products have been loaded
-      console.log('All products have been loaded'); // TODO remove log
-      this.categoriesState.get(idCategory)[0] = ProductService.LOAD_ENDED;
-    }
+        console.log('All products have been loaded'); // TODO remove log
+        this.categoriesState.get(idCategory)[0] = ProductService.LOAD_ENDED;
+      }
     });
   }
 
   getCategoryName(categoryId: string): Observable<string[]> { return of(this.categoriesState.get(categoryId)); }
 
   private updateRequestUrl(idCategory: string, start: number, limit: number): void {
-    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoints=["${idSalesPoint}"]`;
   }
 
   private checkYetLoaded(categoryId: string, start: number, limit: number): boolean {
@@ -94,14 +92,4 @@ export class ProductService {
     }
     return false; // Product's must be requested
   }
-
-  /*
-  private resetStart(): void {
-    this.start = 0;
-  }
-
-  private incrementStart(increment: number): void {
-    this.start += increment;
-  }
-*/
 }
