@@ -7,8 +7,8 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 
-const idSalePoint = 311;
-// const idSalePoint = 333;
+// const idSalePoint = 311;
+const idSalePoint = 333;
 
 @Injectable({
   providedIn: 'root'

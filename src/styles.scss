@@ -1,0 +1,43 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Toolbar */
+
+mat-toolbar{
+  display: flex;
+}
+
+.space{
+  flex-grow: 1;
+}
+
+/* Common */
+
+.center{
+  clear: both;
+  width: 80%;
+  margin: auto;
+}
+
+.disabled{
+  opacity: 0.6;
+}
+
+/* Show pointer on icon */
+mat-icon{
+  cursor: pointer;
+}
+
+/* Disable pointing on icon, if page is disabled */
+.disabled mat-icon {
+  cursor: not-allowed;
+}
+
+/* Text overflow managed with ... */
+.overflow-text{
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

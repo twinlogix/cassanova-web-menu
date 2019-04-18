@@ -1,12 +1,22 @@
-<ul *ngIf="categories.length">
-  <li *ngFor="let category of categories" clickable routerLink="/categories/{{category.id}}">
-    <!--< a routerLink="/categories/{{category.id}}"> -->
-      <div class="img-container">
-        <img src="{{category.imageUrl}}"/>
-      </div>
-      <div class="category-info">
-        <span class="category-name">{{category.name}}</span>
-      </div>
-    <!-- </a> -->
-  </li>
-</ul>
+<!-- Card -->
+<mat-card class="center">
+
+  <!-- Title -->
+  <mat-card-title>
+    <h2 class="overflow-text">Categorie</h2>
+  </mat-card-title>
+
+  <!-- Categories -->
+  <mat-card-content *ngIf="categories.length" class ="center">
+    <mat-list>
+      <mat-list-item *ngFor="let category of categories" clickable routerLink="/categories/{{category.id}}">
+        <img mat-list-avatar src="{{category.imageUrl}}"/>
+        <p matLine>
+          <span class="category-name overflow-text">{{category.name}}</span>
+        </p>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+
+</mat-card>
+

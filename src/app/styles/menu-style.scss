@@ -1,0 +1,35 @@
+
+/* Card */
+
+mat-card {
+  margin-top: 5%;
+  margin-bottom: 0;
+  background-color: whitesmoke;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  font-weight: bold;
+}
+
+/* List */
+
+/* Show pointer on list item */
+mat-list-item{
+  cursor: pointer;
+}
+
+/* Disable pointing on list item, if page is disabled */
+.disabled  mat-list-item {
+  cursor: not-allowed;
+}
+
+mat-list-item{
+  border-bottom: 1px solid lightgray;
+}
+
+mat-list mat-list-item:last-child {
+  border-bottom: 0px;
+}

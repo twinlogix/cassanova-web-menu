@@ -1,0 +1,9 @@
+@import '../styles/menu-style';
+
+.category-name {
+  font-size: 140%;
+}
+
+mat-list-item:hover .category-name{
+  font-weight: bold;
+}

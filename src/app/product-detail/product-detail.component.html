@@ -1,0 +1,35 @@
+<!--
+
+<mat-icon class="close" (click)="closeDialog()">close</mat-icon>
+<h3 mat-dialog-title>{{product.name}}</h3>
+
+<mat-dialog-content>
+  <div class="image-container center">
+    <img src="{{product.imageUrls[0]}}" alt="Photo of {{product.name}}">
+  </div>
+
+  <div class="center">
+    <mat-icon class="image-arrow-l">keyboard_arrow_left</mat-icon>
+    <mat-icon class="image-arrow-r">keyboard_arrow_right</mat-icon>
+  </div>
+
+  <p class="product-detail"> {{product.description | noHTML}} </p>
+</mat-dialog-content>
+-->
+
+<!-- Header -->
+<mat-icon class="close" (click)="closeDialog()">close</mat-icon>
+<h3 mat-dialog-title class="overflow-text">{{product.name}}</h3>
+
+<!-- Content -->
+<mat-dialog-content>
+  <mdb-carousel *ngIf="product.imageUrls.length > 1" [animation]="'slide'" class="center">
+    <mdb-carousel-item *ngFor="let image of product.imageUrls">
+        <img src="{{image}}">
+    </mdb-carousel-item>
+  </mdb-carousel>
+  <div *ngIf="product.imageUrls.length === 1"  class="img-container center">
+    <img src="{{product.imageUrls[0]}}">
+  </div>
+  <p class="product-detail overflow-text"> {{product.description | noHTML}} </p>
+</mat-dialog-content>

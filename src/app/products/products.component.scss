@@ -1,0 +1,51 @@
+@import "../styles/menu-style";
+
+.product-name {
+  font-size: 140%;
+  display: inline-block;
+  width: 93%;
+}
+
+.product-info {
+  display: inline-block;
+  width: 53%;
+  margin: 0 2.5%;
+  padding: 0;
+}
+
+.product-price {
+  font-size: 140%;
+  float:right;
+  display: inline-block;
+  width: 7%;
+  text-align: right;
+}
+
+.product-description{
+  display: block;
+  margin-right: 7%;
+  font-size: 90%;
+  font-style: italic;
+  white-space: pre-line;
+  clear: both;
+}
+
+mat-list-item:hover .product-name{
+  font-weight: bold;
+}
+
+.no-product{
+  clear: both;
+  display: block;
+  width: 100%;
+  border: 2px red solid;
+  text-align: center;
+  font-size: 120%;
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 5%;
+}
+
+.load-more-container{
+  text-align: center;
+}

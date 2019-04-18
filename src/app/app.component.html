@@ -1,3 +1,10 @@
-<h1>Nome Ristorante</h1>
+<mat-toolbar color="primary" [ngClass]="{disabled: page.isDisabled()}">
+  <mat-toolbar-row>
+    <mat-icon routerLink="/categories" *ngIf="!page.isDisabled() && checkPosition()">keyboard_arrow_left</mat-icon>
+    <div class="space"></div>
+    <h1>Nome Ristorante</h1>
+    <div class="space"></div>
+  </mat-toolbar-row>
+</mat-toolbar>
 <router-outlet></router-outlet>
 
