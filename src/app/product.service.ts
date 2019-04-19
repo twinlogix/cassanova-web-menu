@@ -22,60 +22,63 @@ export class ProductService {
   private categoriesState: Map<string, string[]> = new Map(); // [0] State, [1] Category Name, [2] Number products
   private requestUrl;
 
-  constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService) { }
+  constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService) { this.token.loadToken(); }
 
-  getProducts(categoryId: string, start: number, limit: number, result: Product[] ): void {
-
+  getProducts(categoryId: string, start: number, limit: number, result: Product[] ): Observable<any> {
     if (this.checkYetLoaded(categoryId, start, limit)) { // Check if you need to launch an http GET request
       console.log('Category\'s products yet present'); // TODO remove log
       const productsLength = this.products.get(categoryId).length;
       const end = start + limit  < productsLength ? start + limit : productsLength; // Index of last product to take
       if (start < productsLength) { for (const product of this.products.get(categoryId).slice(start, end)) { result.push(product); } } // Return the products requested
+      return of(true);
     } else { // An http GET request must be launched
       console.log('Loading products'); // TODO remove log
       if (!this.products.has(categoryId)) { this.products.set(categoryId, []); } // Create category's products entry, if not present
       if (!this.categoriesState.has(categoryId)) { this.categoriesState.set(categoryId, [ProductService.LOAD_STARTED]); } // Create category's state entry, if not present
-      this.token.loadToken().subscribe(() => this.loadProducts(categoryId, start, limit, result));
+      // this.token.loadToken().subscribe(() => this.loadProducts(categoryId, start, limit, result));
+      return this.loadProducts(categoryId, start, limit, result);
     }
   }
 
-  loadProducts(idCategory: string, start: number, limit: number, result: Product[]): void {
+  loadProducts(idCategory: string, start: number, limit: number, result: Product[]): Observable<any> {
     this.updateRequestUrl(idCategory, start, limit); // Create request url
     console.log(`Loading products from ${start} to ${start + limit}`); // TODO remove log
-    this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
+    const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions());
+    res.pipe(
       retry(3),
       catchError(this.httpUtils.handleError('products loading', [])
       )).subscribe(response => {
       // @ts-ignore
-      const products = response.products;
+        const products = response.products;
       // @ts-ignore
-      const totalCount = response.totalCount;
-      if (products.length && this.categoriesState.get(idCategory).length === 1) { // First request for this category
+        const totalCount = response.totalCount;
+        if (products.length && this.categoriesState.get(idCategory).length === 1) { // First request for this category
         const categoryState = this.categoriesState.get(idCategory);
         categoryState.push(products[0].category.description);  // Added category name
         categoryState.push(totalCount); // Added number of category's product
       } // Save category name
-      console.log(`${start + products.length} products loaded of ${totalCount}`); // TODO remove log
-      for (const product of products) {
-        console.log(product); // TODO remove log
-        const descriptionLong = product.hasOwnProperty('descriptionExtended') ? product.descriptionExtended : '';
-        const images: string[] = [];
-        if (product.hasOwnProperty('images')) {
-          for (const image of product.images) {
-            // @ts-ignore
-            images.push(image.imageUrl);
-          }
-        } else { images.push(defaultImageUrl); }
-        const productItem = new Product(product.id, product.description, descriptionLong, product.prices[0].value, images);
-        this.products.get(idCategory).push(productItem); // Save product into categories' products map
-        result.push(productItem); // Add product to result
-      }
+        console.log(`${start + products.length} products loaded of ${totalCount}`); // TODO remove log
+        for (const product of products) {
+          console.log(product); // TODO remove log
+          const descriptionLong = product.hasOwnProperty('descriptionExtended') ? product.descriptionExtended : '';
+          const images: string[] = [];
+          if (product.hasOwnProperty('images')) {
+            for (const image of product.images) {
+              // @ts-ignore
+              images.push(image.imageUrl);
+            }
+          } else { images.push(defaultImageUrl); }
+          const productItem = new Product(product.id, product.description, descriptionLong, product.prices[0].value, images);
+          this.products.get(idCategory).push(productItem); // Save product into categories' products map
+          result.push(productItem); // Add product to result
+        }
 
-      if (start + limit >= totalCount) { // All products have been loaded
-        console.log('All products have been loaded'); // TODO remove log
-        this.categoriesState.get(idCategory)[0] = ProductService.LOAD_ENDED;
-      }
+        if (start + limit >= totalCount) { // All products have been loaded
+          console.log('All products have been loaded'); // TODO remove log
+          this.categoriesState.get(idCategory)[0] = ProductService.LOAD_ENDED;
+        }
     });
+    return res;
   }
 
   getCategoryName(categoryId: string): Observable<string[]> { return of(this.categoriesState.get(categoryId)); }

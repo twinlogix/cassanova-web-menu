@@ -1,11 +1,11 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { Product } from '../Product';
 import {ProductService} from '../product.service';
 import {ActivatedRoute} from '@angular/router';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ProductDetailComponent} from '../product-detail/product-detail.component';
 import {PageStatusService} from '../page-status.service';
-
+import {CdkVirtualScrollViewport, ScrollDispatcher} from '@angular/cdk/scrolling';
 const limitShow = 2;
 
 @Component({
@@ -19,14 +19,13 @@ export class ProductsComponent implements OnInit {
   private categoryId: string;
   private categoryName: string[] = []; // [0] State, [1] Category Name, [2] Number products
   private stopLoad = false;
-  private disabled = false;
+
 
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private page: PageStatusService,
-    private elem: ElementRef
   ) { }
 
   ngOnInit() { this.getProducts(); }
@@ -52,7 +51,7 @@ export class ProductsComponent implements OnInit {
   private loadMore() {
     if (this.page.isDisabled()) { return; }
     if (this.products.length + limitShow >= Number.parseInt(this.categoryName[2])) { this.stopLoad = true; } // Stop (remove load more)
-    this.productService.getProducts(this.categoryId, this.products.length, limitShow, this.products);
+    this.productService.getProducts(this.categoryId, this.products.length, limitShow, this.products).subscribe(() => this.products = [... this.products]);
   }
 
   private changeImageIndex(product: Product, index: number) { product.imageIndex += index; }
@@ -65,5 +64,11 @@ export class ProductsComponent implements OnInit {
     });
     this.page.setDisable(true);
     dialogRef.afterClosed().subscribe(() =>  this.page.setDisable(false));
+  }
+
+  private checkLoad(index: number) {
+    if (index === Infinity) {
+      this.loadMore();
+    }
   }
 }

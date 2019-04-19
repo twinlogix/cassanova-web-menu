@@ -1,42 +1,10 @@
 <!--
-<h2 *ngIf="categoryName.length > 1" [ngClass]="{disabled: page.isDisabled()}">{{categoryName[1]}}</h2>
-
-<div *ngIf="products.length > 0" class="center" [ngClass]="{disabled: page.isDisabled()}">
-  <mat-list>
-    <mat-list-item *ngFor="let product of products" (click) = "openDetail(product)">
-      <img mat-list-avatar src="{{product.imageUrls[product.imageIndex]}}"/>
-      <p matLine>
-        <span class="product-name">{{product.name}}</span>
-        <span class="product-price">{{product.price}}</span>
-      </p>
-      <p matLine>
-        <span matLine class="product-description">{{product.description | noHTML}} </span>
-      </p>
-      <mat-divider></mat-divider>
-    </mat-list-item>
-
-    <mat-list-item *ngIf="checkLoadMore()">
-      <div class = "center load-more-container" >
-        <mat-icon (click)="loadMore()">keyboard_arrow_down</mat-icon>
-      </div>
-    </mat-list-item>
-  </mat-list>
-</div>
-
-<div *ngIf="checkLoadEnded() && !products.length" class="center" [ngClass]="{disabled: page.isDisabled()}">
-  <span class="no-product">Nessun prodotto da mostrare</span>
-</div>
--->
-
-<!-- Card -->
 <mat-card *ngIf="categoryName.length > 1" [ngClass]="{disabled: page.isDisabled()}" class="center">
 
-  <!-- Title -->
   <mat-card-title>
     <h2 class="overflow-text">{{categoryName[1]}}</h2>
   </mat-card-title>
 
-  <!-- Products -->
   <mat-card-content *ngIf="products.length > 0" class="center" [ngClass]="{disabled: page.isDisabled()}">
     <mat-list>
       <mat-list-item *ngFor="let product of products" (click) = "openDetail(product)">
@@ -48,10 +16,8 @@
         <p matLine>
           <span matLine class="product-description overflow-text">{{product.description | noHTML}} </span>
         </p>
-        <!-- <mat-divider></mat-divider> -->
       </mat-list-item>
 
-      <!-- Load More -->
       <mat-list-item *ngIf="checkLoadMore()">
         <div class = "center load-more-container" >
           <mat-icon (click)="loadMore()">keyboard_arrow_down</mat-icon>
@@ -61,7 +27,43 @@
   </mat-card-content>
 </mat-card>
 
-<!-- No products to shows -->
 <div *ngIf="checkLoadEnded() && !products.length" class="center" [ngClass]="{disabled: page.isDisabled()}">
   <span class="no-product overflow-text">Nessun prodotto da mostrare</span>
 </div>
+-->
+
+<mat-card *ngIf="categoryName.length > 1" [ngClass]="{disabled: page.isDisabled()}" class="center">
+
+  <mat-card-title>
+    <h2 class="overflow-text">{{categoryName[1]}}</h2>
+  </mat-card-title>
+
+  <mat-card-content *ngIf="products.length > 0" class = "center" [ngClass]="{disabled: page.isDisabled()}">
+    <cdk-virtual-scroll-viewport itemSize="8em" [ngStyle]="{height: '10em'}" (scrolledIndexChange)="checkLoad($event)">
+      <div *cdkVirtualFor="let product of products;" class="line" (click)="openDetail(product)">
+         <mdb-carousel *ngIf="product.imageUrls.length > 1" [animation]="'slide'">
+            <mdb-carousel-item *ngFor="let image of product.imageUrls">
+                <img src="{{image}}">
+            </mdb-carousel-item>
+          </mdb-carousel>
+          <div *ngIf="product.imageUrls.length === 1"  class="img-container">
+            <img src="{{product.imageUrls[0]}}">
+          </div>
+          <div class="product-text">
+            <p>
+              <span class="product-name overflow-text">{{product.name}}</span>
+              <span class="product-price">{{product.price}}</span>
+            </p>
+            <p>
+              <span class="product-description overflow-text">{{product.description | noHTML}} </span>
+            </p>
+          </div>
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </mat-card-content>
+</mat-card>
+
+<div *ngIf="checkLoadEnded() && !products.length" class="center" [ngClass]="{disabled: page.isDisabled()}">
+  <span class="no-product overflow-text">Nessun prodotto da mostrare</span>
+</div>
+

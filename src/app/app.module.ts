@@ -15,11 +15,11 @@ import {
   MatDialogModule,
   MatIconModule,
   MatListModule,
-  MatToolbarModule
+  MatToolbarModule,
 } from '@angular/material';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
-
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import {MDBBootstrapModule} from 'angular-bootstrap-md';
     MatToolbarModule,
     MatDialogModule,
     MatCardModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    ScrollingModule
   ],
   providers: [
       {
