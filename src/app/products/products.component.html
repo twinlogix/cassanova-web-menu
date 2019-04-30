@@ -39,26 +39,22 @@
   </mat-card-title>
 
   <mat-card-content *ngIf="products.length > 0" class = "center" [ngClass]="{disabled: page.isDisabled()}">
-    <cdk-virtual-scroll-viewport itemSize="8em" [ngStyle]="{height: '10em'}" (scrolledIndexChange)="checkLoad($event)">
+    <cdk-virtual-scroll-viewport itemSize="{{this.scroll.getItemSize()}}" [ngStyle]= "this.scroll.getViewportStyle()" (scrolledIndexChange)="checkLoad($event)">
       <div *cdkVirtualFor="let product of products;" class="line" (click)="openDetail(product)">
-         <mdb-carousel *ngIf="product.imageUrls.length > 1" [animation]="'slide'">
-            <mdb-carousel-item *ngFor="let image of product.imageUrls">
-                <img src="{{image}}">
-            </mdb-carousel-item>
-          </mdb-carousel>
-          <div *ngIf="product.imageUrls.length === 1"  class="img-container">
+        <div class="img-container">
             <img src="{{product.imageUrls[0]}}">
-          </div>
-          <div class="product-text">
-            <p>
-              <span class="product-name overflow-text">{{product.name}}</span>
-              <span class="product-price">{{product.price}}</span>
-            </p>
-            <p>
-              <span class="product-description overflow-text">{{product.description | noHTML}} </span>
-            </p>
-          </div>
+        </div>
+        <div class="text-container">
+          <p>
+            <span class="product-name overflow-text">{{product.name}}</span>
+            <span class="product-price">{{product.price}}</span>
+          </p>
+          <p>
+            <span class="product-description overflow-text">{{product.description | noHTML}} </span>
+          </p>
+        </div>
       </div>
+      <mat-spinner *ngIf="loading" class="center" diameter="{{scroll.getItemSize()/2}}"></mat-spinner>
     </cdk-virtual-scroll-viewport>
   </mat-card-content>
 </mat-card>

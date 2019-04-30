@@ -7,6 +7,10 @@ mat-card {
   background-color: whitesmoke;
 }
 
+mat-card-title{
+  margin-bottom: 5%;
+}
+
 h2 {
   text-align: center;
   margin-top: 2%;
@@ -14,22 +18,16 @@ h2 {
   font-weight: bold;
 }
 
-/* List */
-
-/* Show pointer on list item */
-mat-list-item{
-  cursor: pointer;
+/* Remove blue border when clicking on a category */
+.line:focus{
+  outline: none;
 }
 
-/* Disable pointing on list item, if page is disabled */
-.disabled  mat-list-item {
-  cursor: not-allowed;
-}
+/* For phones */
+@media only screen and (max-width: 600px) {
 
-mat-list-item{
-  border-bottom: 1px solid lightgray;
-}
-
-mat-list mat-list-item:last-child {
-  border-bottom: 0px;
+  /* Card */
+  mat-card {
+    margin: 0;
+  }
 }

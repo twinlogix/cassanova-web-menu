@@ -8,14 +8,18 @@
 
   <!-- Categories -->
   <mat-card-content *ngIf="categories.length" class ="center">
-    <mat-list>
-      <mat-list-item *ngFor="let category of categories" clickable routerLink="/categories/{{category.id}}">
-        <img mat-list-avatar src="{{category.imageUrl}}"/>
-        <p matLine>
-          <span class="category-name overflow-text">{{category.name}}</span>
-        </p>
-      </mat-list-item>
-    </mat-list>
+    <cdk-virtual-scroll-viewport itemSize="{{this.scroll.getItemSize()}}" [ngStyle]= "this.scroll.getViewportStyle()">
+      <div *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="/categories/{{category.id}}">
+        <div class="img-container">
+          <img src="{{category.imageUrl}}"/>
+        </div>
+        <div class="text-container">
+          <p class="vertical-align">
+            <span class="category-name overflow-text">{{category.name}}</span>
+          </p>
+        </div>
+      </div>
+    </cdk-virtual-scroll-viewport>
   </mat-card-content>
 
 </mat-card>

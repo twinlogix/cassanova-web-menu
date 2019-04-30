@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { Product } from './Product';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
-import {TokenService} from './token.service';
 import {HttpClient} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 
 const idSalesPoint = 333;
-// const idSalesPoint = 311;
+ // const idSalesPoint = 311;
 const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'
@@ -22,7 +21,7 @@ export class ProductService {
   private categoriesState: Map<string, string[]> = new Map(); // [0] State, [1] Category Name, [2] Number products
   private requestUrl;
 
-  constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService) { this.token.loadToken(); }
+  constructor(private http: HttpClient, private httpUtils: HttpUtilsService) { }
 
   getProducts(categoryId: string, start: number, limit: number, result: Product[] ): Observable<any> {
     if (this.checkYetLoaded(categoryId, start, limit)) { // Check if you need to launch an http GET request

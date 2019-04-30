@@ -6,8 +6,12 @@ h3{
   text-align: center;
   clear: both;
 }
-.img-container, mdb-carousel{
-  height: 60%;
+
+.img-container, mdb-carousel-item{
+  width: 20em;
+  height: 16em;
+  overflow-y: hidden;
+  text-align: center;
 }
 
 img{
@@ -20,8 +24,19 @@ img{
   margin-left: 10%;
   margin-right: 10%;
   white-space: pre-line;
+  text-align: center;
 }
 
 .close{
   float: right;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+
+  .product-detail {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
 }

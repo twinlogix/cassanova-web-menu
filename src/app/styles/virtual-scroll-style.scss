@@ -1,0 +1,46 @@
+.line{
+  height: 80px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+.img-container, mdb-carousel{
+  width: 30%;
+  height: 80px;
+  display: inline-block;
+  overflow-y: hidden;
+  text-align: center;
+overflow-x: hidden;
+}
+
+img{
+  height: 100%;
+  width: auto;
+}
+
+.text-container {
+  display: inline-block;
+  width: 66%;
+  margin-left: 2%;
+  height: 80px;
+  vertical-align: top;
+}
+
+.vertical-align {
+  line-height: 80px;
+}
+
+/* Disable pointing on list item, if page is disabled */
+.disabled  .line {
+  cursor: not-allowed;
+}
+
+.line :hover {
+  font-weight: bold
+}
+
+/* Bold only category and product's name
+.line :hover .product-name, .line :hover .category-name{
+  font-weight: bold;
+}
+*/

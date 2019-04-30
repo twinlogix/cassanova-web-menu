@@ -5,8 +5,8 @@ import {ActivatedRoute} from '@angular/router';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ProductDetailComponent} from '../product-detail/product-detail.component';
 import {PageStatusService} from '../page-status.service';
-import {CdkVirtualScrollViewport, ScrollDispatcher} from '@angular/cdk/scrolling';
-const limitShow = 2;
+import {VirtualScrollService} from '../virtual-scroll.service';
+import {TokenService} from '../token.service';
 
 @Component({
   selector: 'app-products',
@@ -19,6 +19,7 @@ export class ProductsComponent implements OnInit {
   private categoryId: string;
   private categoryName: string[] = []; // [0] State, [1] Category Name, [2] Number products
   private stopLoad = false;
+  private loading = false;
 
 
   constructor(
@@ -26,13 +27,15 @@ export class ProductsComponent implements OnInit {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private page: PageStatusService,
+    private scroll: VirtualScrollService,
+    private token: TokenService /* Load token here, instead of in product service, in order to allow load data on reloading products' page */
   ) { }
 
-  ngOnInit() { this.getProducts(); }
+  ngOnInit() { this.token.loadToken().subscribe( () => this.getProducts()); }
 
   private getProducts(): void {
     this.categoryId = this.route.snapshot.paramMap.get('id');
-    this.productService.getProducts(this.categoryId, this.products.length, limitShow, this.products);
+    this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products);
     this.productService.getCategoryName(this.categoryId).subscribe(categoryName => this.categoryName = categoryName);
   }
 
@@ -50,25 +53,22 @@ export class ProductsComponent implements OnInit {
 
   private loadMore() {
     if (this.page.isDisabled()) { return; }
-    if (this.products.length + limitShow >= Number.parseInt(this.categoryName[2])) { this.stopLoad = true; } // Stop (remove load more)
-    this.productService.getProducts(this.categoryId, this.products.length, limitShow, this.products).subscribe(() => this.products = [... this.products]);
+    this.loading = true;
+    if (this.products.length + this.scroll.getLimitShow() >= Number.parseInt(this.categoryName[2])) { this.stopLoad = true; } // Stop (remove load more)
+    this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products).subscribe(() => {
+      this.products = [... this.products];
+      this.loading = false;
+    });
   }
-
-  private changeImageIndex(product: Product, index: number) { product.imageIndex += index; }
 
   openDetail(product: Product): void {
     if (this.page.isDisabled()) { return; }
-    const dialogRef = this.dialog.open(ProductDetailComponent, {
-      width: '60%',
-      data: product
-    });
+    const dialogRef = this.dialog.open(ProductDetailComponent, { data: product });
     this.page.setDisable(true);
     dialogRef.afterClosed().subscribe(() =>  this.page.setDisable(false));
   }
 
   private checkLoad(index: number) {
-    if (index === Infinity) {
-      this.loadMore();
-    }
+    if (this.scroll.checkLoad(index, this.products.length)) {this.loadMore(); }
   }
 }

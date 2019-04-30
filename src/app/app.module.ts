@@ -14,7 +14,7 @@ import {
   MatCardModule,
   MatDialogModule,
   MatIconModule,
-  MatListModule,
+  MatListModule, MatProgressSpinnerModule,
   MatToolbarModule,
 } from '@angular/material';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
@@ -40,7 +40,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatDialogModule,
     MatCardModule,
     MDBBootstrapModule.forRoot(),
-    ScrollingModule
+    ScrollingModule,
+    MatProgressSpinnerModule
   ],
   providers: [
       {
