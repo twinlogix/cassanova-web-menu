@@ -1,7 +1,7 @@
-import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Product } from '../Product';
 import {ProductService} from '../product.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ProductDetailComponent} from '../product-detail/product-detail.component';
 import {PageStatusService} from '../page-status.service';
@@ -25,10 +25,11 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
+    private router: Router,
     public dialog: MatDialog,
     private page: PageStatusService,
     private scroll: VirtualScrollService,
-    private token: TokenService //Load token here, instead of in product service, in order to allow load data on reloading products' page
+    private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
 
   ngOnInit() { this.token.loadToken().subscribe( () => this.getProducts()); }
@@ -59,7 +60,11 @@ export class ProductsComponent implements OnInit {
     if (this.page.isDisabled()) { return; }
     const dialogRef = this.dialog.open(ProductDetailComponent, { data: product }); // Open Dialog
     this.page.setDisable(true); // Disable all page (not Dialog)
-    dialogRef.afterClosed().subscribe(() =>  this.page.setDisable(false)); //Enable Page, after dialog closing
+    dialogRef.afterClosed().subscribe(() =>  {
+      this.page.setDisable(false); // Enable Page, after dialog closing
+      this.page.removeDialog(); // Remove dialog ref, in page status
+    });
+    this.page.addDialog(dialogRef);
   }
 
   private checkLoad(index: number) {

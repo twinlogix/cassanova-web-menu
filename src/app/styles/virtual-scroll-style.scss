@@ -1,6 +1,6 @@
 .line{
   height: 80px;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   cursor: pointer;
 }
 
@@ -27,7 +27,7 @@ img{
 }
 
 .vertical-align {
-  line-height: 80px;
+  line-height: 120px;
 }
 
 /* Disable pointing on list item, if page is disabled */
@@ -35,6 +35,14 @@ img{
   cursor: not-allowed;
 }
 
+/* For phones */
+@media only screen and (max-width: 600px) {
+
+  /* Card */
+  mat-card {
+    box-shadow: none !important;
+  }
+}
 /*
 Bold all line on hover (now is managed in single scss's style, since different bolding are requested)
 .line :hover {
