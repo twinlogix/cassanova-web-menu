@@ -1,64 +1,41 @@
-<!--
+<!-- Card -->
 <mat-card *ngIf="categoryName.length > 1" [ngClass]="{disabled: page.isDisabled()}" class="center">
 
+  <!-- Title -->
   <mat-card-title>
     <h2 class="overflow-text">{{categoryName[1]}}</h2>
   </mat-card-title>
 
-  <mat-card-content *ngIf="products.length > 0" class="center" [ngClass]="{disabled: page.isDisabled()}">
-    <mat-list>
-      <mat-list-item *ngFor="let product of products" (click) = "openDetail(product)">
-        <img mat-list-avatar src="{{product.imageUrls[product.imageIndex]}}"/>
-        <p matLine>
-          <span class="product-name overflow-text">{{product.name}}</span>
-          <span class="product-price">{{product.price}}</span>
-        </p>
-        <p matLine>
-          <span matLine class="product-description overflow-text">{{product.description | noHTML}} </span>
-        </p>
-      </mat-list-item>
-
-      <mat-list-item *ngIf="checkLoadMore()">
-        <div class = "center load-more-container" >
-          <mat-icon (click)="loadMore()">keyboard_arrow_down</mat-icon>
-        </div>
-      </mat-list-item>
-    </mat-list>
-  </mat-card-content>
-</mat-card>
-
-<div *ngIf="checkLoadEnded() && !products.length" class="center" [ngClass]="{disabled: page.isDisabled()}">
-  <span class="no-product overflow-text">Nessun prodotto da mostrare</span>
-</div>
--->
-
-<mat-card *ngIf="categoryName.length > 1" [ngClass]="{disabled: page.isDisabled()}" class="center">
-
-  <mat-card-title>
-    <h2 class="overflow-text">{{categoryName[1]}}</h2>
-  </mat-card-title>
-
+  <!-- Content -->
   <mat-card-content *ngIf="products.length > 0" class = "center" [ngClass]="{disabled: page.isDisabled()}">
+    <!-- Virtual Scroll -->
     <cdk-virtual-scroll-viewport itemSize="{{this.scroll.getItemSize()}}" [ngStyle]= "this.scroll.getViewportStyle()" (scrolledIndexChange)="checkLoad($event)">
+      <!-- Products -->
       <div *cdkVirtualFor="let product of products;" class="line" (click)="openDetail(product)">
+        <!-- Image -->
         <div class="img-container">
             <img src="{{product.imageUrls[0]}}">
         </div>
+        <!-- Text -->
         <div class="text-container">
+          <!-- First Line -->
           <p>
             <span class="product-name overflow-text">{{product.name}}</span>
             <span class="product-price">{{product.price}}</span>
           </p>
+          <!-- Second Line -->
           <p>
             <span class="product-description overflow-text">{{product.description | noHTML}} </span>
           </p>
         </div>
       </div>
+      <!-- Spinner -->
       <mat-spinner *ngIf="loading" class="center" diameter="{{scroll.getItemSize()/2}}"></mat-spinner>
     </cdk-virtual-scroll-viewport>
   </mat-card-content>
 </mat-card>
 
+<!-- No Products -->
 <div *ngIf="checkLoadEnded() && !products.length" class="center" [ngClass]="{disabled: page.isDisabled()}">
   <span class="no-product overflow-text">Nessun prodotto da mostrare</span>
 </div>

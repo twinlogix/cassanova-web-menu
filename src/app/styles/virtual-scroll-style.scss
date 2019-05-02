@@ -10,7 +10,7 @@
   display: inline-block;
   overflow-y: hidden;
   text-align: center;
-overflow-x: hidden;
+  overflow-x: hidden;
 }
 
 img{
@@ -35,12 +35,9 @@ img{
   cursor: not-allowed;
 }
 
+/*
+Bold all line on hover (now is managed in single scss's style, since different bolding are requested)
 .line :hover {
   font-weight: bold
-}
-
-/* Bold only category and product's name
-.line :hover .product-name, .line :hover .category-name{
-  font-weight: bold;
 }
 */

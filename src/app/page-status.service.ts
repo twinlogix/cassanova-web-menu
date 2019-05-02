@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -6,13 +7,11 @@ import { Injectable } from '@angular/core';
 export class PageStatusService {
 
   private disabled = false;
-  constructor() { }
+  constructor(private location: Location) { }
 
-  setDisable(disable: boolean) {
-    this.disabled = disable;
-  }
+  setDisable(disable: boolean) { this.disabled = disable; }
 
-  isDisabled(): boolean {
-    return this.disabled;
-  }
+  isDisabled(): boolean { return this.disabled; }
+
+  isCategoryPage() { return !this.location.path().endsWith('/categories'); }
 }

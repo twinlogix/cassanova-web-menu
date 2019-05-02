@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Location } from '@angular/common';
 import {PageStatusService} from './page-status.service';
 
 @Component({
@@ -10,10 +9,7 @@ import {PageStatusService} from './page-status.service';
 export class AppComponent {
   title = 'cassanova-web-menu';
 
-  constructor(
-    private location: Location,
-    private page: PageStatusService
-  ) {}
+  constructor(private page: PageStatusService) {}
 
-  checkPosition() { return !this.location.path().endsWith('/categories'); }
+  private isCategoryPage() { return this.page.isCategoryPage(); }
 }

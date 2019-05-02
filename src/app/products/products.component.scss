@@ -36,10 +36,6 @@
   clear: both;
 }
 
-mat-list-item:hover .product-name{
-  font-weight: bold;
-}
-
 .no-product{
   clear: both;
   display: block;
@@ -52,6 +48,7 @@ mat-list-item:hover .product-name{
   margin-top: 5%;
 }
 
-.load-more-container{
-  text-align: center;
+/* Bold product's name when hover */
+.line:hover .product-name{
+  font-weight: bold;
 }

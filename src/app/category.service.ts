@@ -38,7 +38,7 @@ export class CategoryService {
       const totalCount = response.totalCount;
       this.incrementStart(categories.length);
       console.log(`${this.start} category loaded of ${totalCount}`); // TODO remove log
-      for (const category of categories) { this.categories.push(new Category(category.id, category.description, '/assets/hamburger.jpg')); }
+      for (const category of categories) { this.categories.push(new Category(category.id, category.description, '/assets/hamburger.jpg')); } // TODO load category image
       if (this.start >= totalCount) { // All categories has been loaded
         console.log('All category have been loaded'); // TODO remove log
         this.resetStart();

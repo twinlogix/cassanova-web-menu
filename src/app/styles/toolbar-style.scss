@@ -1,0 +1,28 @@
+mat-toolbar{
+  display: flex;
+}
+
+.mat-toolbar-row{
+  padding: 0px !important;
+}
+
+.space{
+  flex-grow: 1;
+}
+
+mat-toolbar .mat-icon{
+  font-size: -webkit-xxx-large;
+  width: auto;
+  height: auto;
+}
+
+mat-toolbar h1{
+  font-size: xx-large !important;
+  text-align: center;
+  height: auto;
+}
+
+/* Remove blue border when clicking on back arrow */
+mat-toolbar mat-icon:focus{
+  outline: none;
+}

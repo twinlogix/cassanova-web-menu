@@ -7,6 +7,10 @@ h3{
   clear: both;
 }
 
+.close{
+  float: right;
+}
+
 .img-container, mdb-carousel-item{
   width: 20em;
   height: 16em;
@@ -25,10 +29,6 @@ img{
   margin-right: 10%;
   white-space: pre-line;
   text-align: center;
-}
-
-.close{
-  float: right;
 }
 
 /* For phones */

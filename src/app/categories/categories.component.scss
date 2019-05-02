@@ -5,6 +5,7 @@
   font-size: 140%;
 }
 
-mat-list-item:hover .category-name{
+/* Bold category's name when hover */
+.line:hover .category-name{
   font-weight: bold;
 }

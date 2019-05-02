@@ -18,8 +18,8 @@ export class ProductsComponent implements OnInit {
   private products: Product[] = [];
   private categoryId: string;
   private categoryName: string[] = []; // [0] State, [1] Category Name, [2] Number products
-  private stopLoad = false;
-  private loading = false;
+  private stopLoad = false; // Manage loading request
+  private loading = false; // Manage Spinner
 
 
   constructor(
@@ -28,7 +28,7 @@ export class ProductsComponent implements OnInit {
     public dialog: MatDialog,
     private page: PageStatusService,
     private scroll: VirtualScrollService,
-    private token: TokenService /* Load token here, instead of in product service, in order to allow load data on reloading products' page */
+    private token: TokenService //Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
 
   ngOnInit() { this.token.loadToken().subscribe( () => this.getProducts()); }
@@ -40,35 +40,29 @@ export class ProductsComponent implements OnInit {
   }
 
   private checkLoadEnded(): boolean {
-    return     this.categoryName.length // Loaded start
-            && this.categoryName[0] === ProductService.LOAD_ENDED; // Loaded end
-  }
-
-  private checkLoadMore(): boolean {
-    return     !this.stopLoad // Last requested not launched yet
-            && this.products.length > 0 // Some products have been loaded
-            && this.categoryName.length > 1 // Category name and total count of products loaded
-            && this.products.length !== Number.parseInt(this.categoryName[2]); // Check if all products have been loaded (Usefull if total count of products is less then limitShow
+    return     this.categoryName.length // Load start
+            && this.categoryName[0] === ProductService.LOAD_ENDED; // Load end
   }
 
   private loadMore() {
     if (this.page.isDisabled()) { return; }
-    this.loading = true;
-    if (this.products.length + this.scroll.getLimitShow() >= Number.parseInt(this.categoryName[2])) { this.stopLoad = true; } // Stop (remove load more)
+    this.loading = true; // Add Spinner
+    if (this.products.length + this.scroll.getLimitShow() >= Number.parseInt(this.categoryName[2])) { this.stopLoad = true; } // Stop load more
+    // Load products
     this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products).subscribe(() => {
-      this.products = [... this.products];
-      this.loading = false;
+      this.products = [... this.products]; // Update Products
+      this.loading = false; // Remove Spinner
     });
   }
 
-  openDetail(product: Product): void {
+  private openDetail(product: Product): void {
     if (this.page.isDisabled()) { return; }
-    const dialogRef = this.dialog.open(ProductDetailComponent, { data: product });
-    this.page.setDisable(true);
-    dialogRef.afterClosed().subscribe(() =>  this.page.setDisable(false));
+    const dialogRef = this.dialog.open(ProductDetailComponent, { data: product }); // Open Dialog
+    this.page.setDisable(true); // Disable all page (not Dialog)
+    dialogRef.afterClosed().subscribe(() =>  this.page.setDisable(false)); //Enable Page, after dialog closing
   }
 
   private checkLoad(index: number) {
-    if (this.scroll.checkLoad(index, this.products.length)) {this.loadMore(); }
+    if (!this.stopLoad && this.scroll.checkLoad(index, this.products.length)) {this.loadMore(); }
   }
 }

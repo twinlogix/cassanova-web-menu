@@ -6,13 +6,17 @@
     <h2 class="overflow-text">Categorie</h2>
   </mat-card-title>
 
-  <!-- Categories -->
+  <!-- Content -->
   <mat-card-content *ngIf="categories.length" class ="center">
+    <!-- Virtual Scroll -->
     <cdk-virtual-scroll-viewport itemSize="{{this.scroll.getItemSize()}}" [ngStyle]= "this.scroll.getViewportStyle()">
+      <!-- Categories -->
       <div *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="/categories/{{category.id}}">
+        <!-- Image -->
         <div class="img-container">
           <img src="{{category.imageUrl}}"/>
         </div>
+        <!-- Text -->
         <div class="text-container">
           <p class="vertical-align">
             <span class="category-name overflow-text">{{category.name}}</span>

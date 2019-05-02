@@ -33,8 +33,7 @@ export class ProductService {
     } else { // An http GET request must be launched
       console.log('Loading products'); // TODO remove log
       if (!this.products.has(categoryId)) { this.products.set(categoryId, []); } // Create category's products entry, if not present
-      if (!this.categoriesState.has(categoryId)) { this.categoriesState.set(categoryId, [ProductService.LOAD_STARTED]); } // Create category's state entry, if not present
-      // this.token.loadToken().subscribe(() => this.loadProducts(categoryId, start, limit, result));
+      if (!this.categoriesState.has(categoryId)) { this.categoriesState.set(categoryId, [ProductService.LOAD_STARTED]); } // Create category's state entry, if not present (categoriesState[0])
       return this.loadProducts(categoryId, start, limit, result);
     }
   }
@@ -53,9 +52,9 @@ export class ProductService {
         const totalCount = response.totalCount;
         if (products.length && this.categoriesState.get(idCategory).length === 1) { // First request for this category
         const categoryState = this.categoriesState.get(idCategory);
-        categoryState.push(products[0].category.description);  // Added category name
-        categoryState.push(totalCount); // Added number of category's product
-      } // Save category name
+        categoryState.push(products[0].category.description);  // Added category name (categoriesState[1])
+        categoryState.push(totalCount); // Added number of category's product (categoriesState[2])
+      }
         console.log(`${start + products.length} products loaded of ${totalCount}`); // TODO remove log
         for (const product of products) {
           console.log(product); // TODO remove log
@@ -74,7 +73,7 @@ export class ProductService {
 
         if (start + limit >= totalCount) { // All products have been loaded
           console.log('All products have been loaded'); // TODO remove log
-          this.categoriesState.get(idCategory)[0] = ProductService.LOAD_ENDED;
+          this.categoriesState.get(idCategory)[0] = ProductService.LOAD_ENDED; // Load ended (categoriesState[0])
         }
     });
     return res;

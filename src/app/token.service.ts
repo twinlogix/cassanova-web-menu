@@ -31,7 +31,7 @@ export class TokenService {
         tap(response => {
           // @ts-ignore
           this.token = response.access_token;
-          setInterval(() => this.updateToken(this), 3600000); // Update token every 1 hour
+          setInterval(() => this.updateToken(this), 3600000); // Update token every hour
         }),
         catchError(this.httpUtils.handleError('token', [])) // then handle the error
       );

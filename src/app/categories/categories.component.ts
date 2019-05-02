@@ -14,13 +14,11 @@ export class CategoriesComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private scroll: VirtualScrollService
+    private scroll: VirtualScrollService /* Used in HTML */
   ) { }
 
   ngOnInit() { this.getCategories(); }
 
-  getCategories(): void {
-    this.categoryService.getCategories().subscribe( categories =>  this.categories = categories );
-  }
+  getCategories(): void { this.categoryService.getCategories().subscribe( categories =>  this.categories = categories ); }
 
 }

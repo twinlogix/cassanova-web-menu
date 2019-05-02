@@ -22,12 +22,7 @@ const BASIC_HTTP_OPTIONS = {
 })
 export class HttpUtilsService {
 
-  private extraData;
-
   constructor() { }
-
-  setExtraData(data): void { this.extraData = data; }
-  getExtraData(data): void { this.extraData = data; }
   getLoadLimit(): number { return LOAD_LIMIT; }
   getHostname(): string { return HOSTNAME; }
   getTokenHttpOptions(): any  { return TOKEN_HTTP_OPTIONS; }
