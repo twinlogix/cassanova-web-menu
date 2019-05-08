@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import { Product } from '../Product';
 import {ProductService} from '../product.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -29,6 +29,7 @@ export class ProductsComponent implements OnInit {
     public dialog: MatDialog,
     private page: PageStatusService,
     private scroll: VirtualScrollService,
+    private elem: ElementRef,
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
 

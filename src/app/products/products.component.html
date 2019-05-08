@@ -9,7 +9,7 @@
   <!-- Content -->
   <mat-card-content *ngIf="products.length > 0" class = "center" [ngClass]="{disabled: page.isDisabled()}">
     <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport itemSize="{{this.scroll.getItemSize()}}" [ngStyle]= "this.scroll.getViewportStyle()" (scrolledIndexChange)="checkLoad($event)">
+    <cdk-virtual-scroll-viewport [itemSize]="this.scroll.itemSize" [ngStyle]= "this.scroll.viewPortSize" (scrolledIndexChange)="checkLoad($event)">
       <!-- Products -->
       <div *cdkVirtualFor="let product of products;" class="line" (click)="openDetail(product)">
         <!-- Image -->
@@ -19,18 +19,18 @@
         <!-- Text -->
         <div class="text-container">
           <!-- First Line -->
-          <p>
+          <p class="first-line">
             <span class="product-name overflow-text">{{product.name}}</span>
             <span class="product-price">{{product.price}}</span>
           </p>
           <!-- Second Line -->
-          <p>
+          <p class="second-line">
             <span class="product-description overflow-text">{{product.description | noHTML}} </span>
           </p>
         </div>
       </div>
       <!-- Spinner -->
-      <mat-spinner *ngIf="loading" class="center" diameter="{{scroll.getItemSize()/2}}"></mat-spinner>
+      <mat-spinner *ngIf="loading" class="center" ></mat-spinner> <!-- [diameter]="this.scroll.itemSize" -->
     </cdk-virtual-scroll-viewport>
   </mat-card-content>
 </mat-card>

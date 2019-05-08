@@ -9,7 +9,7 @@
   <!-- Content -->
   <mat-card-content *ngIf="categories.length" class ="center">
     <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport itemSize="{{this.scroll.getItemSize()}}" [ngStyle]= "this.scroll.getViewportStyle()">
+    <cdk-virtual-scroll-viewport itemSize="{{this.scroll.itemSize}}" [ngStyle]= "this.scroll.viewPortSize">
       <!-- Categories -->
       <div *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="/categories/{{category.id}}">
         <!-- Image -->

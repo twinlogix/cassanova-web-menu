@@ -2,32 +2,35 @@
 @import "../styles/virtual-scroll-style";
 
 .product-name {
-  font-size: 140%;
+  font-size: 130%;
   display: inline-block;
+  height: 8vh;
   width: 80%;
-  height: 30px;
 }
 
-.product-info {
-  display: inline-block;
-  width: 50%;
-  margin: 0 2.5%;
-  padding: 0;
+.first-line{
+  height: 8vh;
+  margin: 0px;
+}
+
+.second-line{
+  height: 4vh;
+  margin: 0px;
 }
 
 .product-price {
-  font-size: 140%;
+  font-size: 130%;
   float:right;
   display: inline-block;
   width: 20%;
+  height: 8vh;
   text-align: right;
-  height: 30px;
 }
 
 .product-description{
   display: block;
   overflow-y: -webkit-paged-y;
-  height: 30px;
+  height: 4vh;
   text-overflow: ellipsis;
   margin-right: 7%;
   font-size: 90%;
@@ -51,4 +54,17 @@
 /* Bold product's name when hover */
 .line:hover .product-name{
   font-weight: bold;
+}
+
+mat-spinner{
+  zoom: 0.5;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+
+  .product-name, .first-line, .product-price {
+    height: 10vh;
+  }
+
 }
