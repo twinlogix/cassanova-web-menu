@@ -6,23 +6,25 @@
 
 .img-container{
   height: 12vh;
-  width: 30%;
+  width: 24vw; /* 30% of .center */
   display: inline-block;
+  vertical-align: middle;
   overflow-y: hidden;
   text-align: center;
   overflow-x: hidden;
 }
 
 img{
-  height: 100%;
-  width: auto;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .text-container {
   height: 12vh;
   display: inline-block;
-  width: 66%;
-  margin-left: 2%;
+  width: 50vw; /* 62.5% of .center */
+  margin-left: 1vw; /* 0.8% of .center */
+  margin-right: 1vw; /* 0.8% of .center */
   vertical-align: top;
 }
 
@@ -49,6 +51,15 @@ img{
 
   .text-container, .img-container, .line{
     height: 14vh;
+  }
+
+  .img-container{
+    width: 30vw; /* 30% of .center */
+  }
+
+  .text-container{
+    width: 63vw; /* 62.5% of .center */
+    margin-left: 2vw; /* 0.8% of .center */
   }
 
 }

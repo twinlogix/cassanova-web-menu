@@ -6,8 +6,8 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 
-// const idSalesPoint = 333;
-const idSalesPoint = 311;
+const idSalesPoint = 333;
+// const idSalesPoint = 311;
 const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'

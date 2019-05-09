@@ -23,12 +23,15 @@ export class VirtualScrollService {
 
 
   private updateScreenSize(height: number, width: number) {
+    let widthView = '76.5vw';
     if (width < 600) { // For phones
       this.itemSize = height * 16 / 100;
+      widthView = '97.5vw';
     } else { this.itemSize = height * 14 / 100; }
     this.viewPortSize = {
       height: this.itemShow * this.itemSize + 'px',
-      'min-heihgt': '100%'
+      'min-heihgt': '100%',
+      width: widthView
     };
   }
 }

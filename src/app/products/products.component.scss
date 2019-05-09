@@ -4,17 +4,18 @@
 .product-name {
   font-size: 130%;
   display: inline-block;
-  height: 8vh;
-  width: 80%;
+  max-height: 5vh;
+  width: 34vw; /* 68% of .text-container */
+  margin-right: 1vw; /* 2% of .text-container */
 }
 
 .first-line{
-  height: 8vh;
-  margin: 0px;
+  max-height: 5vh;
+  margin-bottom: 1vh;
 }
 
 .second-line{
-  height: 4vh;
+  height: 6vh;
   margin: 0px;
 }
 
@@ -22,33 +23,33 @@
   font-size: 130%;
   float:right;
   display: inline-block;
-  width: 20%;
-  height: 8vh;
+  width: 15vw; /* 30% of .text-container */
+  max-height: 5vh;
   text-align: right;
 }
 
+
 .product-description{
   display: block;
-  overflow-y: -webkit-paged-y;
-  height: 4vh;
-  text-overflow: ellipsis;
-  margin-right: 7%;
+  width: 34vw; /* 78% of .text-container */
+  max-height: 6vh;
   font-size: 90%;
   font-style: italic;
   white-space: pre-line;
+  overflow-y: -webkit-paged-y;
   clear: both;
 }
 
 .no-product{
   clear: both;
   display: block;
-  width: 100%;
+  width: 80vw;
   border: 2px red solid;
   text-align: center;
   font-size: 120%;
   font-weight: bold;
   font-style: italic;
-  margin-top: 5%;
+  margin-top: 5vh;
 }
 
 /* Bold product's name when hover */
@@ -56,15 +57,28 @@
   font-weight: bold;
 }
 
+/* Reduce spinner diameter */
 mat-spinner{
   zoom: 0.5;
 }
 
+
 /* For phones */
 @media only screen and (max-width: 600px) {
 
-  .product-name, .first-line, .product-price {
-    height: 10vh;
+  .product-name, .first-line {
+    max-height: 7vh; /* increment line height */
   }
 
+  .product-name, .product-description{
+    width: 43vw; /* 68% of .text-container */
+  }
+
+  .product-price{
+    width: 19vw; /* 30% of .text-container */
+  }
+
+  .no-product{
+    width: 100vw;
+  };
 }

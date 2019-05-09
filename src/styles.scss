@@ -9,9 +9,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .center{
   clear: both;
-  width: 80%;
+  width: 80vw;
   margin: auto;
 }
+
+.centerVertical{
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 
 .disabled{
   opacity: 0.6;
@@ -31,6 +38,7 @@ mat-icon{
 .overflow-text{
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
 }
 
 /* Dialog dimension */
@@ -46,6 +54,11 @@ mat-icon{
   clear: both;
 }
 
+/* Convert carousel icons' color */
+.carousel-control-next-icon, .carousel-control-prev-icon { /* Add .carousel-indicators li for lower indicators */
+  filter: invert(100%);
+}
+
 html, body, mat-dialog-container{
   overflow: hidden;
 }
@@ -55,13 +68,14 @@ html, body, mat-dialog-container{
   padding-bottom: 20px;
 }
 
+
 /* For phones */
 @media only screen and (max-width: 600px) {
 
   /* Dialog dimension */
   .cdk-overlay-pane {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
   }
 
   .mat-dialog-container{
@@ -69,7 +83,7 @@ html, body, mat-dialog-container{
   }
 
   .center {
-    width: 100%;
+    width: 100vw;
   }
 
   body{
