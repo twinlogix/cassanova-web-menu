@@ -5,9 +5,11 @@ import {of} from 'rxjs/internal/observable/of';
 import {HttpClient} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
-
+import {ActivatedRoute, Router} from '@angular/router';
+/*
 const idSalesPoint = 333;
 // const idSalesPoint = 311;
+*/
 const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'
@@ -20,8 +22,12 @@ export class ProductService {
   private products: Map<string, Product[]> = new Map();
   private categoriesState: Map<string, string[]> = new Map(); // [0] State, [1] Category Name, [2] Number products
   private requestUrl;
+  private idSalesPoint;
 
-  constructor(private http: HttpClient, private httpUtils: HttpUtilsService) { }
+  constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router) {
+    const params = this.route.snapshot.queryParams;
+    this.idSalesPoint = params.hasOwnProperty('id') ? params.id : undefined;
+  }
 
   getProducts(categoryId: string, start: number, limit: number, result: Product[] ): Observable<any> {
     if (this.checkYetLoaded(categoryId, start, limit)) { // Check if you need to launch an http GET request
@@ -82,7 +88,9 @@ export class ProductService {
   getCategoryName(categoryId: string): Observable<string[]> { return of(this.categoriesState.get(categoryId)); }
 
   private updateRequestUrl(idCategory: string, start: number, limit: number): void {
-    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoints=["${idSalesPoint}"]`;
+    this.requestUrl =  this.idSalesPoint !== undefined ?
+      `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoints=["${this.idSalesPoint}"]` :
+      `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]`;
   }
 
   private checkYetLoaded(categoryId: string, start: number, limit: number): boolean {

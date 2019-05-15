@@ -47,7 +47,7 @@ mat-icon{
 }
 
 mat-dialog-container{
-  padding: 2vh 2vw 10vh !important; /* padding-bottom 10vh for increase dialog height */
+  padding: 2vh 2vw !important;
 }
 
 .carousel{
@@ -84,7 +84,6 @@ html, body, mat-dialog-container{
 
   .mat-dialog-container{
     margin-top: 56px; /* Display toolbar */
-    padding-bottom: 2vh !important; /* Remove padding-bottom used for increase dialog height */
   }
 
   .center {

@@ -32,5 +32,5 @@ export class PageStatusService {
 
   removeDialog(): void { this.dialog = undefined; }
 
-  isCategoryPage() { return !this.location.path().endsWith('/categories'); }
+  isCategoryPage() { return this.location.path().split('/').length === 3 ; }
 }

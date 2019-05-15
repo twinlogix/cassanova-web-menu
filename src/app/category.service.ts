@@ -6,8 +6,9 @@ import {TokenService} from './token.service';
 import {HttpClient} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
- const idSalePoint = 333;
+ // const idSalePoint = 333;
 // const idSalePoint = 311;
 const defaultImageUrl = '/assets/default.png';
 @Injectable({
@@ -17,10 +18,20 @@ export class CategoryService {
 
   private categories: Category[] = [];
   private start = 0;
-  private requestUrl = `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${idSalePoint}]`;
+  private requestUrl;
+  private idSalePoint;
 
-  constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService) {
-    this.token.loadToken().subscribe(() => this.loadCategories());
+  constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router) {
+    const params = this.route.snapshot.queryParams;
+    if (!params.hasOwnProperty('sp')) { /* Missing sp query param */
+      router.navigateByUrl('errore');
+    } else {
+      this.idSalePoint = params.hasOwnProperty('id') ? params.id : undefined;
+      this.requestUrl = this.idSalePoint !== undefined ?
+        `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]` :
+        `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}`;
+      this.token.loadToken(params.sp).subscribe(() => this.loadCategories());
+    }
   }
 
   // Return all the categories
@@ -54,7 +65,9 @@ export class CategoryService {
   }
 
   private updateRequestUrl(): void {
-    this.requestUrl = `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${idSalePoint}]`;
+    this.requestUrl = this.idSalePoint !== undefined ?
+      `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]` :
+      `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}`;
   }
 
   private resetStart(): void { this.start = 0; }

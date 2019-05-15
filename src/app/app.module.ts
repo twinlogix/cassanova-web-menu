@@ -20,6 +20,7 @@ import {
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     CategoriesComponent,
     ProductsComponent,
     NoHTMLPipe,
-    ProductDetailComponent
+    ProductDetailComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

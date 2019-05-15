@@ -33,7 +33,14 @@ export class ProductsComponent implements OnInit {
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
 
-  ngOnInit() { this.token.loadToken().subscribe( () => this.getProducts()); }
+  ngOnInit() {
+    const params = this.route.snapshot.queryParams;
+    if (!params.hasOwnProperty('sp')) { /* Missing sp query param */
+      this.router.navigateByUrl('errore');
+    } else {
+      this.token.loadToken(params.sp).subscribe(() => this.getProducts());
+    }
+  }
 
   private getProducts(): void {
     this.categoryId = this.route.snapshot.paramMap.get('id');

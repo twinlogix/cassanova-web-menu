@@ -2,7 +2,7 @@
 <mat-toolbar color="primary" [ngClass]="{disabled: page.isDisabled()}">
   <mat-toolbar-row>
       <!-- Back arrow -->
-      <mat-icon routerLink="/categories" *ngIf="!page.isDisabled() && isCategoryPage()">keyboard_arrow_left</mat-icon>
+      <mat-icon routerLink="/categories" [queryParams]="id !== undefined ? {'sp': sp, 'id': id} : {'sp' : sp}" *ngIf="!page.isDisabled() && isCategoryPage()">keyboard_arrow_left</mat-icon>
     <div class="space"></div>
     <!-- Padding added when icon present, in order to center the restaurant name -->
     <h1 [ngStyle]="{'padding-right':!page.isDisabled() && isCategoryPage()?'48px':'0px'}">Nome Ristorante</h1>
