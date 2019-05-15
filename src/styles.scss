@@ -43,13 +43,17 @@ mat-icon{
 
 /* Dialog dimension */
 .cdk-overlay-pane {
-  width: 60%;
+  width: 60vw;
 }
 
-/* Center carousel */
-.carousel-inner{
-  width: 20em;
-  height: 16em;
+mat-dialog-container{
+  padding: 2vh 2vw 10vh !important; /* padding-bottom 10vh for increase dialog height */
+}
+
+.carousel{
+  display: inline-block;
+  width: 22vw;
+  height: 22vh;
   margin: auto;
   clear: both;
 }
@@ -79,7 +83,8 @@ html, body, mat-dialog-container{
   }
 
   .mat-dialog-container{
-    margin-top: 56px;
+    margin-top: 56px; /* Display toolbar */
+    padding-bottom: 2vh !important; /* Remove padding-bottom used for increase dialog height */
   }
 
   .center {
@@ -88,5 +93,11 @@ html, body, mat-dialog-container{
 
   body{
     background: whitesmoke;
+  }
+
+  .carousel{
+    display: block;
+    width: 90vw;
+    height: 40vh;
   }
 }

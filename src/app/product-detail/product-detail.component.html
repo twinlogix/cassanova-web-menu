@@ -1,11 +1,10 @@
 <!-- Header -->
-<mat-icon class="close" (click)="closeDialog()">close</mat-icon>
-<h3 mat-dialog-title class="overflow-text">{{product.name}}</h3>
+<mat-icon   class="close" (click)="closeDialog()">close</mat-icon>
 
 <!-- Content -->
 <mat-dialog-content>
   <!-- Carousel -->
-  <mdb-carousel *ngIf="product.imageUrls.length > 1" [animation]="'slide'">
+  <mdb-carousel class="center" *ngIf="product.imageUrls.length > 1" [animation]="'slide'">
     <mdb-carousel-item *ngFor="let image of product.imageUrls">
         <span class="centerVertical"></span>
         <img src="{{image}}">
@@ -17,5 +16,10 @@
     <img src="{{product.imageUrls[0]}}">
   </div>
   <!-- Text -->
-  <p class="product-detail overflow-text"> {{product.description | noHTML}} </p>
+  <div class="dialog-text-container">
+    <h3 mat-dialog-title class="overflow-text">{{product.name}}</h3>
+    <span class="label">Prezzo:</span><span class="dialog-price"> {{product.price}} €</span>
+    <span *ngIf="product.description != ''" class="label dialog-description">Descrizione: </span>
+    <span class="dialog-product-description" [innerHTML]="product.description | noHTML: 'no-div'"></span>
+  </div>
 </mat-dialog-content>

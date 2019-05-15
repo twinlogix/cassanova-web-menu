@@ -9,7 +9,7 @@ import {HttpUtilsService} from './http-utils.service';
 
  const idSalePoint = 333;
 // const idSalePoint = 311;
-
+const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'
 })
@@ -38,7 +38,10 @@ export class CategoryService {
       const totalCount = response.totalCount;
       this.incrementStart(categories.length);
       console.log(`${this.start} category loaded of ${totalCount}`); // TODO remove log
-      for (const category of categories) { this.categories.push(new Category(category.id, category.description, '/assets/hamburger.jpg')); } // TODO load category image
+      for (const category of categories) {
+        const imageUrl = category.hasOwnProperty('imageUrl') ? category.imageUrl : defaultImageUrl;
+        this.categories.push(new Category(category.id, category.description, imageUrl));
+      }
       if (this.start >= totalCount) { // All categories has been loaded
         console.log('All category have been loaded'); // TODO remove log
         this.resetStart();

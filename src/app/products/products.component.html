@@ -26,7 +26,7 @@
           </p>
           <!-- Second Line -->
           <p class="second-line">
-            <span class="product-description overflow-text">{{product.description | noHTML}} </span>
+            <span class="product-description overflow-text" [innerHTML] = "product.description | noHTML"></span> <!-- | noHTML -->
           </p>
         </div>
       </div>

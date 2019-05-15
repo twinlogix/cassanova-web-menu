@@ -31,12 +31,11 @@
 
 .product-description{
   display: block;
-  width: 34vw; /* 78% of .text-container */
+  /* Uncomment for allineate .product-description with .product-name */
+  /* width: 34vw; /* 78% of .text-container */
   max-height: 6vh;
   font-size: 90%;
   font-style: italic;
-  white-space: pre-line;
-  overflow-y: -webkit-paged-y;
   clear: both;
 }
 
@@ -62,7 +61,6 @@ mat-spinner{
   zoom: 0.5;
 }
 
-
 /* For phones */
 @media only screen and (max-width: 600px) {
 
@@ -70,7 +68,8 @@ mat-spinner{
     max-height: 7vh; /* increment line height */
   }
 
-  .product-name, .product-description{
+  /* Uncomment for allineate .product-description with .product-name */
+  .product-name/*, .product-description */ {
     width: 43vw; /* 68% of .text-container */
   }
 

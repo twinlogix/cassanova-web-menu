@@ -1,10 +1,8 @@
 .mat-dialog-content{
   overflow-x: hidden;
-  padding: 0px;
-}
-
-mat-dialog-container{
-  width: 64vw;
+  padding: 10vh 0 0; /* Padding top for increase dialog height */
+  margin: 0px;
+  width: 56vw;
 }
 
 h3{
@@ -13,16 +11,27 @@ h3{
 }
 
 .close{
-  float: right;
+  width: auto;
+  height: auto;
+  font-size: xx-large;
 }
 
 .img-container, mdb-carousel-item{
-  width: 20em;
-  height: 16em;
+  width: 22vw;
+  height: 22vh;
   overflow-y: hidden;
   overflow-x: hidden;
   text-align: center;
+  display: inline-block;
   vertical-align: middle;
+}
+
+.dialog-text-container{
+  display: inline-block;
+  vertical-align: top;
+  width: 31vw;
+  height: 22vh;
+  margin-left: 3vw;
 }
 
 /* Center the image in carousel */
@@ -40,18 +49,54 @@ img{
   max-width: 100%;
 }
 
-.product-detail{
-  margin-top: 5vh;
-  margin-left: 6vw; /* 10% of mat-dialog-container */
-  margin-right: 6vw; /* 10% of mat-dialog-container */
-  white-space: pre-line;
-  text-align: center;
+.dialog-product-description{
+  display: block;
+  overflow-y: scroll !important;
+  height: 11vh;
+  width: 31vw;
+  white-space: normal;
+}
+
+.label{
+  font-weight: bold;
+}
+
+.dialog-price{
+  margin-left: 1vw;
+}
+
+.dialog-description{
+  display: block;
 }
 
 /* For phones */
 @media only screen and (max-width: 600px) {
 
-  .product-detail {
-    text-align: center;
+  .dialog-product-description {
+   height: auto;
+  }
+
+  .mat-dialog-content{
+    width: 96vw;
+    height: 80vh;
+    max-height: 80vh !important;
+    padding-top: 0; /* Remove padding-bottom used for increase dialog height */
+  }
+
+  .img-container, mdb-carousel-item{
+    width: 90vw;
+    height: 40vh;
+    display: block;
+  }
+
+  .dialog-text-container{
+    display: block;
+    width: 90vw;
+    margin-left: 3vw;
+    margin-right: 3vw;
+  }
+
+  .dialog-product-description, .dialog-description{
+    width: 90vw;
   }
 }
