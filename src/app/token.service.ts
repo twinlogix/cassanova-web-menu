@@ -25,7 +25,6 @@ export class TokenService {
 
 
   loadToken(apiKey: string): Observable<any> {
-    console.log('API' + apiKey);
     if (this.token === undefined || this.apiKey.localeCompare(apiKey) !== 0) { // Load token
       console.log('Loading token'); // TODO remove log
       this.apiKey = apiKey;

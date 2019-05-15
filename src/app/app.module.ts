@@ -21,6 +21,8 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SearchProductsComponent } from './search-products/search-products.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ProductsComponent,
     NoHTMLPipe,
     ProductDetailComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    SearchProductsComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatCardModule,
     MDBBootstrapModule.forRoot(),
     ScrollingModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    FormsModule
   ],
   providers: [
       {

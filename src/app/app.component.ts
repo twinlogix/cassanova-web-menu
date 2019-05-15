@@ -21,5 +21,5 @@ export class AppComponent {
     });
   }
 
-  private isCategoryPage() { return this.page.isCategoryPage(); }
+  private isPage(page: string): boolean { return this.page.isPage(page); }
 }

@@ -24,7 +24,7 @@ export class CategoryService {
   constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router) {
     const params = this.route.snapshot.queryParams;
     if (!params.hasOwnProperty('sp')) { /* Missing sp query param */
-      router.navigateByUrl('errore');
+      router.navigateByUrl('error');
     } else {
       this.idSalePoint = params.hasOwnProperty('id') ? params.id : undefined;
       this.requestUrl = this.idSalePoint !== undefined ?

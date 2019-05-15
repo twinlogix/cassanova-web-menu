@@ -2,16 +2,12 @@ mat-toolbar{
   display: flex;
 }
 
-.mat-toolbar-row{
-  padding: 0px !important;
-}
-
 .space{
   flex-grow: 1;
 }
 
 mat-toolbar .mat-icon{
-  font-size: -webkit-xxx-large;
+  font-size: xx-large;
   width: auto;
   height: auto;
 }
@@ -25,4 +21,15 @@ mat-toolbar h1{
 /* Remove blue border when clicking on back arrow */
 mat-toolbar mat-icon:focus{
   outline: none;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+
+ mat-toolbar h1 {
+   font-size: smaller !important;
+ }
+  .mat-toolbar-row{
+    padding: 0 2px !important;
+  }
 }

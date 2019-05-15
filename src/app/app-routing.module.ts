@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import {CategoriesComponent} from './categories/categories.component';
 import {ProductsComponent} from './products/products.component';
 import {PageNotFoundComponent} from './page-not-found/page-not-found.component';
+import {SearchProductsComponent} from './search-products/search-products.component';
 
 const routes: Routes = [
   // { path: '/:sp/categories', redirectTo: 'categories', pathMatch: 'full'},
   { path: 'categories', component: CategoriesComponent },
   { path: 'categories/:id', component: ProductsComponent },
+  { path: 'search', component: SearchProductsComponent },
   { path: '**',  redirectTo: 'error'},
   { path: 'error', component: PageNotFoundComponent}
 ];

@@ -8,8 +8,14 @@ import {filter} from 'rxjs/operators';
 })
 export class PageStatusService {
 
+  public CATEGORIES = 'categories';
+  public SEARCH = 'search';
+
+
   private disabled = false;
   private dialog;
+
+
 
   constructor(private location: Location, private router: Router) {
 
@@ -32,5 +38,8 @@ export class PageStatusService {
 
   removeDialog(): void { this.dialog = undefined; }
 
-  isCategoryPage() { return this.location.path().split('/').length === 3 ; }
+  isPage(page: string): boolean {
+    const url = this.location.path().split('/');
+    return url.length === 2 && url[1].startsWith(page);
+  }
 }

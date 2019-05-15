@@ -36,7 +36,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     const params = this.route.snapshot.queryParams;
     if (!params.hasOwnProperty('sp')) { /* Missing sp query param */
-      this.router.navigateByUrl('errore');
+      this.router.navigateByUrl('error');
     } else {
       this.token.loadToken(params.sp).subscribe(() => this.getProducts());
     }
