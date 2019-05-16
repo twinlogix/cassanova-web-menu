@@ -1,1 +1,36 @@
 @import "../products/products.component";
+
+.search-line{
+  display: flex;
+  margin-top: 5vh;
+}
+
+.search-line mat-icon {
+  font-size: xx-large;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  padding: 5px;
+}
+
+.search-line mat-icon:hover {
+  cursor: default;
+}
+
+input{
+  display: inline-flex;
+  flex-grow: 1;
+  margin-right: 5px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+
+  .search-line{
+    padding-left: 2vw;
+    padding-right: 2vw;
+    margin-top: 3vh;
+  }
+}

@@ -1,6 +1,6 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary" [ngClass]="{disabled: page.isDisabled()}">
-  <mat-toolbar-row>
+  <mat-toolbar-row *ngIf="!isPage(page.ERROR)">
       <!-- Home -->
     <mat-icon routerLink="/categories" [queryParams]="id !== undefined ? {'sp': sp, 'id': id} : {'sp' : sp}" *ngIf="!isPage(page.CATEGORIES)">home</mat-icon>
     <div class="space"></div>

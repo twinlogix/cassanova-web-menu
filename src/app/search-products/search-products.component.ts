@@ -7,11 +7,9 @@ import {VirtualScrollService} from '../virtual-scroll.service';
 import {TokenService} from '../token.service';
 import {ProductDetailComponent} from '../product-detail/product-detail.component';
 import {SearchProductsService} from '../search-products.service';
-import {Observable, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {distinctUntilChanged} from 'rxjs/internal/operators/distinctUntilChanged';
-import {switchMap} from 'rxjs/internal/operators/switchMap';
-import {of} from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-search-products',
@@ -47,6 +45,7 @@ export class SearchProductsComponent implements OnInit {
     }
 
     this.token.loadToken(this.params.sp).subscribe(() => {
+      console.log('Loaded');
       const observable = this.searchTerms.pipe(
         // wait 300ms after each keystroke before considering the term
         debounceTime(300),
@@ -56,7 +55,7 @@ export class SearchProductsComponent implements OnInit {
       );
       observable.subscribe(() => {
         this.results = [];
-        this.searchProductsService.getProducts(this.description, 0, this.scroll.getLimitShow(), this.results);
+        this.searchProductsService.getProducts(this.description, 0, this.scroll.getLimitShowSearch(), this.results);
         this.searchProductsService.getProductCount().subscribe(productCount => this.info = productCount);
       });
     });
@@ -70,9 +69,9 @@ export class SearchProductsComponent implements OnInit {
   private loadMore() {
     if (this.page.isDisabled()) { return; }
     this.loading = true; // Add Spinner
-    if (this.results.length + this.scroll.getLimitShow() >= Number.parseInt(this.info[0])) { this.stopLoad = true; } // Stop load more
+    if (this.results.length + this.scroll.getLimitShowSearch() >= Number.parseInt(this.info[0])) { this.stopLoad = true; } // Stop load more
     // Load products
-    this.searchProductsService.getProducts(this.description, this.results.length, this.scroll.getLimitShow(), this.results).subscribe(() => {
+    this.searchProductsService.getProducts(this.description, this.results.length, this.scroll.getLimitShowSearch(), this.results).subscribe(() => {
       this.results = [... this.results]; // Update Products
       this.loading = false; // Remove Spinner
     });
@@ -90,7 +89,7 @@ export class SearchProductsComponent implements OnInit {
   }
 
   private checkLoad(index: number) {
-    if (!this.stopLoad && this.scroll.checkLoad(index, this.results.length)) {this.loadMore(); }
+    if (!this.stopLoad && this.scroll.checkLoadSearch(index, this.results.length)) { this.loadMore(); }
   }
 
 }

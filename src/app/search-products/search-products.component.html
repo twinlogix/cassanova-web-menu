@@ -1,4 +1,8 @@
-<input #searchBox [(ngModel)]="description" (input)="search(searchBox.value)" placeholder="Product Description"/>
+<div class="center search-line">
+  <input #searchBox [(ngModel)]="description" (input)="search(searchBox.value)" placeholder="Descrizione Prodotto"/>
+  <mat-icon>search</mat-icon>
+</div>
+
 
 <!-- Card -->
 <mat-card *ngIf="results.length" [ngClass]="{disabled: page.isDisabled()}" class="center">
@@ -8,10 +12,13 @@
     <h2 class="overflow-text">Risultati</h2>
   </mat-card-title>
 
+
+
   <!-- Content -->
   <mat-card-content class = "center" [ngClass]="{disabled: page.isDisabled()}">
+
     <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport [itemSize]="this.scroll.itemSize" [ngStyle]= "this.scroll.viewPortSize" (scrolledIndexChange)="checkLoad($event)">
+    <cdk-virtual-scroll-viewport [itemSize]="this.scroll.itemSize" [ngStyle]= "this.scroll.viewPortSizeSearch" (scrolledIndexChange)="checkLoad($event)">
       <!-- Products -->
       <div *cdkVirtualFor="let product of results;" class="line" (click)="openDetail(product)">
         <!-- Image -->

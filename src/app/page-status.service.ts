@@ -10,6 +10,7 @@ export class PageStatusService {
 
   public CATEGORIES = 'categories';
   public SEARCH = 'search';
+  public ERROR = 'error';
 
 
   private disabled = false;
