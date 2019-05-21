@@ -7,9 +7,9 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {SalesPointService} from './sales-point.service';
+import {PageStatusService} from './page-status.service';
 
- // const idSalePoint = 333;
-// const idSalePoint = 311;
 const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'
@@ -19,23 +19,23 @@ export class CategoryService {
   private categories: Category[] = [];
   private start = 0;
   private requestUrl;
-  private idSalePoint;
+  private idSalePoint = null;
 
-  constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router) {
-    const params = this.route.snapshot.queryParams;
-    if (!params.hasOwnProperty('sp')) { /* Missing sp query param */
-      router.navigateByUrl('error');
-    } else {
-      this.idSalePoint = params.hasOwnProperty('id') ? params.id : undefined;
-      this.requestUrl = this.idSalePoint !== undefined ?
-        `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]` :
-        `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}`;
-      this.token.loadToken(params.sp).subscribe(() => this.loadCategories());
-    }
-  }
+  constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router, private salesPoints: SalesPointService, private page: PageStatusService) {}
 
   // Return all the categories
-  getCategories(): Observable<Category[]> { return of(this.categories); }
+  getCategories(): Observable<Category[]> {
+
+    this.salesPoints.checkIdSalesExist();
+    const id = this.page.getId();
+    console.log('Current id: ' + this.idSalePoint + ' New id: ' + id);
+    if (this.idSalePoint === null) { // First request
+      this.loadNewCategory(id);
+    } else if (id.toLocaleString().localeCompare(this.idSalePoint.toLocaleString()) !== 0) { // New sales point
+      this.loadNewCategory(id);
+    }
+    return of(this.categories);
+  }
 
   private loadCategories(): void {
     console.log(`Loading categories from ${this.start} to ${this.start + this.httpUtils.getLoadLimit()}`); // TODO remove log
@@ -65,12 +65,18 @@ export class CategoryService {
   }
 
   private updateRequestUrl(): void {
-    this.requestUrl = this.idSalePoint !== undefined ?
-      `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]` :
-      `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]`;
   }
 
   private resetStart(): void { this.start = 0; }
 
   private incrementStart(increment: number): void { this.start += increment; }
+
+  private loadNewCategory(id) {
+      this.categories = []; // Remove previous reference
+      this.idSalePoint = id;
+      this.start = 0;
+      this.requestUrl = `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]`;
+      this.loadCategories();
+  }
 }

@@ -10,6 +10,7 @@ import {SearchProductsService} from '../search-products.service';
 import {Subject} from 'rxjs';
 import {debounceTime} from 'rxjs/operators';
 import {distinctUntilChanged} from 'rxjs/internal/operators/distinctUntilChanged';
+import {SalesPointService} from '../sales-point.service';
 
 @Component({
   selector: 'app-search-products',
@@ -24,7 +25,6 @@ export class SearchProductsComponent implements OnInit {
   private loading = false; // Manage Spinner
   private searchTerms = new Subject<string>();
   private description: string;
-  private params;
 
 
   constructor(
@@ -35,28 +35,27 @@ export class SearchProductsComponent implements OnInit {
     private page: PageStatusService,
     private scroll: VirtualScrollService,
     private elem: ElementRef,
+    private salesPointService: SalesPointService,
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
 
   ngOnInit() {
-    this.params = this.route.snapshot.queryParams;
-    if (!this.params.hasOwnProperty('sp')) { /* Missing sp query param */
-      this.router.navigateByUrl('error');
-    }
+    this.token.loadToken().subscribe(() => {
+      this.salesPointService.loadSalesPoint().subscribe(() => {
+        this.salesPointService.checkIdSalesExist();
+        console.log('Loaded');
+        const observable = this.searchTerms.pipe(
+          // wait 300ms after each keystroke before considering the term
+          debounceTime(300),
 
-    this.token.loadToken(this.params.sp).subscribe(() => {
-      console.log('Loaded');
-      const observable = this.searchTerms.pipe(
-        // wait 300ms after each keystroke before considering the term
-        debounceTime(300),
-
-        // ignore new term if same as previous term
-        distinctUntilChanged(),
-      );
-      observable.subscribe(() => {
-        this.results = [];
-        this.searchProductsService.getProducts(this.description, 0, this.scroll.getLimitShowSearch(), this.results);
-        this.searchProductsService.getProductCount().subscribe(productCount => this.info = productCount);
+          // ignore new term if same as previous term
+          distinctUntilChanged(),
+        );
+        observable.subscribe(() => {
+          this.results = [];
+          this.searchProductsService.getProducts(this.description, 0, this.scroll.getLimitShowSearch(), this.results);
+          this.searchProductsService.getProductCount().subscribe(productCount => this.info = productCount);
+        });
       });
     });
   }

@@ -6,6 +6,7 @@ import {retry} from 'rxjs/operators';
 import {tap} from 'rxjs/internal/operators/tap';
 import {of} from 'rxjs/internal/observable/of';
 import {HttpUtilsService} from './http-utils.service';
+import {PageStatusService} from './page-status.service';
 /*
 const body = {
    apiKey: '065c79c6-0486-42c9-a86c-c948b45811d9'
@@ -19,12 +20,13 @@ export class TokenService {
 
   private token: string;
   private apiKey: string;
-  private requestUrl = `${this.httpUtils.getHostname()}/apikey/token`
+  private requestUrl = `${this.httpUtils.getHostname()}/apikey/token`;
 
-  constructor(private http: HttpClient, private httpUtils: HttpUtilsService) {}
+  constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private page: PageStatusService) {}
 
 
-  loadToken(apiKey: string): Observable<any> {
+  loadToken(): Observable<any> {
+    const apiKey = this.page.getSp();
     if (this.token === undefined || this.apiKey.localeCompare(apiKey) !== 0) { // Load token
       console.log('Loading token'); // TODO remove log
       this.apiKey = apiKey;

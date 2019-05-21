@@ -5,6 +5,7 @@ import {HttpUtilsService} from './http-utils.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
+import {PageStatusService} from './page-status.service';
 
 const defaultImageUrl = '/assets/default.png';
 
@@ -17,16 +18,14 @@ export class SearchProductsService {
   private requestUrl;
   private idSalesPoint;
 
-  constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router) {
-    const params = this.route.snapshot.queryParams;
-    this.idSalesPoint = params.hasOwnProperty('id') ? params.id : undefined;
-  }
+  constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router, private page: PageStatusService) {}
 
   getProducts(description: string, start: number, limit: number, result: Product[] ): Observable<any> {
       return this.loadProducts(description, start, limit, result);
   }
 
   loadProducts(description: string, start: number, limit: number, result: Product[]): Observable<any> {
+    this.idSalesPoint = this.page.getId();
     this.updateRequestUrl(description, start, limit); // Create request url
     console.log(`Loading products from ${start} to ${start + limit}`); // TODO remove log
     const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions());
@@ -60,8 +59,6 @@ export class SearchProductsService {
   getProductCount(): Observable<string[]> { return of(this.info); }
 
   private updateRequestUrl(description: string, start: number, limit: number): void {
-    this.requestUrl =  this.idSalesPoint !== undefined ?
-      `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&description="${description}"&idsSalesPoints=["${this.idSalesPoint}"]` :
-      `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&description="${description}"`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&description="${description}"&idsSalesPoints=["${this.idSalesPoint}"]`;
   }
 }

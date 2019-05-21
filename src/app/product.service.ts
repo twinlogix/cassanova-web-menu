@@ -6,6 +6,7 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, retry} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {PageStatusService} from './page-status.service';
 /*
 const idSalesPoint = 333;
 // const idSalesPoint = 311;
@@ -22,14 +23,21 @@ export class ProductService {
   private products: Map<string, Product[]> = new Map();
   private categoriesState: Map<string, string[]> = new Map(); // [0] State, [1] Category Name, [2] Number products
   private requestUrl;
-  private idSalesPoint;
+  private idSalePoint;
 
-  constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router) {
+  constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private page: PageStatusService) {
     const params = this.route.snapshot.queryParams;
-    this.idSalesPoint = params.hasOwnProperty('id') ? params.id : undefined;
+    this.idSalePoint = params.hasOwnProperty('id') ? params.id : null;
   }
 
   getProducts(categoryId: string, start: number, limit: number, result: Product[] ): Observable<any> {
+    const id = this.page.getId();
+    console.log('Current id: ' + this.idSalePoint + ' New id: ' + id);
+    if (this.idSalePoint !== null && id.toLocaleString().localeCompare(this.idSalePoint.toLocaleString()) !== 0) { // New sales point
+      this.products = new Map();
+      this.categoriesState = new Map();
+    }
+    this.idSalePoint = id;
     if (this.checkYetLoaded(categoryId, start, limit)) { // Check if you need to launch an http GET request
       console.log('Category\'s products yet present'); // TODO remove log
       const productsLength = this.products.get(categoryId).length;
@@ -88,14 +96,15 @@ export class ProductService {
   getCategoryName(categoryId: string): Observable<string[]> { return of(this.categoriesState.get(categoryId)); }
 
   private updateRequestUrl(idCategory: string, start: number, limit: number): void {
-    this.requestUrl =  this.idSalesPoint !== undefined ?
-      `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoints=["${this.idSalesPoint}"]` :
-      `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoints=["${this.idSalePoint}"]`;
   }
+
 
   private checkYetLoaded(categoryId: string, start: number, limit: number): boolean {
     if (this.products.has(categoryId)) { // Check if this category has been requested yet
-      if (this.categoriesState.get(categoryId)[0] === ProductService.LOAD_ENDED) { return true; } // All category's products has been loaded
+      if (this.categoriesState.get(categoryId)[0] === ProductService.LOAD_ENDED) {
+        return true;
+      } // All category's products has been loaded
       const products = this.products.get(categoryId);
       return products.length >= start + limit; // True if all the products to return have been requested yet, false otherwise
     }

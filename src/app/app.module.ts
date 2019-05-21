@@ -23,6 +23,7 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SearchProductsComponent } from './search-products/search-products.component';
 import {FormsModule} from '@angular/forms';
+import { SalesPointComponent } from './sales-point/sales-point.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {FormsModule} from '@angular/forms';
     NoHTMLPipe,
     ProductDetailComponent,
     PageNotFoundComponent,
-    SearchProductsComponent
+    SearchProductsComponent,
+    SalesPointComponent
   ],
   imports: [
     BrowserModule,

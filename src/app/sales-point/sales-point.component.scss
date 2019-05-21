@@ -1,0 +1,48 @@
+@import "../styles/menu-style";
+@import "../styles/virtual-scroll-style";
+
+.salepoint-name {
+  font-size: 130%;
+  display: inline-block;
+  max-height: 5vh;
+  width: 50vw;
+}
+
+.first-line{
+  max-height: 5vh;
+  margin-bottom: 1vh;
+}
+
+.second-line{
+  height: 6vh;
+  margin: 0px;
+}
+
+
+.salepoint-address{
+  display: block;
+  width: 50vw;
+  max-height: 6vh;
+  font-size: 90%;
+  font-style: italic;
+  clear: both;
+  white-space: normal !important;
+}
+
+
+/* Bold product's name when hover */
+.line:hover .salepoint-name{
+  font-weight: bold;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+
+  .salepoint-name, .first-line {
+    max-height: 7vh; /* increment line height */
+  }
+
+  .salepoint-name, .salepoint-address {
+    width: 63vw;
+  }
+}

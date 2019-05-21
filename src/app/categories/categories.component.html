@@ -11,7 +11,7 @@
     <!-- Virtual Scroll -->
     <cdk-virtual-scroll-viewport itemSize="{{this.scroll.itemSize}}" [ngStyle]= "this.scroll.viewPortSize">
       <!-- Categories -->
-      <div *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="/categories/{{category.id}}" [queryParams]="id !== undefined ? {'sp': sp, 'id': id} : {'sp' : sp}">
+      <div *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="{{category.id}}">
         <!-- Image -->
         <div class="img-container">
           <span class="centerVertical"></span>

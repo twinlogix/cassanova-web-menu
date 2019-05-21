@@ -12,14 +12,7 @@ export class AppComponent {
   sp: string;
   id: string;
 
-  constructor(private page: PageStatusService, private route: ActivatedRoute) {
-    route.queryParams.subscribe(e => {
-      if (e.hasOwnProperty('sp')) {
-        this.sp = e.sp;
-        this.id = e.hasOwnProperty('id') ? e.id : undefined;
-      }
-    });
-  }
+  constructor(private page: PageStatusService, private route: ActivatedRoute) {}
 
   private isPage(page: string): boolean { return this.page.isPage(page); }
 }

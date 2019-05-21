@@ -7,6 +7,7 @@ import {ProductDetailComponent} from '../product-detail/product-detail.component
 import {PageStatusService} from '../page-status.service';
 import {VirtualScrollService} from '../virtual-scroll.service';
 import {TokenService} from '../token.service';
+import {SalesPointService} from '../sales-point.service';
 
 @Component({
   selector: 'app-products',
@@ -30,19 +31,21 @@ export class ProductsComponent implements OnInit {
     private page: PageStatusService,
     private scroll: VirtualScrollService,
     private elem: ElementRef,
+    private salesPointService: SalesPointService,
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
 
   ngOnInit() {
-    const params = this.route.snapshot.queryParams;
-    if (!params.hasOwnProperty('sp')) { /* Missing sp query param */
-      this.router.navigateByUrl('error');
-    } else {
-      this.token.loadToken(params.sp).subscribe(() => this.getProducts());
-    }
+    this.token.loadToken().subscribe(() => {
+      this.salesPointService.loadSalesPoint().subscribe(() => {
+        this.getProducts();
+      });
+    });
   }
 
   private getProducts(): void {
+    this.salesPointService.checkIdSalesExist();
+    if (!this.route.snapshot.paramMap.has('id')) { this.page.goToPage(this.page.ERROR); }
     this.categoryId = this.route.snapshot.paramMap.get('id');
     this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products);
     this.productService.getCategoryName(this.categoryId).subscribe(categoryName => this.categoryName = categoryName);
