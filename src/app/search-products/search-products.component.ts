@@ -18,12 +18,12 @@ import {SalesPointService} from '../sales-point.service';
 })
 export class SearchProductsComponent implements OnInit {
 
-  private results: Product[] = [];
-  private info: string[] = []; // [0]Number results;
+  results: Product[] = [];
+  description: string;
+  private info = []; // [0] Number results;
   private stopLoad = false; // Manage loading request
   private loading = false; // Manage Spinner
   private searchTerms = new Subject<string>();
-  private description: string;
 
 
   constructor(
@@ -48,8 +48,13 @@ export class SearchProductsComponent implements OnInit {
         );
         observable.subscribe(() => {
           this.results = [];
+          this.stopLoad = false;
+          this.info[0] = 0;
           this.searchProductsService.getProducts(this.description, 0, this.scroll.getLimitShowSearch(), this.results);
-          this.searchProductsService.getProductCount().subscribe(productCount => this.info = productCount);
+          this.searchProductsService.getProductCount().subscribe(productCount => {
+            console.log(this.info);
+            this.info = productCount;
+          });
         });
       });
     });

@@ -16,9 +16,9 @@ import {SalesPointService} from '../sales-point.service';
 })
 export class ProductsComponent implements OnInit {
 
-  private products: Product[] = [];
+  products: Product[] = [];
+  categoryName: string[] = []; // [0] State, [1] Category Name, [2] Number products
   private categoryId: string;
-  private categoryName: string[] = []; // [0] State, [1] Category Name, [2] Number products
   private stopLoad = false; // Manage loading request
   private loading = false; // Manage Spinner
 

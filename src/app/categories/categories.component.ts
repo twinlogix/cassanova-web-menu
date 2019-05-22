@@ -13,7 +13,7 @@ import {SalesPointService} from '../sales-point.service';
 })
 export class CategoriesComponent implements OnInit, OnDestroy {
 
-  private categories: Category[] = [];
+  categories: Category[] = [];
   // Subscriptions
   private tokenSub = null;
   private salesPointSub = null;

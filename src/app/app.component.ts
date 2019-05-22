@@ -9,7 +9,7 @@ import {PageStatusService} from './page-status.service';
 export class AppComponent {
   title = 'cassanova-web-menu';
 
-  constructor(private page: PageStatusService) { }
+  constructor(public page: PageStatusService) { }
 
   isPage(page: string): boolean { return this.page.isPage(page); }
 }

@@ -12,15 +12,14 @@ import {TokenService} from '../token.service';
 })
 export class SalesPointComponent implements OnInit {
 
-  private salesPoints: SalePoint[] = [];
-  private sp;
+  salesPoints: SalePoint[] = [];
 
   constructor(
     private salesPointService: SalesPointService,
     private scroll: VirtualScrollService,
-    private page: PageStatusService,
+    public page: PageStatusService,
     private token: TokenService
-  ) { this.sp = this.page.getSp(); }
+  ) {}
 
   ngOnInit() { this.token.loadToken().subscribe(() => {
     this.page.resetSalePointName();
