@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/internal/operators/catchError';
@@ -10,11 +10,14 @@ import {PageStatusService} from './page-status.service';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenService {
+export class TokenService implements OnDestroy {
 
   private token: string;
   private apiKey: string;
   private requestUrl = `${this.httpUtils.getHostname()}/apikey/token`;
+
+  // Subscription
+  private tokenSub = null;
 
   constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private page: PageStatusService) {}
 
@@ -41,7 +44,7 @@ export class TokenService {
   getToken(): string { return this.token; }
 
   private updateToken(reference) {
-    reference.http.post(this.requestUrl, JSON.stringify(this.getBody()), this.httpUtils.getTokenHttpOptions()).pipe(
+    this.tokenSub = reference.http.post(this.requestUrl, JSON.stringify(this.getBody()), this.httpUtils.getTokenHttpOptions()).pipe(
      catchError(this.httpUtils.handleError('update token', [])
      )).subscribe(
       response => {
@@ -56,5 +59,9 @@ export class TokenService {
     return {
       apiKey: this.apiKey
     };
+  }
+
+  ngOnDestroy(): void {
+    if (this.tokenSub !== null) { this.tokenSub.unsubscribe(); }
   }
 }

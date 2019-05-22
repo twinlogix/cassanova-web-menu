@@ -10,6 +10,7 @@ import {of} from 'rxjs';
 export class PageStatusService {
 
   public CATEGORIES = 'categories';
+  public PRODUCTS = 'products'
   public SEARCH = 'search';
   public ERROR = 'error';
   public SALESPOINT = 'salespoint';
@@ -53,6 +54,11 @@ export class PageStatusService {
       case this.CATEGORIES:
         correct = (url.length === 4 && url[3].localeCompare(this.CATEGORIES) === 0);
         break;
+
+      case this.PRODUCTS:
+        correct = (url.length === 5);
+        break;
+
       case this.SEARCH:
         correct = (url.length === 4 && url[3].localeCompare(this.SEARCH) === 0);
         break;

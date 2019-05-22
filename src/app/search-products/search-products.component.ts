@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Product} from '../Product';
 import {MatDialog} from '@angular/material';
 import {PageStatusService} from '../page-status.service';
@@ -16,7 +16,7 @@ import {SalesPointService} from '../sales-point.service';
   templateUrl: './search-products.component.html',
   styleUrls: ['./search-products.component.scss']
 })
-export class SearchProductsComponent implements OnInit {
+export class SearchProductsComponent implements OnInit, OnDestroy {
 
   results: Product[] = [];
   description: string;
@@ -24,6 +24,12 @@ export class SearchProductsComponent implements OnInit {
   private stopLoad = false; // Manage loading request
   private loading = false; // Manage Spinner
   private searchTerms = new Subject<string>();
+
+  // Subscriptions
+  private tokenSub = null;
+  private salesPointSub = null;
+  private searchSub = null;
+  private searchProductSub = null;
 
 
   constructor(
@@ -36,41 +42,39 @@ export class SearchProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.token.loadToken().subscribe(() => {
-      this.salesPointService.loadSalesPoint().subscribe(() => {
+    this.tokenSub = this.token.loadToken().subscribe(() => {
+      this.salesPointSub = this.salesPointService.loadSalesPoint().subscribe(() => {
         this.page.setSalePointName(this.salesPointService.getSalePointName());
-        const observable = this.searchTerms.pipe(
+        if (this.searchSub !== null) { this.searchSub.unsubscribe(); }
+        const obs = this.searchTerms.pipe(
           // wait 300ms after each keystroke before considering the term
           debounceTime(300),
 
           // ignore new term if same as previous term
           distinctUntilChanged(),
         );
-        observable.subscribe(() => {
+        this.searchSub = obs.subscribe(() => {
           this.results = [];
           this.stopLoad = false;
           this.info[0] = 0;
           this.searchProductsService.getProducts(this.description, 0, this.scroll.getLimitShowSearch(), this.results);
-          this.searchProductsService.getProductCount().subscribe(productCount => {
-            console.log(this.info);
-            this.info = productCount;
-          });
+          if (this.searchProductSub !== null) { this.searchProductSub.unsubscribe(); }
+          this.searchProductSub = this.searchProductsService.getProductCount().subscribe(productCount => this.info = productCount);
         });
       });
     });
   }
 
 
-  search(term: string): void {
-    this.searchTerms.next(term);
-  }
+  search(term: string): void { this.searchTerms.next(term); }
 
   private loadMore() {
     if (this.page.isDisabled()) { return; }
     this.loading = true; // Add Spinner
     if (this.results.length + this.scroll.getLimitShowSearch() >= Number.parseInt(this.info[0])) { this.stopLoad = true; } // Stop load more
     // Load products
-    this.searchProductsService.getProducts(this.description, this.results.length, this.scroll.getLimitShowSearch(), this.results).subscribe(() => {
+    if (this.searchProductSub !== null) { this.searchProductSub.unsubscribe(); }
+    this.searchProductSub = this.searchProductsService.getProducts(this.description, this.results.length, this.scroll.getLimitShowSearch(), this.results).subscribe(() => {
       this.results = [... this.results]; // Update Products
       this.loading = false; // Remove Spinner
     });
@@ -88,7 +92,13 @@ export class SearchProductsComponent implements OnInit {
   }
 
    checkLoad(index: number) {
-    if (!this.stopLoad && this.scroll.checkLoadSearch(index, this.results.length)) { this.loadMore(); }
+     if (!this.stopLoad && this.scroll.checkLoadSearch(index, this.results.length)) { this.loadMore(); }
   }
 
+  ngOnDestroy(): void {
+    if (this.tokenSub !== null) { this.tokenSub.unsubscribe(); }
+    if (this.salesPointSub !== null) { this.salesPointSub.unsubscribe(); }
+    if (this.searchProductSub !== null) { this.searchProductSub.unsubscribe(); }
+    if (this.searchSub !== null) { this.searchSub.unsubscribe(); }
+  }
 }

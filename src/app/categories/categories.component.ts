@@ -14,6 +14,7 @@ import {SalesPointService} from '../sales-point.service';
 export class CategoriesComponent implements OnInit, OnDestroy {
 
   categories: Category[] = [];
+
   // Subscriptions
   private tokenSub = null;
   private salesPointSub = null;
@@ -39,11 +40,8 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    /*
-    console.lo
     if (this.tokenSub !== null) { this.tokenSub.unsubscribe(); }
     if (this.salesPointSub !== null) { this.salesPointSub.unsubscribe(); }
     if (this.categorySub !== null) { this.categorySub.unsubscribe(); }
-    */
   }
 }

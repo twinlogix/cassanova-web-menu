@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {TokenService} from './token.service';
 import {HttpClient} from '@angular/common/http';
 import {HttpUtilsService} from './http-utils.service';
@@ -14,13 +14,16 @@ const LOAD_FINISH = 2;
 @Injectable({
   providedIn: 'root'
 })
-export class SalesPointService {
+export class SalesPointService implements OnDestroy {
 
   private salesPointMap: Map<number, SalePoint> = new Map();
   private salesPoint: SalePoint[] = [];
   private requestUrl = `${this.httpUtils.getHostname()}/salespoint`;
   private loading: number;
   private subscription;
+
+  // Subscription
+  private salePointSub = null;
 
   constructor(private token: TokenService,
               private http: HttpClient,
@@ -45,7 +48,7 @@ export class SalesPointService {
     this.subscription = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
       catchError(this.httpUtils.handleError('sales point loading', [])
       ));
-    this.subscription.subscribe(response => {
+    this.salePointSub = this.subscription.subscribe(response => {
       // @ts-ignore
       const salesPoint = response.salesPoint;
       // @ts-ignore
@@ -79,5 +82,9 @@ export class SalesPointService {
   getSalePointName() {
     this.checkIdSalesExist();
     return this.salesPointMap.get(Number.parseInt(this.page.getId())).name;
+  }
+
+  ngOnDestroy() {
+    if (this.salePointSub !== null) { this.salePointSub.unsubscribe(); }
   }
 }

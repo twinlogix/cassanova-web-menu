@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Product } from '../Product';
 import {ProductService} from '../product.service';
 import {ActivatedRoute} from '@angular/router';
@@ -14,7 +14,7 @@ import {SalesPointService} from '../sales-point.service';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
 
   products: Product[] = [];
   categoryName: string[] = []; // [0] State, [1] Category Name, [2] Number products
@@ -22,6 +22,11 @@ export class ProductsComponent implements OnInit {
   private stopLoad = false; // Manage loading request
   private loading = false; // Manage Spinner
 
+  // Subscriptions
+  private tokenSub = null;
+  private salesPointSub = null;
+  private categoryNameSub = null;
+  private productSub = null;
 
   constructor(
     private productService: ProductService,
@@ -34,8 +39,8 @@ export class ProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.token.loadToken().subscribe(() => {
-      this.salesPointService.loadSalesPoint().subscribe(() => {
+    this.tokenSub = this.token.loadToken().subscribe(() => {
+      this.salesPointSub = this.salesPointService.loadSalesPoint().subscribe(() => {
         this.page.setSalePointName(this.salesPointService.getSalePointName());
         this.getProducts();
       });
@@ -47,7 +52,7 @@ export class ProductsComponent implements OnInit {
     if (!this.route.snapshot.paramMap.has('id')) { this.page.goToPage(this.page.ERROR); }
     this.categoryId = this.route.snapshot.paramMap.get('id');
     this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products);
-    this.productService.getCategoryName(this.categoryId).subscribe(categoryName => this.categoryName = categoryName);
+    this.categoryNameSub = this.productService.getCategoryName(this.categoryId).subscribe(categoryName => this.categoryName = categoryName);
   }
 
    checkLoadEnded(): boolean {
@@ -60,7 +65,8 @@ export class ProductsComponent implements OnInit {
     this.loading = true; // Add Spinner
     if (this.products.length + this.scroll.getLimitShow() >= Number.parseInt(this.categoryName[2])) { this.stopLoad = true; } // Stop load more
     // Load products
-    this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products).subscribe(() => {
+    if (this.productSub !== null) { this.productSub.unsubscribe(); }
+    this.productSub = this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products).subscribe(() => {
       this.products = [... this.products]; // Update Products
       this.loading = false; // Remove Spinner
     });
@@ -79,5 +85,12 @@ export class ProductsComponent implements OnInit {
 
   checkLoad(index: number) {
     if (!this.stopLoad && this.scroll.checkLoad(index, this.products.length)) {this.loadMore(); }
+  }
+
+  ngOnDestroy(): void {
+    if (this.tokenSub !== null) { this.tokenSub.unsubscribe(); }
+    if (this.salesPointSub !== null) { this.salesPointSub.unsubscribe(); }
+    if (this.categoryNameSub !== null) { this.categoryNameSub.unsubscribe(); }
+    if (this.productSub !== null) { this.productSub.unsubscribe(); }
   }
 }

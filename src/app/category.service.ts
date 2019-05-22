@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { Category } from './Category';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
@@ -12,12 +12,15 @@ const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class CategoryService  implements  OnDestroy {
 
   private categories: Category[] = [];
   private start = 0;
   private requestUrl;
   private idSalePoint = null;
+
+  // Subscription
+  private categorySub = null;
 
   constructor(private http: HttpClient,
               private httpUtils: HttpUtilsService,
@@ -39,7 +42,7 @@ export class CategoryService {
 
   private loadCategories(): void {
     console.log(`Loading categories from ${this.start} to ${this.start + this.httpUtils.getLoadLimit()}`); // TODO remove log
-    this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
+    this.categorySub = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
       catchError(this.httpUtils.handleError('categories loading', [])
       )).subscribe(response => {
       // @ts-ignore
@@ -77,5 +80,9 @@ export class CategoryService {
       this.start = 0;
       this.updateRequestUrl();
       this.loadCategories();
+  }
+
+  ngOnDestroy(): void {
+    if (this.categorySub !== null) { this.categorySub.unsubscribe(); }
   }
 }

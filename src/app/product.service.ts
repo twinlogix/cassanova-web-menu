@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { Product } from './Product';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
@@ -12,7 +12,7 @@ const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService implements OnDestroy {
 
   static LOAD_ENDED = 'ended';
   static LOAD_STARTED = 'started';
@@ -21,6 +21,9 @@ export class ProductService {
   private categoriesState: Map<string, string[]> = new Map(); // [0] State, [1] Category Name, [2] Number products
   private requestUrl;
   private idSalePoint;
+
+  // Subscription
+  private productSub = null;
 
   constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private page: PageStatusService) {
     const params = this.route.snapshot.queryParams;
@@ -52,7 +55,7 @@ export class ProductService {
     this.updateRequestUrl(idCategory, start, limit); // Create request url
     console.log(`Loading products from ${start} to ${start + limit}`); // TODO remove log
     const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions());
-    res.pipe(
+    this.productSub = res.pipe(
       catchError(this.httpUtils.handleError('products loading', [])
       )).subscribe(response => {
       // @ts-ignore
@@ -104,5 +107,9 @@ export class ProductService {
       return products.length >= start + limit; // True if all the products to return have been requested yet, false otherwise
     }
     return false; // Product's must be requested
+  }
+
+  ngOnDestroy(): void {
+    if (this.productSub !== null) { this.productSub.unsubscribe(); }
   }
 }

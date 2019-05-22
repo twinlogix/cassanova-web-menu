@@ -2,7 +2,8 @@
 <mat-toolbar color="primary" [ngClass]="{disabled: page.isDisabled()}">
   <mat-toolbar-row *ngIf="!isPage(page.ERROR) && !isPage(page.SALESPOINT) && !isPage(page.WRONG)">
       <!-- Home -->
-    <mat-icon routerLink="{{page.getSp()}}/{{page.getId()}}/categories" *ngIf="!isPage(page.CATEGORIES)">home</mat-icon>
+    <mat-icon routerLink="{{page.getSp()}}/{{page.getId()}}/categories" *ngIf="isPage(page.PRODUCTS)">keyboard_arrow_left</mat-icon>
+    <mat-icon routerLink="{{page.getSp()}}/{{page.getId()}}/categories" *ngIf="isPage(page.SEARCH)">close</mat-icon>
     <mat-icon routerLink="{{page.getSp()}}/salespoint" *ngIf="isPage(page.CATEGORIES)">store</mat-icon>
     <div class="space"></div>
     <!-- Padding added when icon present, in order to center the restaurant name -->

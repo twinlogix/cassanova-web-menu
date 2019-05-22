@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {VirtualScrollService} from '../virtual-scroll.service';
 import {SalesPointService} from '../sales-point.service';
 import {PageStatusService} from '../page-status.service';
@@ -10,9 +10,13 @@ import {TokenService} from '../token.service';
   templateUrl: './sales-point.component.html',
   styleUrls: ['./sales-point.component.scss']
 })
-export class SalesPointComponent implements OnInit {
+export class SalesPointComponent implements OnInit, OnDestroy {
 
   salesPoints: SalePoint[] = [];
+
+  // Subscriptions
+  private salesPointSub = null;
+
 
   constructor(
     private salesPointService: SalesPointService,
@@ -28,7 +32,10 @@ export class SalesPointComponent implements OnInit {
 
   private getSalesPoint(): void {
     this.salesPointService.loadSalesPoint();
-    this.salesPointService.getSalesPoints().subscribe( salesPoints =>  this.salesPoints = salesPoints );
+    this.salesPointSub = this.salesPointService.getSalesPoints().subscribe( salesPoints =>  this.salesPoints = salesPoints );
   }
 
+  ngOnDestroy(): void {
+    if (this.salesPointSub !== null) { this.salesPointSub.unsubscribe(); }
+  }
 }

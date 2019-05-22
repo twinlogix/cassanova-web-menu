@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {fromEvent} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class VirtualScrollService {
+export class VirtualScrollService implements  OnDestroy {
 
   private limitShow = 6;
   private itemShow = 5;
@@ -14,10 +14,13 @@ export class VirtualScrollService {
   public viewPortSize;
   public viewPortSizeSearch;
 
+  // Subscription
+  private resizeSub = null;
+
   constructor() {
     this.updateScreenSize(window.innerHeight, window.innerWidth);
     // @ts-ignore
-    fromEvent(window, 'resize').subscribe(window => this.updateScreenSize(window.currentTarget.innerHeight, window.currentTarget.innerWidth));
+    this.resizeSub = fromEvent(window, 'resize').subscribe(window => this.updateScreenSize(window.currentTarget.innerHeight, window.currentTarget.innerWidth));
   }
 
   getLimitShow(): number { return this.limitShow; }
@@ -43,5 +46,9 @@ export class VirtualScrollService {
       'min-heihgt': '100%',
       width: widthView
     };
+  }
+
+  ngOnDestroy(): void {
+    if (this.resizeSub !== null) { this.resizeSub.unsubscribe(); }
   }
 }

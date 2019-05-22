@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import {Product} from './Product';
 import {HttpClient} from '@angular/common/http';
 import {HttpUtilsService} from './http-utils.service';
@@ -12,11 +12,14 @@ const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'
 })
-export class SearchProductsService {
+export class SearchProductsService implements OnDestroy {
 
   private info: string[] = []; // [0] Number products
   private requestUrl;
   private idSalesPoint;
+
+  // Subscription
+  private searchProductSub = null;
 
   constructor(private http: HttpClient,
               private httpUtils: HttpUtilsService,
@@ -33,7 +36,7 @@ export class SearchProductsService {
     this.updateRequestUrl(description, start, limit); // Create request url
     console.log(`Loading products from ${start} to ${start + limit}`); // TODO remove log
     const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions());
-    res.pipe(
+    this.searchProductSub = res.pipe(
       catchError(this.httpUtils.handleError('products loading', [])
       )).subscribe(response => {
       // @ts-ignore
@@ -63,5 +66,9 @@ export class SearchProductsService {
 
   private updateRequestUrl(description: string, start: number, limit: number): void {
     this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&description="${description}"&idsSalesPoint=[${this.idSalesPoint}]`;
+  }
+
+  ngOnDestroy() {
+    if (this.searchProductSub !== null) { this.searchProductSub.unsubscribe(); }
   }
 }
