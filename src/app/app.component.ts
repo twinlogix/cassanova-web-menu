@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import {PageStatusService} from './page-status.service';
-import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +8,8 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class AppComponent {
   title = 'cassanova-web-menu';
-  sp: string;
-  id: string;
 
-  constructor(private page: PageStatusService, private route: ActivatedRoute) {}
+  constructor(private page: PageStatusService) { }
 
   private isPage(page: string): boolean { return this.page.isPage(page); }
 }

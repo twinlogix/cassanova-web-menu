@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {Route, Router} from '@angular/router';
-import {PageStatusService} from './page-status.service';
+import {Router} from '@angular/router';
 import {environment} from '../environments/environment';
+import {PageStatusService} from './page-status.service';
 
 const LOAD_LIMIT = 10;
 const TOKEN_HTTP_OPTIONS = {
@@ -34,7 +34,7 @@ export class HttpUtilsService {
     return (error: any): Observable<T> => {
       console.error(error);
       console.log(`${operation} failed: ${error.message}`);
-      this.router.navigateByUrl(this.page.ERROR);
+      this.page.goToPage(this.page.ERROR);
       return of(result as T);
     };
   }

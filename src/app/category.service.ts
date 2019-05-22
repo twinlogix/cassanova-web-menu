@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
 import {TokenService} from './token.service';
 import {HttpClient} from '@angular/common/http';
-import {catchError, retry} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SalesPointService} from './sales-point.service';
@@ -28,7 +28,6 @@ export class CategoryService {
 
     this.salesPoints.checkIdSalesExist();
     const id = this.page.getId();
-    console.log('Current id: ' + this.idSalePoint + ' New id: ' + id);
     if (this.idSalePoint === null) { // First request
       this.loadNewCategory(id);
     } else if (id.toLocaleString().localeCompare(this.idSalePoint.toLocaleString()) !== 0) { // New sales point
@@ -40,7 +39,6 @@ export class CategoryService {
   private loadCategories(): void {
     console.log(`Loading categories from ${this.start} to ${this.start + this.httpUtils.getLoadLimit()}`); // TODO remove log
     this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
-      retry(3),
       catchError(this.httpUtils.handleError('categories loading', [])
       )).subscribe(response => {
       // @ts-ignore
@@ -76,7 +74,7 @@ export class CategoryService {
       this.categories = []; // Remove previous reference
       this.idSalePoint = id;
       this.start = 0;
-      this.requestUrl = `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]`;
+      this.updateRequestUrl();
       this.loadCategories();
   }
 }

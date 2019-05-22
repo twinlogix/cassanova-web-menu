@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {HttpUtilsService} from './http-utils.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
-import {catchError, count, retry} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {SalePoint} from './SalePoint';
 import {PageStatusService} from './page-status.service';
 
@@ -41,7 +41,6 @@ export class SalesPointService {
 
     console.log('Loading sales point'); // TODO remove log
     this.subscription = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
-      retry(3),
       catchError(this.httpUtils.handleError('sales point loading', [])
       ));
     this.subscription.subscribe(response => {
@@ -73,5 +72,10 @@ export class SalesPointService {
     if (!this.salesPointMap.has(Number.parseInt(this.page.getId()))) { // If SalesPoint doesn't exist, navigate to salesPoint page
       this.page.goToPage(this.page.SALESPOINT);
     }
+  }
+
+  getSalePointName() {
+    this.checkIdSalesExist();
+    return this.salesPointMap.get(Number.parseInt(this.page.getId())).name;
   }
 }

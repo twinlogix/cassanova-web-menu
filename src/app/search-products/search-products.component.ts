@@ -42,8 +42,7 @@ export class SearchProductsComponent implements OnInit {
   ngOnInit() {
     this.token.loadToken().subscribe(() => {
       this.salesPointService.loadSalesPoint().subscribe(() => {
-        this.salesPointService.checkIdSalesExist();
-        console.log('Loaded');
+        this.page.setSalePointName(this.salesPointService.getSalePointName());
         const observable = this.searchTerms.pipe(
           // wait 300ms after each keystroke before considering the term
           debounceTime(300),

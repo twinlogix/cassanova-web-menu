@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/internal/operators/catchError';
-import {retry} from 'rxjs/operators';
 import {tap} from 'rxjs/internal/operators/tap';
 import {of} from 'rxjs/internal/observable/of';
 import {HttpUtilsService} from './http-utils.service';
@@ -31,7 +30,6 @@ export class TokenService {
       console.log('Loading token'); // TODO remove log
       this.apiKey = apiKey;
       return this.http.post(this.requestUrl, JSON.stringify(this.getBody()), this.httpUtils.getTokenHttpOptions()).pipe(
-        retry(3),
         tap(response => {
           // @ts-ignore
           this.token = response.access_token;
@@ -49,7 +47,6 @@ export class TokenService {
 
   private updateToken(reference) {
     reference.http.post(this.requestUrl, JSON.stringify(this.getBody()), this.httpUtils.getTokenHttpOptions()).pipe(
-     retry(3),
      catchError(this.httpUtils.handleError('update token', [])
      )).subscribe(
       response => {
