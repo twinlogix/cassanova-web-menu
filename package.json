@@ -3,13 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port {$PORT}",
-    "start2": "node server.js",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "heroku-postinstall": "ng build --prod"
+    "heroku-postinstall": "ng build --aot --production"
   },
   "private": true,
   "dependencies": {
@@ -38,7 +37,7 @@
     "@angular/compiler-cli": "~7.2.0",
     "typescript": "~3.2.2"
   },
-  "devDependencies": {            
+  "devDependencies": {
     "@angular/language-service": "~7.2.0",
     "@types/node": "~8.9.4",
     "@types/jasmine": "~2.8.8",
