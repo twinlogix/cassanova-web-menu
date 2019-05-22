@@ -1,12 +1,12 @@
 <!-- Toolbar -->
 <mat-toolbar color="primary" [ngClass]="{disabled: page.isDisabled()}">
-  <mat-toolbar-row *ngIf="!isPage(page.ERROR) && !isPage(page.SALESPOINT)">
+  <mat-toolbar-row *ngIf="!isPage(page.ERROR) && !isPage(page.SALESPOINT) && !isPage(page.WRONG)">
       <!-- Home -->
     <mat-icon routerLink="{{page.getSp()}}/{{page.getId()}}/categories" *ngIf="!isPage(page.CATEGORIES)">home</mat-icon>
     <mat-icon routerLink="{{page.getSp()}}/salespoint" *ngIf="isPage(page.CATEGORIES)">store</mat-icon>
     <div class="space"></div>
     <!-- Padding added when icon present, in order to center the restaurant name -->
-    <h1 class="overflow-text" [ngStyle]="{'padding-right': isPage(page.SEARCH)?'32px':'0px' }">Nome Ristorante</h1>
+    <h1 class="overflow-text" [ngStyle]="{'padding-right': isPage(page.SEARCH)?'32px':'0px' }">{{page.getSalePointName() | async}}</h1>
     <div class="space"></div>
     <mat-icon routerLink="{{page.getSp()}}/{{page.getId()}}/search" *ngIf="!isPage(page.SEARCH)">search</mat-icon>
   </mat-toolbar-row>

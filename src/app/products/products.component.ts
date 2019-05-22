@@ -38,6 +38,7 @@ export class ProductsComponent implements OnInit {
   ngOnInit() {
     this.token.loadToken().subscribe(() => {
       this.salesPointService.loadSalesPoint().subscribe(() => {
+        this.page.setSalePointName(this.salesPointService.getSalePointName());
         this.getProducts();
       });
     });

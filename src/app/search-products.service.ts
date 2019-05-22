@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {PageStatusService} from './page-status.service';
+import {SalesPointService} from './sales-point.service';
 
 const defaultImageUrl = '/assets/default.png';
 
@@ -18,19 +19,24 @@ export class SearchProductsService {
   private requestUrl;
   private idSalesPoint;
 
-  constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router, private page: PageStatusService) {}
+  constructor(private http: HttpClient,
+              private httpUtils: HttpUtilsService,
+              private route: ActivatedRoute,
+              private router: Router,
+              private page: PageStatusService,
+              private salesPoint: SalesPointService) {}
 
   getProducts(description: string, start: number, limit: number, result: Product[] ): Observable<any> {
       return this.loadProducts(description, start, limit, result);
   }
 
   loadProducts(description: string, start: number, limit: number, result: Product[]): Observable<any> {
+    this.salesPoint.checkIdSalesExist();
     this.idSalesPoint = this.page.getId();
     this.updateRequestUrl(description, start, limit); // Create request url
     console.log(`Loading products from ${start} to ${start + limit}`); // TODO remove log
     const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions());
     res.pipe(
-      retry(3),
       catchError(this.httpUtils.handleError('products loading', [])
       )).subscribe(response => {
       // @ts-ignore
@@ -59,6 +65,6 @@ export class SearchProductsService {
   getProductCount(): Observable<string[]> { return of(this.info); }
 
   private updateRequestUrl(description: string, start: number, limit: number): void {
-    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&description="${description}"&idsSalesPoints=["${this.idSalesPoint}"]`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&description="${description}"&idsSalesPoint=[${this.idSalesPoint}]`;
   }
 }

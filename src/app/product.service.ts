@@ -3,7 +3,7 @@ import { Product } from './Product';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
 import {HttpClient} from '@angular/common/http';
-import {catchError, retry} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {PageStatusService} from './page-status.service';
@@ -32,7 +32,6 @@ export class ProductService {
 
   getProducts(categoryId: string, start: number, limit: number, result: Product[] ): Observable<any> {
     const id = this.page.getId();
-    console.log('Current id: ' + this.idSalePoint + ' New id: ' + id);
     if (this.idSalePoint !== null && id.toLocaleString().localeCompare(this.idSalePoint.toLocaleString()) !== 0) { // New sales point
       this.products = new Map();
       this.categoriesState = new Map();
@@ -57,7 +56,6 @@ export class ProductService {
     console.log(`Loading products from ${start} to ${start + limit}`); // TODO remove log
     const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions());
     res.pipe(
-      retry(3),
       catchError(this.httpUtils.handleError('products loading', [])
       )).subscribe(response => {
       // @ts-ignore
@@ -96,7 +94,7 @@ export class ProductService {
   getCategoryName(categoryId: string): Observable<string[]> { return of(this.categoriesState.get(categoryId)); }
 
   private updateRequestUrl(idCategory: string, start: number, limit: number): void {
-    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoints=["${this.idSalePoint}"]`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoint=[${this.idSalePoint}]`;
   }
 
 

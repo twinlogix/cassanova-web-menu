@@ -2,6 +2,8 @@ import {HostListener, Injectable} from '@angular/core';
 import { Location } from '@angular/common';
 import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
+import {SalesPointService} from './sales-point.service';
+import {of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +14,19 @@ export class PageStatusService {
   public SEARCH = 'search';
   public ERROR = 'error';
   public SALESPOINT = 'salespoint';
+  public WRONG = 'wrong';
 
 
   private disabled = false;
   private dialog;
 
+  public salePointName;
+
 
 
   constructor(private location: Location, private router: Router, private route: ActivatedRoute) {
+
+    this.salePointName = '';
 
     router.events.pipe(
      filter(
@@ -55,6 +62,10 @@ export class PageStatusService {
         break;
       case this.SALESPOINT:
         correct = (url.length === 3 && url[2].localeCompare(this.SALESPOINT) === 0);
+        break;
+      case this.WRONG:
+        correct = (url.length === 1 || url.length === 2 && url[1].localeCompare(this.ERROR) !== 0);
+        break;
     }
     return correct;
   }
@@ -89,6 +100,18 @@ export class PageStatusService {
         this.router.navigateByUrl(this.ERROR);
         break;
     }
+  }
+
+  setSalePointName(name: string) {
+    this.salePointName = name;
+  }
+
+  resetSalePointName() {
+    this.salePointName = '';
+  }
+
+  getSalePointName() {
+    return of(this.salePointName);
   }
 
   private checkHasId() {

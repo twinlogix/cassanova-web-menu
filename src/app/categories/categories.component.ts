@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {PageStatusService} from '../page-status.service';
 import {TokenService} from '../token.service';
 import {SalesPointService} from '../sales-point.service';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-categories',
@@ -29,9 +30,9 @@ export class CategoriesComponent implements OnInit {
   getCategories(): void {
     this.token.loadToken().subscribe(() => {
       this.salesPointService.loadSalesPoint().subscribe(() => {
+        this.page.setSalePointName(this.salesPointService.getSalePointName());
         this.categoryService.getCategories().subscribe( categories =>  this.categories = categories );
       });
     });
   }
-
 }
