@@ -9,7 +9,7 @@
   <!-- Content -->
   <mat-card-content *ngIf="products.length > 0" class = "center" [ngClass]="{disabled: page.isDisabled()}">
     <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport [itemSize]="this.scroll.itemSize" [ngStyle]= "this.scroll.viewPortSize" (scrolledIndexChange)="checkLoad($event)">
+    <cdk-virtual-scroll-viewport itemSize="{{scroll.itemSize}}" [ngStyle]= "scroll.viewPortSize" (scrolledIndexChange)="checkLoad($event)">
       <!-- Products -->
       <div *cdkVirtualFor="let product of products;" class="line" (click)="openDetail(product)">
         <!-- Image -->

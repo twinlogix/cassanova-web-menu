@@ -5,12 +5,9 @@ import {of} from 'rxjs/internal/observable/of';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {PageStatusService} from './page-status.service';
-/*
-const idSalesPoint = 333;
-// const idSalesPoint = 311;
-*/
+
 const defaultImageUrl = '/assets/default.png';
 @Injectable({
   providedIn: 'root'

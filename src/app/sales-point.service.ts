@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {TokenService} from './token.service';
 import {HttpClient} from '@angular/common/http';
 import {HttpUtilsService} from './http-utils.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {SalePoint} from './SalePoint';
@@ -23,7 +22,10 @@ export class SalesPointService {
   private loading: number;
   private subscription;
 
-  constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router, private page: PageStatusService) {
+  constructor(private token: TokenService,
+              private http: HttpClient,
+              private httpUtils: HttpUtilsService,
+              private page: PageStatusService) {
     this.loading = NOT_LOADING;
   }
 

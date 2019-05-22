@@ -7,7 +7,6 @@ import {SearchProductsComponent} from './search-products/search-products.compone
 import {SalesPointComponent} from './sales-point/sales-point.component';
 
 const routes: Routes = [
-  // { path: '/:sp/categories', redirectTo: 'categories', pathMatch: 'full'},
   { path: ':sp/:idSp/categories', component: CategoriesComponent },
   { path: ':sp/:idSp/categories/:id', component: ProductsComponent },
   { path: ':sp/:idSp/search', component: SearchProductsComponent },

@@ -1,4 +1,4 @@
-import {HostListener, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {fromEvent} from 'rxjs';
 
 @Injectable({

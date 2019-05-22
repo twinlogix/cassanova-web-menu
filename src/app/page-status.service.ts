@@ -1,8 +1,7 @@
-import {HostListener, Injectable} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Location } from '@angular/common';
-import {ActivatedRoute, NavigationStart, Router} from '@angular/router';
+import {NavigationStart, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
-import {SalesPointService} from './sales-point.service';
 import {of} from 'rxjs';
 
 @Injectable({
@@ -24,7 +23,7 @@ export class PageStatusService {
 
 
 
-  constructor(private location: Location, private router: Router, private route: ActivatedRoute) {
+  constructor(private location: Location, private router: Router) {
 
     this.salePointName = '';
 

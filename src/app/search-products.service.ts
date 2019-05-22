@@ -2,9 +2,8 @@ import { Injectable } from '@angular/core';
 import {Product} from './Product';
 import {HttpClient} from '@angular/common/http';
 import {HttpUtilsService} from './http-utils.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
-import {catchError, retry} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {PageStatusService} from './page-status.service';
 import {SalesPointService} from './sales-point.service';
 
@@ -21,8 +20,6 @@ export class SearchProductsService {
 
   constructor(private http: HttpClient,
               private httpUtils: HttpUtilsService,
-              private route: ActivatedRoute,
-              private router: Router,
               private page: PageStatusService,
               private salesPoint: SalesPointService) {}
 

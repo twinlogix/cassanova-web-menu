@@ -1,21 +1,23 @@
-import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Category } from '../Category';
 import {CategoryService} from '../category.service';
 import {VirtualScrollService} from '../virtual-scroll.service';
-import {ActivatedRoute} from '@angular/router';
 import {PageStatusService} from '../page-status.service';
 import {TokenService} from '../token.service';
 import {SalesPointService} from '../sales-point.service';
-import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
 
   private categories: Category[] = [];
+  // Subscriptions
+  private tokenSub = null;
+  private salesPointSub = null;
+  private categorySub = null;
 
   constructor(
     private categoryService: CategoryService,
@@ -28,11 +30,20 @@ export class CategoriesComponent implements OnInit {
   ngOnInit() { this.getCategories(); }
 
   getCategories(): void {
-    this.token.loadToken().subscribe(() => {
-      this.salesPointService.loadSalesPoint().subscribe(() => {
+    this.tokenSub = this.token.loadToken().subscribe(() => {
+      this.salesPointSub = this.salesPointService.loadSalesPoint().subscribe(() => {
         this.page.setSalePointName(this.salesPointService.getSalePointName());
-        this.categoryService.getCategories().subscribe( categories =>  this.categories = categories );
+        this.categorySub = this.categoryService.getCategories().subscribe( categories =>  this.categories = categories );
       });
     });
+  }
+
+  ngOnDestroy(): void {
+    /*
+    console.lo
+    if (this.tokenSub !== null) { this.tokenSub.unsubscribe(); }
+    if (this.salesPointSub !== null) { this.salesPointSub.unsubscribe(); }
+    if (this.categorySub !== null) { this.categorySub.unsubscribe(); }
+    */
   }
 }

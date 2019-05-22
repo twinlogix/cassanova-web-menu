@@ -2,11 +2,9 @@ import { Injectable } from '@angular/core';
 import { Category } from './Category';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
-import {TokenService} from './token.service';
 import {HttpClient} from '@angular/common/http';
 import {catchError} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {SalesPointService} from './sales-point.service';
 import {PageStatusService} from './page-status.service';
 
@@ -21,7 +19,10 @@ export class CategoryService {
   private requestUrl;
   private idSalePoint = null;
 
-  constructor(private token: TokenService, private http: HttpClient, private httpUtils: HttpUtilsService, private route: ActivatedRoute, private router: Router, private salesPoints: SalesPointService, private page: PageStatusService) {}
+  constructor(private http: HttpClient,
+              private httpUtils: HttpUtilsService,
+              private salesPoints: SalesPointService,
+              private page: PageStatusService) {}
 
   // Return all the categories
   getCategories(): Observable<Category[]> {

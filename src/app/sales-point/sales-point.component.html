@@ -9,7 +9,7 @@
   <!-- Content -->
   <mat-card-content *ngIf="salesPoints.length > 0" class = "center" [ngClass]="{disabled: page.isDisabled()}">
     <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport [itemSize]="this.scroll.itemSize" [ngStyle]= "this.scroll.viewPortSize">
+    <cdk-virtual-scroll-viewport itemSize="{{scroll.itemSize}}" [ngStyle]= "scroll.viewPortSize">
       <!-- Products -->
       <div *cdkVirtualFor="let salePoint of salesPoints;" class="line" clickable routerLink="/{{page.getSp()}}/{{salePoint.id}}/categories">
         <!-- Text -->

@@ -18,7 +18,7 @@
   <mat-card-content class = "center" [ngClass]="{disabled: page.isDisabled()}">
 
     <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport [itemSize]="this.scroll.itemSize" [ngStyle]= "this.scroll.viewPortSizeSearch" (scrolledIndexChange)="checkLoad($event)">
+    <cdk-virtual-scroll-viewport itemSize="{{scroll.itemSize}}" [ngStyle]= "scroll.viewPortSizeSearch" (scrolledIndexChange)="checkLoad($event)">
       <!-- Products -->
       <div *cdkVirtualFor="let product of results;" class="line" (click)="openDetail(product)">
         <!-- Image -->

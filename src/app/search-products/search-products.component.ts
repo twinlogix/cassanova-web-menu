@@ -1,6 +1,5 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Product} from '../Product';
-import {ActivatedRoute, Router} from '@angular/router';
 import {MatDialog} from '@angular/material';
 import {PageStatusService} from '../page-status.service';
 import {VirtualScrollService} from '../virtual-scroll.service';
@@ -29,12 +28,9 @@ export class SearchProductsComponent implements OnInit {
 
   constructor(
     private searchProductsService: SearchProductsService,
-    private route: ActivatedRoute,
-    private router: Router,
     public dialog: MatDialog,
     private page: PageStatusService,
     private scroll: VirtualScrollService,
-    private elem: ElementRef,
     private salesPointService: SalesPointService,
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
@@ -75,7 +71,7 @@ export class SearchProductsComponent implements OnInit {
     });
   }
 
-  private openDetail(product: Product): void {
+   openDetail(product: Product): void {
     if (this.page.isDisabled()) { return; }
     const dialogRef = this.dialog.open(ProductDetailComponent, { data: product }); // Open Dialog
     this.page.setDisable(true); // Disable all page (not Dialog)
@@ -86,7 +82,7 @@ export class SearchProductsComponent implements OnInit {
     this.page.addDialog(dialogRef);
   }
 
-  private checkLoad(index: number) {
+   checkLoad(index: number) {
     if (!this.stopLoad && this.scroll.checkLoadSearch(index, this.results.length)) { this.loadMore(); }
   }
 

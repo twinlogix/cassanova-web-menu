@@ -1,7 +1,7 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Product } from '../Product';
 import {ProductService} from '../product.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ProductDetailComponent} from '../product-detail/product-detail.component';
 import {PageStatusService} from '../page-status.service';
@@ -26,11 +26,9 @@ export class ProductsComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    private router: Router,
     public dialog: MatDialog,
     private page: PageStatusService,
     private scroll: VirtualScrollService,
-    private elem: ElementRef,
     private salesPointService: SalesPointService,
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
@@ -52,12 +50,12 @@ export class ProductsComponent implements OnInit {
     this.productService.getCategoryName(this.categoryId).subscribe(categoryName => this.categoryName = categoryName);
   }
 
-  private checkLoadEnded(): boolean {
+   checkLoadEnded(): boolean {
     return     this.categoryName.length // Load start
             && this.categoryName[0] === ProductService.LOAD_ENDED; // Load end
   }
 
-  private loadMore() {
+   private loadMore() {
     if (this.page.isDisabled()) { return; }
     this.loading = true; // Add Spinner
     if (this.products.length + this.scroll.getLimitShow() >= Number.parseInt(this.categoryName[2])) { this.stopLoad = true; } // Stop load more
@@ -68,7 +66,7 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-  private openDetail(product: Product): void {
+   openDetail(product: Product): void {
     if (this.page.isDisabled()) { return; }
     const dialogRef = this.dialog.open(ProductDetailComponent, { data: product }); // Open Dialog
     this.page.setDisable(true); // Disable all page (not Dialog)
@@ -79,7 +77,7 @@ export class ProductsComponent implements OnInit {
     this.page.addDialog(dialogRef);
   }
 
-  private checkLoad(index: number) {
+  checkLoad(index: number) {
     if (!this.stopLoad && this.scroll.checkLoad(index, this.products.length)) {this.loadMore(); }
   }
 }
