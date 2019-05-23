@@ -6,13 +6,13 @@
   <!-- Carousel -->
   <mdb-carousel class="center" *ngIf="product.imageUrls.length > 1" [animation]="'slide'">
     <mdb-carousel-item *ngFor="let image of product.imageUrls">
-        <span class="centerVertical"></span>
+        <span aria-hidden="true" class="centerVertical"></span>
         <img src="{{image}}">
     </mdb-carousel-item>
   </mdb-carousel>
   <!-- Don't show carousel if only one image is present -->
   <div *ngIf="product.imageUrls.length === 1"  class="img-container center">
-    <span class="centerVertical"></span>
+    <span aria-hidden="true" class="centerVertical"></span>
     <img src="{{product.imageUrls[0]}}">
   </div>
   <!-- Text -->

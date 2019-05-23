@@ -14,7 +14,7 @@
       <a *cdkVirtualFor="let product of products;" class="line" (click)="openDetail(product)">
         <!-- Image -->
         <div class="img-container">
-            <span class="centerVertical"></span>
+            <span aria-hidden="true" class="centerVertical"></span>
             <img src="{{product.imageUrls[0]}}">
         </div>
         <!-- Text -->

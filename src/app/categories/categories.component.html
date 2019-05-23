@@ -14,12 +14,12 @@
       <a *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="{{category.id}}">
         <!-- Image -->
         <div class="img-container">
-          <span class="centerVertical"></span>
+          <span aria-hidden="true" class="centerVertical"></span>
           <img src="{{category.imageUrl}}"/>
         </div>
         <!-- Text -->
         <div class="text-container">
-          <p class="vertical-align">
+          <p aria-hidden="true" class="vertical-align">
             <span class="category-name overflow-text">{{category.name}}</span>
           </p>
         </div>
