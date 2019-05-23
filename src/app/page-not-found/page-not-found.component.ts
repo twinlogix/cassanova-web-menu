@@ -8,7 +8,7 @@ import {PageStatusService} from '../page-status.service';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor(private page: PageStatusService) { }
+  constructor(public page: PageStatusService) { }
 
   ngOnInit() {
    this.page.resetSalePointName();
