@@ -28,7 +28,7 @@ export class ProductService {
     this.idSalePoint = params.hasOwnProperty('id') ? params.id : null;
   }
 
-  getProducts(categoryId: string, start: number, limit: number, result: Product[] ): Observable<any> {
+  public getProducts(categoryId: string, start: number, limit: number, result: Product[] ): Observable<any> {
     const id = this.page.getId();
     if (this.idSalePoint !== null && id.toLocaleString().localeCompare(this.idSalePoint.toLocaleString()) !== 0) { // New sales point
       this.products = new Map();
@@ -48,7 +48,7 @@ export class ProductService {
     }
   }
 
-  loadProducts(idCategory: string, start: number, limit: number, result: Product[]): Observable<any> {
+  public loadProducts(idCategory: string, start: number, limit: number, result: Product[]): Observable<any> {
     this.updateRequestUrl(idCategory, start, limit); // Create request url
     // console.log(`Loading products from ${start} to ${start + limit}`); // TODO log
     const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
@@ -88,7 +88,7 @@ export class ProductService {
     return res;
   }
 
-  getCategoryName(categoryId: string): Observable<string[]> { return of(this.categoriesState.get(categoryId)); }
+  public getCategoryName(categoryId: string): Observable<string[]> { return of(this.categoriesState.get(categoryId)); }
 
   private updateRequestUrl(idCategory: string, start: number, limit: number): void {
     this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoint=[${this.idSalePoint}]`;

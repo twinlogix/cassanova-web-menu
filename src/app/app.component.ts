@@ -11,5 +11,5 @@ export class AppComponent {
 
   constructor(public page: PageStatusService) { }
 
-  isPage(page: string): boolean { return this.page.isPage(page); }
+  public isPage(page: string): boolean { return this.page.isPage(page); }
 }

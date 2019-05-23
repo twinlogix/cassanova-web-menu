@@ -31,9 +31,9 @@ export class SalesPointService {
   }
 
   // Return all the categories
-  getSalesPoints(): Observable<SalePoint[]> { return of(this.salesPoint); }
+  public getSalesPoints(): Observable<SalePoint[]> { return of(this.salesPoint); }
 
-  loadSalesPoint(): Observable<any> {
+  public loadSalesPoint(): Observable<any> {
     if (this.loading === LOAD_FINISH) { // SalesPoint yet loaded
       return of(true);
     } else if (this.loading === LOAD_START) { // SalesPoint loading
@@ -72,13 +72,13 @@ export class SalesPointService {
     return this.subscription;
   }
   // SalesPoint must be yet loaded
-  checkIdSalesExist() {
+  public checkIdSalesExist() {
     if (!this.salesPointMap.has(Number.parseInt(this.page.getId()))) { // If SalesPoint doesn't exist, navigate to salesPoint page
       this.page.goToPage(this.page.SALESPOINT);
     }
   }
 
-  getSalePointName() {
+  public getSalePointName() {
     this.checkIdSalesExist();
     return this.salesPointMap.get(Number.parseInt(this.page.getId())).name;
   }

@@ -23,7 +23,7 @@ export class TokenService implements OnDestroy {
   constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private page: PageStatusService) {}
 
 
-  loadToken(): Observable<any> {
+  public loadToken(): Observable<any> {
     const apiKey = this.page.getSp();
     if (this.token === undefined || this.apiKey.localeCompare(apiKey) !== 0) { // Load token
       // console.log('Loading token'); // TODO log
@@ -43,7 +43,7 @@ export class TokenService implements OnDestroy {
     }
   }
 
-  getToken(): string { return this.token; }
+  public getToken(): string { return this.token; }
 
   private updateToken(reference) {
     this.tokenSub = reference.http.post(this.requestUrl, JSON.stringify(this.getBody()), this.httpUtils.getTokenHttpOptions()).pipe(

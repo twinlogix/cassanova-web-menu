@@ -30,7 +30,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   ngOnInit() { this.getCategories(); }
 
-  getCategories(): void {
+  public getCategories(): void {
     this.tokenSub = this.token.loadToken().subscribe(() => {
       this.salesPointSub = this.salesPointService.loadSalesPoint().subscribe(() => {
         this.page.setSalePointName(this.salesPointService.getSalePointName());

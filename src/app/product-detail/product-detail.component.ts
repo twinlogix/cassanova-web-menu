@@ -16,5 +16,5 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {}
 
-  closeDialog(): void { this.dialogRef.close(); }
+  public closeDialog(): void { this.dialogRef.close(); }
 }

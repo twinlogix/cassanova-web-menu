@@ -23,11 +23,11 @@ export class VirtualScrollService implements  OnDestroy {
     this.resizeSub = fromEvent(window, 'resize').subscribe(window => this.updateScreenSize(window.currentTarget.innerHeight, window.currentTarget.innerWidth));
   }
 
-  getLimitShow(): number { return this.limitShow; }
-  checkLoad(index: number, lenght: number): boolean { return index + this.itemShow === lenght; }
+  public getLimitShow(): number { return this.limitShow; }
+  public checkLoad(index: number, lenght: number): boolean { return index + this.itemShow === lenght; }
 
-  getLimitShowSearch(): number { return this.limitShowSearch; }
-  checkLoadSearch(index: number, lenght: number): boolean { return index + this.itemShowSearch === lenght; }
+  public getLimitShowSearch(): number { return this.limitShowSearch; }
+  public checkLoadSearch(index: number, lenght: number): boolean { return index + this.itemShowSearch === lenght; }
 
 
   private updateScreenSize(height: number, width: number) {

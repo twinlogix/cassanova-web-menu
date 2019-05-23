@@ -41,15 +41,15 @@ export class PageStatusService implements OnDestroy {
    });
  }
 
-  setDisable(disable: boolean) { this.disabled = disable; }
+  public setDisable(disable: boolean) { this.disabled = disable; }
 
-  isDisabled(): boolean { return this.disabled; }
+  public isDisabled(): boolean { return this.disabled; }
 
-  addDialog(dialog): void { this.dialog = dialog; }
+  public addDialog(dialog): void { this.dialog = dialog; }
 
-  removeDialog(): void { this.dialog = undefined; }
+  public removeDialog(): void { this.dialog = undefined; }
 
-  isPage(page: string): boolean {
+  public isPage(page: string): boolean {
     const url = this.getUrl();
     let correct = true;
     switch (page) {
@@ -77,23 +77,23 @@ export class PageStatusService implements OnDestroy {
     return correct;
   }
 
-  checkCorrectSp() {
+  public checkCorrectSp() {
     if (this.getUrl().length < 2) { // Missing sp, redirect to 'error'
       this.goToPage(this.ERROR);
     }
   }
 
-  getSp() {
+  public getSp() {
     this.checkCorrectSp();
     return this.getUrl()[1];
   }
 
-  getId() {
+  public getId() {
     this.checkHasId();
     return this.getUrl()[2];
   }
 
-  goToPage(page: string) {
+  public goToPage(page: string) {
     switch (page) {
       case this.SALESPOINT:
         this.router.navigateByUrl(this.getSp() + '/' + this.SALESPOINT);
@@ -109,15 +109,15 @@ export class PageStatusService implements OnDestroy {
     }
   }
 
-  setSalePointName(name: string) {
+  public setSalePointName(name: string) {
     this.salePointName = name;
   }
 
-  resetSalePointName() {
+  public resetSalePointName() {
     this.salePointName = '';
   }
 
-  getSalePointName() {
+  public getSalePointName() {
     return of(this.salePointName);
   }
 

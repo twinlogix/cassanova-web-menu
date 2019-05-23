@@ -24,11 +24,11 @@ export class SearchProductsService {
               private page: PageStatusService,
               private salesPoint: SalesPointService) {}
 
-  getProducts(description: string, start: number, limit: number, result: Product[] ): Observable<any> {
+  public getProducts(description: string, start: number, limit: number, result: Product[] ): Observable<any> {
       return this.loadProducts(description, start, limit, result);
   }
 
-  loadProducts(description: string, start: number, limit: number, result: Product[]): Observable<any> {
+  public loadProducts(description: string, start: number, limit: number, result: Product[]): Observable<any> {
     this.salesPoint.checkIdSalesExist();
     this.idSalesPoint = this.page.getId();
     this.updateRequestUrl(description, start, limit); // Create request url
@@ -59,7 +59,7 @@ export class SearchProductsService {
     return res;
   }
 
-  getProductCount(): Observable<string[]> { return of(this.info); }
+  public getProductCount(): Observable<string[]> { return of(this.info); }
 
   private updateRequestUrl(description: string, start: number, limit: number): void {
     this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&description="${description}"&idsSalesPoint=[${this.idSalesPoint}]`;

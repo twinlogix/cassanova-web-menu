@@ -28,7 +28,7 @@ export class CategoryService  implements  OnDestroy {
               private page: PageStatusService) {}
 
   // Return all the categories
-  getCategories(): Observable<Category[]> {
+  public getCategories(): Observable<Category[]> {
 
     this.salesPoints.checkIdSalesExist();
     const id = this.page.getId();

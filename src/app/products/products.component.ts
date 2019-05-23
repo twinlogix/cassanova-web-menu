@@ -55,7 +55,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.categoryNameSub = this.productService.getCategoryName(this.categoryId).subscribe(categoryName => this.categoryName = categoryName);
   }
 
-   checkLoadEnded(): boolean {
+   public checkLoadEnded(): boolean {
     return     this.categoryName.length // Load start
             && this.categoryName[0] === ProductService.LOAD_ENDED; // Load end
   }
@@ -72,7 +72,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-   openDetail(product: Product): void {
+   public openDetail(product: Product): void {
     if (this.page.isDisabled()) { return; }
     const dialogRef = this.dialog.open(ProductDetailComponent, { data: product }); // Open Dialog
     this.page.setDisable(true); // Disable all page (not Dialog)
@@ -83,7 +83,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.page.addDialog(dialogRef);
   }
 
-  checkLoad(index: number) {
+  public checkLoad(index: number) {
     if (!this.loading && !this.stopLoad && this.scroll.checkLoad(index, this.products.length)) { this.loadMore(); }
   }
 

@@ -70,7 +70,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
 
-  search(term: string): void { this.searchTerms.next(term); }
+  public search(term: string): void { this.searchTerms.next(term); }
 
   private loadMore() {
     if (this.page.isDisabled()) { return; }
@@ -84,7 +84,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-   openDetail(product: Product): void {
+   public openDetail(product: Product): void {
     if (this.page.isDisabled()) { return; }
     const dialogRef = this.dialog.open(ProductDetailComponent, { data: product }); // Open Dialog
     this.page.setDisable(true); // Disable all page (not Dialog)
@@ -95,7 +95,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     this.page.addDialog(dialogRef);
   }
 
-   checkLoad(index: number) {
+   public checkLoad(index: number) {
      if (!this.loading && !this.stopLoad && this.scroll.checkLoadSearch(index, this.results.length)) { this.loadMore(); }
   }
 

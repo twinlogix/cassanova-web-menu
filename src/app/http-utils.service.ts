@@ -30,7 +30,7 @@ export class HttpUtilsService {
   getTokenHttpOptions(): any  { return TOKEN_HTTP_OPTIONS; }
   getHttpOptions(): any { return BASIC_HTTP_OPTIONS; }
 
-  handleError<T>(operation = 'operation', result ?: T) {
+  public handleError<T>(operation = 'operation', result ?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
       console.log(`${operation} failed: ${error.message}`);
