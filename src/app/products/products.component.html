@@ -1,8 +1,8 @@
 <!-- Card -->
-<mat-card *ngIf="categoryName.length > 1" [ngClass]="{disabled: page.isDisabled()}" class="center">
+<mat-card [ngClass]="{disabled: page.isDisabled()}" class="center">
 
   <!-- Title -->
-  <mat-card-title>
+  <mat-card-title *ngIf="categoryName.length > 1">
     <h2 class="overflow-text">{{categoryName[1]}}</h2>
   </mat-card-title>
 
@@ -34,10 +34,9 @@
       <mat-spinner *ngIf="loading" class="center"></mat-spinner> <!-- [diameter]="this.scroll.itemSize" -->
     </cdk-virtual-scroll-viewport>
   </mat-card-content>
+
+  <!-- No Products -->
+  <mat-card-content *ngIf="checkLoadEnded() && !products.length" [ngClass]="{disabled: page.isDisabled()}">
+    <p class="no-product overflow-text">Nessun prodotto da mostrare</p>
+  </mat-card-content>
 </mat-card>
-
-<!-- No Products -->
-<div *ngIf="checkLoadEnded() && !products.length" class="center" [ngClass]="{disabled: page.isDisabled()}">
-  <span class="no-product overflow-text">Nessun prodotto da mostrare</span>
-</div>
-

@@ -8,7 +8,6 @@ const NO_DIV = 'no-div';
 export class NoHTMLPipe implements PipeTransform {
 
   transform(value: string, args?: any): any {
-    console.log(value);
     const arg = args;
     let result =  value.replace(/<\/div>/g, '<br>');
     result = result.replace(/<\/h.*?>/g, '<br>');

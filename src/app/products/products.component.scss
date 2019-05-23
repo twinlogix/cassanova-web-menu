@@ -40,15 +40,23 @@
   white-space: normal !important;
 }
 
+/*
+@supports( (display: -webkit-box) and (-webkit-line-clamp: 3) and  (-webkit-box-orient: vertical) ){
+
+ .product-description{
+   -webkit-box-orient: vertical !important;
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+
+ }
+}
+*/
+
 .no-product{
   clear: both;
   display: block;
-  width: 80vw;
-  border: 2px red solid;
   text-align: center;
   font-size: 120%;
-  font-weight: bold;
-  font-style: italic;
   margin-top: 5vh;
 }
 
@@ -56,12 +64,6 @@
 .line:hover .product-name{
   font-weight: bold;
 }
-
-/* Reduce spinner diameter
-mat-spinner{
-  zoom: 0.5;
-}
-*/
 
 /* For phones */
 @media only screen and (max-width: 600px) {
@@ -81,5 +83,6 @@ mat-spinner{
 
   .no-product{
     width: 100vw;
+    margin-top: 5vh !important;
   };
 }

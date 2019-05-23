@@ -23,7 +23,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   opacity: 0.6;
 }
 
-
 /* Disable pointing on icon, if page is disabled */
 .disabled mat-icon {
   cursor: not-allowed;
@@ -88,9 +87,11 @@ html, body, mat-dialog-container{
     height: 100vh;
   }
 
+  /* Display toolbar
   .mat-dialog-container{
-    margin-top: 56px; /* Display toolbar */
+    margin-top: 56px;
   }
+  */
 
   .center {
     width: 100vw;

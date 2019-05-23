@@ -5,20 +5,18 @@
 
 
 <!-- Card -->
-<mat-card *ngIf="results.length" [ngClass]="{disabled: page.isDisabled()}" class="center">
+<mat-card [ngClass]="{disabled: page.isDisabled()}" class="center">
 
   <!-- Title -->
   <mat-card-title>
     <h2 class="overflow-text">Risultati</h2>
   </mat-card-title>
 
-
-
   <!-- Content -->
   <mat-card-content class = "center" [ngClass]="{disabled: page.isDisabled()}">
 
     <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport [itemSize]="scroll.itemSize" [ngStyle]= "scroll.viewPortSizeSearch" (scrolledIndexChange)="checkLoad($event)">
+    <cdk-virtual-scroll-viewport *ngIf = "results.length" [itemSize]="scroll.itemSize" [ngStyle]= "scroll.viewPortSizeSearch" (scrolledIndexChange)="checkLoad($event)">
       <!-- Products -->
       <a *cdkVirtualFor="let product of results;" class="line" (click)="openDetail(product)">
         <!-- Image -->
@@ -42,10 +40,12 @@
       <!-- Spinner -->
       <mat-spinner *ngIf="loading" class="center"></mat-spinner> <!-- [diameter]="this.scroll.itemSize" -->
     </cdk-virtual-scroll-viewport>
+
+    <!-- No Products -->
+    <mat-card-content *ngIf="!results.length" [ngClass]="{disabled: page.isDisabled()}">
+      <p class="no-product overflow-text">Nessun prodotto da mostrare</p>
+    </mat-card-content>
+
   </mat-card-content>
 </mat-card>
 
-<!-- No Products -->
-<div *ngIf="!results.length" class="center" [ngClass]="{disabled: page.isDisabled()}">
-  <span class="no-product overflow-text">Nessun prodotto da mostrare</span>
-</div>
