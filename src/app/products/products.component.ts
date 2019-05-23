@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     public page: PageStatusService,
-    private scroll: VirtualScrollService, // Used in HTML
+    public scroll: VirtualScrollService, // Used in HTML
     private salesPointService: SalesPointService,
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }

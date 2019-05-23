@@ -37,7 +37,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     private searchProductsService: SearchProductsService,
     public dialog: MatDialog,
     public page: PageStatusService,
-    private scroll: VirtualScrollService, // Used in HTML
+    public scroll: VirtualScrollService, // Used in HTML
     private salesPointService: SalesPointService,
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }

@@ -21,7 +21,7 @@ export class SalesPointComponent implements OnInit, OnDestroy {
 
   constructor(
     private salesPointService: SalesPointService,
-    private scroll: VirtualScrollService, // Used in HTML
+    public scroll: VirtualScrollService, // Used in HTML
     public page: PageStatusService,
     private token: TokenService
   ) {}
