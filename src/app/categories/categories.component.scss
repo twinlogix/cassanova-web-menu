@@ -1,10 +1,6 @@
 @import '../styles/menu-style';
 @import "../styles/virtual-scroll-style";
 
-.category-name {
-  font-size: 130%;
-}
-
 /* Bold category's name when hover */
 .line:hover .category-name{
   font-weight: bold;

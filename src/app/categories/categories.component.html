@@ -13,14 +13,14 @@
       <!-- Categories -->
       <a *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="{{category.id}}">
         <!-- Image -->
-        <div class="img-container">
+        <div *ngIf="category.imageUrl.localeCompare('/assets/default.png') !== 0" class="img-container">
           <span aria-hidden="true" class="centerVertical"></span>
           <img src="{{category.imageUrl}}"/>
         </div>
         <!-- Text -->
-        <div class="text-container">
+        <div [ngStyle]="{'margin-left': category.imageUrl.localeCompare('/assets/default.png') === 0 ? '10vw' : '1vw'}" class="text-container">
           <p aria-hidden="true" class="vertical-align">
-            <span class="category-name overflow-text">{{category.name}}</span>
+            <span [ngStyle]="{'font-size': category.imageUrl.localeCompare('/assets/default.png') === 0 ? '180%' : '130%'}" class="category-name overflow-text">{{category.name}}</span>
           </p>
         </div>
       </a>
