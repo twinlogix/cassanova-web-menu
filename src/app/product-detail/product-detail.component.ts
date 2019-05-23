@@ -10,7 +10,8 @@ import {Product} from '../Product';
 export class ProductDetailComponent implements OnInit {
 
   constructor(
-    public dialogRef: MatDialogRef<ProductDetailComponent>, @Inject(MAT_DIALOG_DATA) public product: Product
+    public dialogRef: MatDialogRef<ProductDetailComponent>,
+    @Inject(MAT_DIALOG_DATA) public product: Product
     ) { }
 
   ngOnInit() {}

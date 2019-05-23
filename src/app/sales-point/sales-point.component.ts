@@ -16,11 +16,12 @@ export class SalesPointComponent implements OnInit, OnDestroy {
 
   // Subscriptions
   private salesPointSub = null;
+  private salesPointNameSub = null;
 
 
   constructor(
     private salesPointService: SalesPointService,
-    private scroll: VirtualScrollService,
+    private scroll: VirtualScrollService, // Used in HTML
     public page: PageStatusService,
     private token: TokenService
   ) {}
@@ -31,11 +32,12 @@ export class SalesPointComponent implements OnInit, OnDestroy {
   }); }
 
   private getSalesPoint(): void {
-    this.salesPointService.loadSalesPoint();
-    this.salesPointSub = this.salesPointService.getSalesPoints().subscribe( salesPoints =>  this.salesPoints = salesPoints );
+    this.salesPointSub = this.salesPointService.loadSalesPoint().subscribe();
+    this.salesPointNameSub = this.salesPointService.getSalesPoints().subscribe( salesPoints =>  this.salesPoints = salesPoints );
   }
 
   ngOnDestroy(): void {
     if (this.salesPointSub !== null) { this.salesPointSub.unsubscribe(); }
+    if (this.salesPointNameSub !== null) { this.salesPointNameSub.unsubscribe(); }
   }
 }

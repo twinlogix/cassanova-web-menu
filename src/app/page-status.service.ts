@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { Location } from '@angular/common';
 import {NavigationStart, Router} from '@angular/router';
 import {filter} from 'rxjs/operators';
@@ -7,7 +7,7 @@ import {of} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PageStatusService {
+export class PageStatusService implements OnDestroy {
 
   public CATEGORIES = 'categories';
   public PRODUCTS = 'products'
@@ -22,13 +22,15 @@ export class PageStatusService {
 
   public salePointName;
 
+  // Subscription
+  private navigationSub = null;
 
 
   constructor(private location: Location, private router: Router) {
 
     this.salePointName = '';
 
-    router.events.pipe(
+    this.navigationSub = router.events.pipe(
      filter(
        (event: NavigationStart) => {
          return(event instanceof NavigationStart);
@@ -125,5 +127,9 @@ export class PageStatusService {
 
   private getUrl() {
     return this.location.path().split('/');
+  }
+
+  ngOnDestroy(): void {
+    if (this.navigationSub !== null) { this.navigationSub.unsubscribe(); }
   }
 }

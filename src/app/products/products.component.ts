@@ -33,7 +33,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private page: PageStatusService,
-    private scroll: VirtualScrollService,
+    private scroll: VirtualScrollService, // Used in HTML
     private salesPointService: SalesPointService,
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
@@ -49,9 +49,9 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   private getProducts(): void {
     this.salesPointService.checkIdSalesExist();
-    if (!this.route.snapshot.paramMap.has('id')) { this.page.goToPage(this.page.ERROR); }
+    if (!this.route.snapshot.paramMap.has('id')) { this.page.goToPage(this.page.ERROR); } // Product id not present
     this.categoryId = this.route.snapshot.paramMap.get('id');
-    this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products);
+    this.productSub = this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products).subscribe();
     this.categoryNameSub = this.productService.getCategoryName(this.categoryId).subscribe(categoryName => this.categoryName = categoryName);
   }
 
@@ -84,7 +84,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   checkLoad(index: number) {
-    if (!this.stopLoad && this.scroll.checkLoad(index, this.products.length)) {this.loadMore(); }
+    if (!this.loading && !this.stopLoad && this.scroll.checkLoad(index, this.products.length)) { this.loadMore(); }
   }
 
   ngOnDestroy(): void {

@@ -3,7 +3,7 @@ import { Category } from './Category';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
 import {HttpClient} from '@angular/common/http';
-import {catchError} from 'rxjs/operators';
+import {catchError, share} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 import {SalesPointService} from './sales-point.service';
 import {PageStatusService} from './page-status.service';
@@ -43,8 +43,9 @@ export class CategoryService  implements  OnDestroy {
   private loadCategories(): void {
     console.log(`Loading categories from ${this.start} to ${this.start + this.httpUtils.getLoadLimit()}`); // TODO remove log
     this.categorySub = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
-      catchError(this.httpUtils.handleError('categories loading', [])
-      )).subscribe(response => {
+        catchError(this.httpUtils.handleError('categories loading', [])),
+        share(),
+      ).subscribe(response => {
       // @ts-ignore
       const categories = response.categories;
       // @ts-ignore

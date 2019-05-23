@@ -1,11 +1,12 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {TokenService} from './token.service';
 import {HttpClient} from '@angular/common/http';
 import {HttpUtilsService} from './http-utils.service';
 import {Observable, of} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, share} from 'rxjs/operators';
 import {SalePoint} from './SalePoint';
 import {PageStatusService} from './page-status.service';
+import {tap} from 'rxjs/internal/operators/tap';
 
 const NOT_LOADING = 0;
 const LOAD_START = 1;
@@ -14,16 +15,13 @@ const LOAD_FINISH = 2;
 @Injectable({
   providedIn: 'root'
 })
-export class SalesPointService implements OnDestroy {
+export class SalesPointService {
 
   private salesPointMap: Map<number, SalePoint> = new Map();
   private salesPoint: SalePoint[] = [];
   private requestUrl = `${this.httpUtils.getHostname()}/salespoint`;
   private loading: number;
   private subscription;
-
-  // Subscription
-  private salePointSub = null;
 
   constructor(private token: TokenService,
               private http: HttpClient,
@@ -46,30 +44,31 @@ export class SalesPointService implements OnDestroy {
 
     console.log('Loading sales point'); // TODO remove log
     this.subscription = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
-      catchError(this.httpUtils.handleError('sales point loading', [])
-      ));
-    this.salePointSub = this.subscription.subscribe(response => {
-      // @ts-ignore
-      const salesPoint = response.salesPoint;
-      // @ts-ignore
-      const totalCount = response.totalCount;
+        catchError(this.httpUtils.handleError('sales point loading', [])),
+        share(),
+        tap( response => {
+          // @ts-ignore
+          const salesPoint = response.salesPoint;
+          // @ts-ignore
+          const totalCount = response.totalCount;
 
-      for (const salePoint of salesPoint) {
-        let address = '';
-        const street = salePoint.hasOwnProperty('street') ? salePoint.street : '';
-        let city = salePoint.hasOwnProperty('city') ? salePoint.city : '';
-        const country = salePoint.hasOwnProperty('country') ? salePoint.country : '';
-        city = city + (city !== '' && country !== '' ? ' - ' : '') + country;
-        address = street;
-        if (city !== '') {
-          address = address + (street !== '' ? ' ( ' : '') + city + (street !== '' ? ' )' : '');
-        }
-        const salePointItem = new SalePoint(salePoint.id, salePoint.name, address);
-        this.salesPoint.push(salePointItem);
-        this.salesPointMap.set(salePoint.id, salePointItem);
-      }
-      this.loading = LOAD_FINISH;
-    });
+          for (const salePoint of salesPoint) {
+            let address = '';
+            const street = salePoint.hasOwnProperty('street') ? salePoint.street : '';
+            let city = salePoint.hasOwnProperty('city') ? salePoint.city : '';
+            const country = salePoint.hasOwnProperty('country') ? salePoint.country : '';
+            city = city + (city !== '' && country !== '' ? ' - ' : '') + country;
+            address = street;
+            if (city !== '') {
+              address = address + (street !== '' ? ' ( ' : '') + city + (street !== '' ? ' )' : '');
+            }
+            const salePointItem = new SalePoint(salePoint.id, salePoint.name, address);
+            this.salesPoint.push(salePointItem);
+            this.salesPointMap.set(salePoint.id, salePointItem);
+          }
+          this.loading = LOAD_FINISH;
+        })
+      );
     return this.subscription;
   }
   // SalesPoint must be yet loaded
@@ -82,9 +81,5 @@ export class SalesPointService implements OnDestroy {
   getSalePointName() {
     this.checkIdSalesExist();
     return this.salesPointMap.get(Number.parseInt(this.page.getId())).name;
-  }
-
-  ngOnDestroy() {
-    if (this.salePointSub !== null) { this.salePointSub.unsubscribe(); }
   }
 }

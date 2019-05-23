@@ -7,7 +7,7 @@ import {TokenService} from '../token.service';
 import {ProductDetailComponent} from '../product-detail/product-detail.component';
 import {SearchProductsService} from '../search-products.service';
 import {Subject} from 'rxjs';
-import {debounceTime} from 'rxjs/operators';
+import {debounceTime, last, share} from 'rxjs/operators';
 import {distinctUntilChanged} from 'rxjs/internal/operators/distinctUntilChanged';
 import {SalesPointService} from '../sales-point.service';
 
@@ -24,6 +24,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   private stopLoad = false; // Manage loading request
   private loading = false; // Manage Spinner
   private searchTerms = new Subject<string>();
+  // private lastReq = null;
 
   // Subscriptions
   private tokenSub = null;
@@ -36,7 +37,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     private searchProductsService: SearchProductsService,
     public dialog: MatDialog,
     private page: PageStatusService,
-    private scroll: VirtualScrollService,
+    private scroll: VirtualScrollService, // Used in HTML
     private salesPointService: SalesPointService,
     private token: TokenService // Load token here, instead of in product service, in order to allow load data on reloading products' page
   ) { }
@@ -52,12 +53,15 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
           // ignore new term if same as previous term
           distinctUntilChanged(),
+          share()
         );
         this.searchSub = obs.subscribe(() => {
           this.results = [];
           this.stopLoad = false;
           this.info[0] = 0;
-          this.searchProductsService.getProducts(this.description, 0, this.scroll.getLimitShowSearch(), this.results);
+          this.searchProductsService.getProducts(this.description, 0, this.scroll.getLimitShowSearch(), this.results).subscribe(result => {
+            this.results = [... this.results];
+          });
           if (this.searchProductSub !== null) { this.searchProductSub.unsubscribe(); }
           this.searchProductSub = this.searchProductsService.getProductCount().subscribe(productCount => this.info = productCount);
         });
@@ -92,7 +96,7 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
    checkLoad(index: number) {
-     if (!this.stopLoad && this.scroll.checkLoadSearch(index, this.results.length)) { this.loadMore(); }
+     if (!this.loading && !this.stopLoad && this.scroll.checkLoadSearch(index, this.results.length)) { this.loadMore(); }
   }
 
   ngOnDestroy(): void {

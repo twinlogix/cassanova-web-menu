@@ -22,7 +22,7 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   constructor(
     private categoryService: CategoryService,
-    private scroll: VirtualScrollService, /* Used in HTML */
+    private scroll: VirtualScrollService, // Used in HTML
     private page: PageStatusService,
     private token: TokenService,
     private salesPointService: SalesPointService

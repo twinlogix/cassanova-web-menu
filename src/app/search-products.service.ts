@@ -1,25 +1,23 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Product} from './Product';
 import {HttpClient} from '@angular/common/http';
 import {HttpUtilsService} from './http-utils.service';
 import {Observable, of} from 'rxjs';
-import {catchError} from 'rxjs/operators';
+import {catchError, share} from 'rxjs/operators';
 import {PageStatusService} from './page-status.service';
 import {SalesPointService} from './sales-point.service';
+import {tap} from 'rxjs/internal/operators/tap';
 
 const defaultImageUrl = '/assets/default.png';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SearchProductsService implements OnDestroy {
+export class SearchProductsService {
 
   private info: string[] = []; // [0] Number products
   private requestUrl;
   private idSalesPoint;
-
-  // Subscription
-  private searchProductSub = null;
 
   constructor(private http: HttpClient,
               private httpUtils: HttpUtilsService,
@@ -35,10 +33,10 @@ export class SearchProductsService implements OnDestroy {
     this.idSalesPoint = this.page.getId();
     this.updateRequestUrl(description, start, limit); // Create request url
     console.log(`Loading products from ${start} to ${start + limit}`); // TODO remove log
-    const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions());
-    this.searchProductSub = res.pipe(
-      catchError(this.httpUtils.handleError('products loading', [])
-      )).subscribe(response => {
+    const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
+        catchError(this.httpUtils.handleError('products loading', [])),
+        share(),
+        tap(response => {
       // @ts-ignore
       const products = response.products;
       // @ts-ignore
@@ -46,7 +44,6 @@ export class SearchProductsService implements OnDestroy {
       this.info[0] = totalCount;
       console.log(`${start + products.length} products loaded of ${totalCount}`); // TODO remove log
       for (const product of products) {
-        console.log(product); // TODO remove log
         const descriptionLong = product.hasOwnProperty('descriptionExtended') ? product.descriptionExtended : '';
         const images: string[] = [];
         if (product.hasOwnProperty('images')) {
@@ -58,7 +55,7 @@ export class SearchProductsService implements OnDestroy {
         const productItem = new Product(product.id, product.description, descriptionLong, product.prices[0].value, images);
         result.push(productItem); // Add product to result
       }
-    });
+    }));
     return res;
   }
 
@@ -68,7 +65,4 @@ export class SearchProductsService implements OnDestroy {
     this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&description="${description}"&idsSalesPoint=[${this.idSalesPoint}]`;
   }
 
-  ngOnDestroy() {
-    if (this.searchProductSub !== null) { this.searchProductSub.unsubscribe(); }
-  }
 }

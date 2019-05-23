@@ -6,6 +6,7 @@ import {tap} from 'rxjs/internal/operators/tap';
 import {of} from 'rxjs/internal/observable/of';
 import {HttpUtilsService} from './http-utils.service';
 import {PageStatusService} from './page-status.service';
+import {share} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,8 @@ export class TokenService implements OnDestroy {
           this.token = response.access_token;
           setInterval(() => this.updateToken(this), 3600000); // Update token every hour
         }),
-        catchError(this.httpUtils.handleError('token', [])) // then handle the error
+        catchError(this.httpUtils.handleError('token', [])), // then handle the error
+        share()
       );
     } else { // Token yet loaded
       console.log('Token yet present'); // TODO remove log
