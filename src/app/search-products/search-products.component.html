@@ -1,5 +1,5 @@
 <div class="center search-line">
-  <input #searchBox [(ngModel)]="description" (input)="search(searchBox.value)" placeholder="Descrizione Prodotto"/>
+  <input aria-label="Barra di ricerca" #searchBox [(ngModel)]="description" (input)="search(searchBox.value)" placeholder="Descrizione Prodotto"/>
   <mat-icon>search</mat-icon>
 </div>
 
@@ -20,7 +20,7 @@
     <!-- Virtual Scroll -->
     <cdk-virtual-scroll-viewport [itemSize]="scroll.itemSize" [ngStyle]= "scroll.viewPortSizeSearch" (scrolledIndexChange)="checkLoad($event)">
       <!-- Products -->
-      <div *cdkVirtualFor="let product of results;" class="line" (click)="openDetail(product)">
+      <a *cdkVirtualFor="let product of results;" class="line" (click)="openDetail(product)">
         <!-- Image -->
         <div class="img-container">
           <span class="centerVertical"></span>
@@ -38,7 +38,7 @@
             <span class="product-description overflow-text" [innerHTML] = "product.description | noHTML"></span> <!-- | noHTML -->
           </p>
         </div>
-      </div>
+      </a>
       <!-- Spinner -->
       <mat-spinner *ngIf="loading" class="center"></mat-spinner> <!-- [diameter]="this.scroll.itemSize" -->
     </cdk-virtual-scroll-viewport>

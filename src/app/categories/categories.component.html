@@ -11,7 +11,7 @@
     <!-- Virtual Scroll -->
     <cdk-virtual-scroll-viewport itemSize="{{scroll.itemSize}}" [ngStyle]= "scroll.viewPortSize">
       <!-- Categories -->
-      <div *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="{{category.id}}">
+      <a *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="{{category.id}}">
         <!-- Image -->
         <div class="img-container">
           <span class="centerVertical"></span>
@@ -23,7 +23,7 @@
             <span class="category-name overflow-text">{{category.name}}</span>
           </p>
         </div>
-      </div>
+      </a>
     </cdk-virtual-scroll-viewport>
   </mat-card-content>
 

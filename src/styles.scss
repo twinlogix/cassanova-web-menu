@@ -7,13 +7,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* Common */
 
-/*
-* {
-  -webkit-overflow-scrolling: touch;
-  overflow-y:visible
-}
-*/
-
 .center{
   clear: both;
   width: 80vw;
@@ -26,19 +19,25 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   vertical-align: middle;
 }
 
-
 .disabled{
   opacity: 0.6;
 }
 
-/* Show pointer on icon */
-mat-icon{
-  cursor: pointer;
-}
 
 /* Disable pointing on icon, if page is disabled */
 .disabled mat-icon {
   cursor: not-allowed;
+}
+
+/* Icon link */
+.icon-link{
+  text-decoration: none;
+  color: white;
+}
+
+.icon-link:hover{
+  color: white;
+  opacity: 0.6;
 }
 
 /* Text overflow managed with ... */
