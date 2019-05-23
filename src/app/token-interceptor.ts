@@ -13,7 +13,7 @@ import {TokenService} from './token.service';
 export class TokenInterceptor implements HttpInterceptor {
   constructor(private token: TokenService) {}
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log(`${request.method.toLocaleUpperCase()} request to: ${request.url}`); // TODO remove log
+    // console.log(`${request.method.toLocaleUpperCase()} request to: ${request.url}`); // TODO log
     const tokenValue = this.token.getToken();
     if (tokenValue === undefined) { return next.handle(request); } // Token request, authorization not available (and not necessary)
     request = request.clone({ // Add authorization in headers

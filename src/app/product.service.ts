@@ -36,7 +36,7 @@ export class ProductService {
     }
     this.idSalePoint = id;
     if (this.checkYetLoaded(categoryId, start, limit)) { // Check if you need to launch an http GET request
-      console.log('Category\'s products yet present'); // TODO remove log
+      // console.log('Category\'s products yet present'); // TODO log
       const productsLength = this.products.get(categoryId).length;
       const end = start + limit  < productsLength ? start + limit : productsLength; // Index of last product to take
       if (start < productsLength) { for (const product of this.products.get(categoryId).slice(start, end)) { result.push(product); } } // Return the products requested
@@ -50,7 +50,7 @@ export class ProductService {
 
   loadProducts(idCategory: string, start: number, limit: number, result: Product[]): Observable<any> {
     this.updateRequestUrl(idCategory, start, limit); // Create request url
-    console.log(`Loading products from ${start} to ${start + limit}`); // TODO remove log
+    // console.log(`Loading products from ${start} to ${start + limit}`); // TODO log
     const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
       catchError(this.httpUtils.handleError('products loading', [])),
       share(),
@@ -64,7 +64,7 @@ export class ProductService {
           categoryState.push(products[0].category.description);  // Added category name (categoriesState[1])
           categoryState.push(totalCount); // Added number of category's product (categoriesState[2])
         }
-        console.log(`${start + products.length} products loaded of ${totalCount}`); // TODO remove log
+        // console.log(`${start + products.length} products loaded of ${totalCount}`); // TODO log
         for (const product of products) {
           const descriptionLong = product.hasOwnProperty('descriptionExtended') ? product.descriptionExtended : '';
           const images: string[] = [];
@@ -80,7 +80,7 @@ export class ProductService {
         }
 
         if (start + limit >= totalCount) { // All products have been loaded
-          console.log('All products have been loaded'); // TODO remove log
+          // console.log('All products have been loaded'); // TODO log
           this.categoriesState.get(idCategory)[0] = ProductService.LOAD_ENDED; // Load ended (categoriesState[0])
         }
       })

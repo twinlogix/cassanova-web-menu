@@ -41,7 +41,7 @@ export class CategoryService  implements  OnDestroy {
   }
 
   private loadCategories(): void {
-    console.log(`Loading categories from ${this.start} to ${this.start + this.httpUtils.getLoadLimit()}`); // TODO remove log
+    // console.log(`Loading categories from ${this.start} to ${this.start + this.httpUtils.getLoadLimit()}`); // TODO log
     this.categorySub = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
         catchError(this.httpUtils.handleError('categories loading', [])),
         share(),
@@ -51,13 +51,13 @@ export class CategoryService  implements  OnDestroy {
       // @ts-ignore
       const totalCount = response.totalCount;
       this.incrementStart(categories.length);
-      console.log(`${this.start} category loaded of ${totalCount}`); // TODO remove log
+      // console.log(`${this.start} category loaded of ${totalCount}`); // TODO log
       for (const category of categories) {
         const imageUrl = category.hasOwnProperty('imageUrl') ? category.imageUrl : defaultImageUrl;
         this.categories.push(new Category(category.id, category.description, imageUrl));
       }
       if (this.start >= totalCount) { // All categories has been loaded
-        console.log('All category have been loaded'); // TODO remove log
+        // console.log('All category have been loaded'); // TODO log
         this.resetStart();
         this.updateRequestUrl();
       } else { // Continue to load categories

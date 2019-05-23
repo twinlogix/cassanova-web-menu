@@ -42,7 +42,7 @@ export class SalesPointService {
     // Load SalesPoint
     this.loading = LOAD_START;
 
-    console.log('Loading sales point'); // TODO remove log
+    // console.log('Loading sales point'); // TODO log
     this.subscription = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
         catchError(this.httpUtils.handleError('sales point loading', [])),
         share(),

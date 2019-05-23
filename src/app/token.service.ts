@@ -26,7 +26,7 @@ export class TokenService implements OnDestroy {
   loadToken(): Observable<any> {
     const apiKey = this.page.getSp();
     if (this.token === undefined || this.apiKey.localeCompare(apiKey) !== 0) { // Load token
-      console.log('Loading token'); // TODO remove log
+      // console.log('Loading token'); // TODO log
       this.apiKey = apiKey;
       return this.http.post(this.requestUrl, JSON.stringify(this.getBody()), this.httpUtils.getTokenHttpOptions()).pipe(
         tap(response => {
@@ -38,7 +38,7 @@ export class TokenService implements OnDestroy {
         share()
       );
     } else { // Token yet loaded
-      console.log('Token yet present'); // TODO remove log
+      // console.log('Token yet present'); // TODO log
       return of(true);
     }
   }
@@ -52,7 +52,7 @@ export class TokenService implements OnDestroy {
       response => {
         // @ts-ignore
         reference.token = response.access_token;
-        console.log(`Token updated: ${reference.token}`); // TODO remove log
+        // console.log(`Token updated: ${reference.token}`); // TODO log
       }
     );
   }

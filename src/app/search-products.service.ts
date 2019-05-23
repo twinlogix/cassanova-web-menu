@@ -32,7 +32,7 @@ export class SearchProductsService {
     this.salesPoint.checkIdSalesExist();
     this.idSalesPoint = this.page.getId();
     this.updateRequestUrl(description, start, limit); // Create request url
-    console.log(`Loading products from ${start} to ${start + limit}`); // TODO remove log
+    // console.log(`Loading products from ${start} to ${start + limit}`); // TODO log
     const res = this.http.get(this.requestUrl, this.httpUtils.getHttpOptions()).pipe(
         catchError(this.httpUtils.handleError('products loading', [])),
         share(),
@@ -42,7 +42,7 @@ export class SearchProductsService {
       // @ts-ignore
       const totalCount = response.totalCount;
       this.info[0] = totalCount;
-      console.log(`${start + products.length} products loaded of ${totalCount}`); // TODO remove log
+      // console.log(`${start + products.length} products loaded of ${totalCount}`); // TODO log
       for (const product of products) {
         const descriptionLong = product.hasOwnProperty('descriptionExtended') ? product.descriptionExtended : '';
         const images: string[] = [];
