@@ -1,44 +1,30 @@
 @import "../styles/menu-style";
 @import "../styles/virtual-scroll-style";
 
+
 .product-name {
-  font-size: 130%;
   display: inline-block;
-  max-height: 5vh;
-  width: 34vw; /* 68% of .text-container */
+  font-size: 130%;
+  vertical-align:  middle;
+  width: 35vw;
   margin-right: 1vw; /* 2% of .text-container */
+  overflow: hidden;
+  max-height: 100%;
+  text-overflow: ellipsis;
 }
 
 .first-line{
-  max-height: 5vh;
   margin-bottom: 1vh;
-}
-
-.second-line{
-  height: 6vh;
-  margin: 0px;
 }
 
 .product-price {
   font-size: 130%;
-  float:right;
   display: inline-block;
-  width: 15vw; /* 30% of .text-container */
-  max-height: 5vh;
+  vertical-align:  middle;
+  width: 13vw;
   text-align: right;
 }
 
-
-.product-description{
-  display: block;
-  /* Uncomment for allineate .product-description with .product-name */
-  /* width: 34vw; /* 78% of .text-container */
-  max-height: 6vh;
-  font-size: 90%;
-  font-style: italic;
-  clear: both;
-  white-space: normal !important;
-}
 
 /*
 @supports( (display: -webkit-box) and (-webkit-line-clamp: 3) and  (-webkit-box-orient: vertical) ){
@@ -67,10 +53,6 @@
 
 /* For phones */
 @media only screen and (max-width: 600px) {
-
-  .product-name, .first-line {
-    max-height: 7vh; /* increment line height */
-  }
 
   /* Uncomment for allineate .product-description with .product-name */
   .product-name/*, .product-description */ {

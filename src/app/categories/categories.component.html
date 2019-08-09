@@ -1,11 +1,6 @@
 <!-- Card -->
 <mat-card class="center">
 
-  <!-- Title -->
-  <mat-card-title>
-    <h2 class="overflow-text">Categorie</h2>
-  </mat-card-title>
-
   <!-- Content -->
   <mat-card-content *ngIf="categories.length" class ="center">
     <!-- Virtual Scroll -->
@@ -13,15 +8,13 @@
       <!-- Categories -->
       <a *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="{{category.id}}">
         <!-- Image -->
-        <div *ngIf="category.imageUrl.localeCompare('/assets/default.png') !== 0" class="img-container">
+        <div class="img-container">
           <span aria-hidden="true" class="centerVertical"></span>
           <img src="{{category.imageUrl}}"/>
         </div>
         <!-- Text -->
-        <div [ngStyle]="{'margin-left': category.imageUrl.localeCompare('/assets/default.png') === 0 ? '10vw' : '1vw'}" class="text-container">
-          <p aria-hidden="true" class="vertical-align">
-            <span [ngStyle]="{'font-size': category.imageUrl.localeCompare('/assets/default.png') === 0 ? '180%' : '130%'}" class="category-name overflow-text">{{category.name}}</span>
-          </p>
+        <div class="text-container">
+          <span class="category-name">{{category.name}}</span>
         </div>
       </a>
     </cdk-virtual-scroll-viewport>

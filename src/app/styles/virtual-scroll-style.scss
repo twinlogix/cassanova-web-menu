@@ -7,8 +7,8 @@
 }
 
 .img-container{
-  height: 12vh;
-  width: 24vw; /* 30% of .center */
+  height: 100%;
+  width: 35%;
   display: inline-block;
   vertical-align: middle;
   overflow-y: hidden;
@@ -22,12 +22,9 @@ img{
 }
 
 .text-container {
-  height: 12vh;
   display: inline-block;
-  width: 50vw; /* 62.5% of .center */
-  margin-left: 1vw; /* 0.8% of .center */
-  margin-right: 1vw; /* 0.8% of .center */
-  vertical-align: top;
+  width: 65%;
+  vertical-align: middle;
 }
 
 .vertical-align {
@@ -52,11 +49,7 @@ mat-spinner{
     box-shadow: none !important;
   }
 
-  .vertical-align {
-    line-height: 14vh;
-  }
-
-  .text-container, .img-container, .line{
+  .line{
     height: 14vh;
   }
 

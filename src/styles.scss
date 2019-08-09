@@ -106,4 +106,12 @@ html, body, mat-dialog-container{
     width: 90vw;
     height: 40vh;
   }
+
+  .line {
+    margin-bottom: 0px !important;
+  }
+
+  .line:nth-child(even) {
+    background-color: #EAEAEA
+  }
 }
