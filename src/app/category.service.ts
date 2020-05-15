@@ -68,7 +68,7 @@ export class CategoryService  implements  OnDestroy {
   }
 
   private updateRequestUrl(): void {
-    this.requestUrl = `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]&enabledForChannels=["SELF_ORDER"]`;
   }
 
   private resetStart(): void { this.start = 0; }
