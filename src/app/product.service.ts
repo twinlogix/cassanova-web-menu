@@ -91,7 +91,7 @@ export class ProductService {
   public getCategoryName(categoryId: string): Observable<string[]> { return of(this.categoriesState.get(categoryId)); }
 
   private updateRequestUrl(idCategory: string, start: number, limit: number): void {
-    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoint=[${this.idSalePoint}]&enabledForChannels["SELF_ORDER"]`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/products?start=${start}&limit=${limit}&idsCategory=["${idCategory}"]&idsSalesPoint=[${this.idSalePoint}]&enabledForChannels=["SELF_ORDER"]`;
   }
 
 
