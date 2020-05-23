@@ -1,0 +1,51 @@
+<div class="center search-line">
+  <input aria-label="Barra di ricerca" #searchBox [(ngModel)]="description" (input)="search(searchBox.value)" placeholder="Descrizione Prodotto"/>
+  <mat-icon>search</mat-icon>
+</div>
+
+
+<!-- Card -->
+<mat-card [ngClass]="{disabled: page.isDisabled()}" class="center">
+
+  <!-- Title -->
+  <mat-card-title>
+    <h2 class="overflow-text">Risultati</h2>
+  </mat-card-title>
+
+  <!-- Content -->
+  <mat-card-content class = "center" [ngClass]="{disabled: page.isDisabled()}">
+
+    <!-- Virtual Scroll -->
+    <cdk-virtual-scroll-viewport *ngIf = "results.length" [itemSize]="scroll.itemSize" [ngStyle]= "scroll.viewPortSizeSearch" (scrolledIndexChange)="checkLoad($event)">
+      <!-- Products -->
+      <a *cdkVirtualFor="let product of results;" class="line" (click)="openDetail(product)">
+        <!-- Image -->
+        <div class="img-container">
+          <span aria-hidden="true" class="centerVertical"></span>
+          <img src="{{product.imageUrls[0]}}">
+        </div>
+        <!-- Text -->
+        <div class="text-container">
+          <!-- First Line -->
+          <p class="first-line">
+            <span class="product-name overflow-text">{{product.name}}</span>
+            <span class="product-price overflow-text">{{product.price}} €</span>
+          </p>
+          <!-- Second Line -->
+          <p class="second-line">
+            <span class="product-description overflow-text" [innerHTML] = "product.description | noHTML"></span> <!-- | noHTML -->
+          </p>
+        </div>
+      </a>
+      <!-- Spinner -->
+      <mat-spinner *ngIf="loading" class="center"></mat-spinner> <!-- [diameter]="this.scroll.itemSize" -->
+    </cdk-virtual-scroll-viewport>
+
+    <!-- No Products -->
+    <mat-card-content *ngIf="!results.length" [ngClass]="{disabled: page.isDisabled()}">
+      <p class="no-product overflow-text">Nessun prodotto da mostrare</p>
+    </mat-card-content>
+
+  </mat-card-content>
+</mat-card>
+

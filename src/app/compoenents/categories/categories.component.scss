@@ -1,0 +1,12 @@
+@import 'menu-style';
+@import "virtual-scroll-style";
+
+.category-name{
+  font-size: 130%;
+  line-height: 1;
+}
+
+
+.line:hover .category-name{
+  font-weight: bold;
+}

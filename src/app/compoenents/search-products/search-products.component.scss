@@ -1,0 +1,55 @@
+@import "../products/products.component";
+
+.search-line{
+  display: flex;
+  margin-top: 5vh;
+  height: 40px;
+  border-radius: 48px;
+  border: #3f51b5 2px solid;
+}
+
+.search-line mat-icon {
+  padding-top: 5px;
+  font-size: 30px;
+  margin-right: 10px;
+  width: auto;
+  height: auto;
+  display: inline-block;
+}
+
+.search-line mat-icon:hover {
+  cursor: default;
+}
+
+input{
+  display: inline-flex;
+  flex-grow: 1;
+  margin-right: 5px;
+  background-color: transparent;
+  height: 40px;
+  margin-left: 10px;
+  border: none;
+}
+
+input:focus{
+  outline: none;
+}
+
+.no-product{
+  width: 76vw;
+}
+
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+
+  .search-line {
+    width: 90vw;
+    margin-top: 3vh;
+  }
+
+  .no-product{
+    width: 96vw;
+  }
+
+}

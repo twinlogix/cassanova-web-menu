@@ -1,0 +1,30 @@
+h2{
+  font-weight: bold;
+}
+
+mat-card{
+  clear: both;
+  display: block;
+  width: 80vw;
+  text-align: center;
+  margin-top: 5vh;
+  background-color: whitesmoke;
+}
+
+mat-card-title{
+  margin-bottom: 2vh;
+}
+
+p{
+  font-size: 120%;
+}
+
+/* For phones */
+@media only screen and (max-width: 600px) {
+
+  mat-card{
+    width: 100vw;
+    box-shadow: none !important;
+  };
+
+}
