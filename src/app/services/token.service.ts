@@ -24,9 +24,8 @@ export class TokenService implements OnDestroy {
 
 
   public loadToken(): Observable<any> {
-    const apiKey = this.page.getSp();
     this.apiKey = 'ebf79958-415e-4333-b746-7b3375802fa7'//apiKey;
-    if (this.token === undefined || this.apiKey.localeCompare(apiKey) !== 0) { // Load token
+    if (this.token === undefined /*|| this.apiKey.localeCompare(apiKey) !== 0*/) { // Load token
       console.log('Loading token'); // TODO log
       return this.http.post(this.requestUrl, JSON.stringify(this.getBody()), this.httpUtils.getTokenHttpOptions()).pipe(
         tap(response => {

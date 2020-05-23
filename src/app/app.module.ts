@@ -9,14 +9,12 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {TokenInterceptor } from './services/token-interceptor';
 import { NoHTMLPipe } from './no-html.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  MAT_DIALOG_DEFAULT_OPTIONS,
-  MatCardModule,
-  MatDialogModule,
-  MatIconModule,
-  MatListModule, MatProgressSpinnerModule,
-  MatToolbarModule,
-} from '@angular/material';
+import { MatCardModule } from '@angular/material/card';
+import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProductDetailComponent } from './compoenents/product-detail/product-detail.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -24,6 +22,7 @@ import { PageNotFoundComponent } from './compoenents/page-not-found/page-not-fou
 import { SearchProductsComponent } from './compoenents/search-products/search-products.component';
 import {FormsModule} from '@angular/forms';
 import { SalesPointComponent } from './compoenents/sales-point/sales-point.component';
+import { NavBarComponent } from './compoenents/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,8 @@ import { SalesPointComponent } from './compoenents/sales-point/sales-point.compo
     ProductDetailComponent,
     PageNotFoundComponent,
     SearchProductsComponent,
-    SalesPointComponent
+    SalesPointComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,

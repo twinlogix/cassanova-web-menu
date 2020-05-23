@@ -73,8 +73,6 @@ export class HttpUtilsService {
     let params = new HttpParams();
     
     //Checking (and adding) mandatory parameters
-    console.log("find start " + !Object.keys(queryParams).find(k => k === "start"))
-    console.log(queryParams);
     if(!Object.keys(queryParams).find(k => k === "start")){
       params = params.append("start", "0");
     } else {
@@ -89,7 +87,7 @@ export class HttpUtilsService {
     if(!Object.keys(queryParams).find(k => k === "limit")){
       params = params.append("limit", LOAD_LIMIT_DEFAULT.toString());
     } else {
-      let limit = queryParams.limit ?? LOAD_LIMIT_MINIMUM;
+      let limit = queryParams.limit ?? LOAD_LIMIT_DEFAULT;
       if(limit < LOAD_LIMIT_MINIMUM) {
         console.log(`WARNING HttpRequest: 'limit' parameter provided was < ${LOAD_LIMIT_MINIMUM}`);
         limit = LOAD_LIMIT_MINIMUM;
@@ -104,8 +102,7 @@ export class HttpUtilsService {
           .filter(k => k !== "start" && k !== "limit")
           .forEach(k => {
             if(Array.isArray(queryParams[k])) {
-              let arr : any[] = queryParams[k];
-              arr.filter(e => e !== null && e !== undefined);
+              let arr : any[] = queryParams[k].filter(e => e !== null && e !== undefined);
               if(arr.length > 0) {
                 let val : string;
                 if(typeof arr[0] === "string") {

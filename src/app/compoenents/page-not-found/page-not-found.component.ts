@@ -11,7 +11,6 @@ export class PageNotFoundComponent implements OnInit {
   constructor(public page: PageStatusService) { }
 
   ngOnInit() {
-   this.page.resetSalePointName();
   }
 
 }

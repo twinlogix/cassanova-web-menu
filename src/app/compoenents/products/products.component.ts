@@ -1,28 +1,37 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Product } from '@classes/Product';
 import {ProductService} from '@services/product.service';
-import {ActivatedRoute} from '@angular/router';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {ActivatedRoute, Router, NavigationStart} from '@angular/router';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {ProductDetailComponent} from '../product-detail/product-detail.component';
 import {VirtualScrollService} from '../../virtual-scroll.service';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Observable, Subscription } from 'rxjs';
+import { tap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit, OnDestroy {
 
   private productsSub : Observable<Product[]>;
+  private routerSub : Subscription;
+  private disabled : boolean = false;
 
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     public scroll: VirtualScrollService, // Used in HTML
+    public router: Router
   ) { }
+
+  ngOnDestroy(): void {
+    if(this.routerSub) {
+      this.routerSub.unsubscribe();
+    }
+  }
 
   ngOnInit() {
     this.productsSub = this.getProducts();
@@ -58,14 +67,16 @@ export class ProductsComponent implements OnInit {
   //   });
   // }
 
-   public openDetail(product: Product): void {
+  public openDetail(product: Product): void {
     const dialogRef = this.dialog.open(ProductDetailComponent, { data: product }); // Open Dialog
-    // this.page.setDisable(true); // Disable all page (not Dialog)
+    this.disabled = true;
+    this.routerSub = this.router.events.pipe(
+      filter(e => e instanceof NavigationStart)
+    ).subscribe(e => dialogRef.close());
+
     dialogRef.afterClosed().subscribe(() =>  {
-      // this.page.setDisable(false); // Enable Page, after dialog closing
-      // this.page.removeDialog(); // Remove dialog ref, in page status
+      this.disabled = false;
     });
-    // this.page.addDialog(dialogRef);
   }
 
 }
