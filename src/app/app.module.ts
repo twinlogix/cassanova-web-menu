@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CategoriesComponent } from './compoenents/categories/categories.component';
-import { ProductsComponent } from './compoenents/products/products.component';
+import { CategoriesComponent } from '@components/categories/categories.component';
+import { ProductsComponent } from '@components/products/products.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import {TokenInterceptor } from './services/token-interceptor';
 import { NoHTMLPipe } from './no-html.pipe';
@@ -15,14 +15,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { ProductDetailComponent } from './compoenents/product-detail/product-detail.component';
+import { ProductDetailComponent } from '@components/product-detail/product-detail.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import { PageNotFoundComponent } from './compoenents/page-not-found/page-not-found.component';
-import { SearchProductsComponent } from './compoenents/search-products/search-products.component';
+import { PageNotFoundComponent } from '@components/page-not-found/page-not-found.component';
+import { SearchProductsComponent } from '@components/search-products/search-products.component';
 import {FormsModule} from '@angular/forms';
-import { SalesPointComponent } from './compoenents/sales-point/sales-point.component';
-import { NavBarComponent } from './compoenents/nav-bar/nav-bar.component';
+import { SalesPointComponent } from '@components/sales-point/sales-point.component';
+import { NavBarComponent } from '@components/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +60,10 @@ import { NavBarComponent } from './compoenents/nav-bar/nav-bar.component';
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
         multi: true
+      },
+      {
+        provide: DEFAULT_CURRENCY_CODE,
+        useValue: 'EUR'
       }
   ],
   entryComponents: [

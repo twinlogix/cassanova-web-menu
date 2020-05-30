@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {CategoriesComponent} from './compoenents/categories/categories.component';
-import {ProductsComponent} from './compoenents/products/products.component';
-import {PageNotFoundComponent} from './compoenents/page-not-found/page-not-found.component';
-import {SearchProductsComponent} from './compoenents/search-products/search-products.component';
-import {SalesPointComponent} from './compoenents/sales-point/sales-point.component';
+import {CategoriesComponent} from '@components/categories/categories.component';
+import {ProductsComponent} from '@components/products/products.component';
+import {PageNotFoundComponent} from '@components/page-not-found/page-not-found.component';
+import {SearchProductsComponent} from '@components/search-products/search-products.component';
+import {SalesPointComponent} from '@components/sales-point/sales-point.component';
 
 const routes: Routes = [
   { path: ':sp/:idSp/categories', component: CategoriesComponent },
