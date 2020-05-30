@@ -21,7 +21,7 @@
         <div class="text-container product-description">
           <!-- First Line -->
             <div class="product-name">{{product.description}}</div>
-            <div class="product-price">{{product.prices[0].value}} €</div>
+            <div class="product-price">{{product.prices[0].value | currency}}</div>
         </div>
       </a>
       <!-- Spinner -->

@@ -20,7 +20,7 @@
   <!-- Text -->
   <div class="dialog-text-container">
     <h3 mat-dialog-title class="overflow-text">{{product.description}}</h3>
-    <span class="label">Prezzo:</span><span class="dialog-price"> {{product.prices[0].value}} €</span>
+    <span class="label">Prezzo:</span><span class="dialog-price"> {{product.prices[0].value | currency}} </span>
     <span class="label dialog-description">Descrizione: </span>
     <span class="dialog-product-description" [innerHTML]="product.descriptionExtended | noHTML: 'no-div'"></span>
   </div>
