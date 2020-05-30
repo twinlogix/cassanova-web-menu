@@ -7,10 +7,10 @@ import {SearchProductsComponent} from '@components/search-products/search-produc
 import {SalesPointComponent} from '@components/sales-point/sales-point.component';
 
 const routes: Routes = [
-  { path: ':sp/:idSp/categories', component: CategoriesComponent },
-  { path: ':sp/:idSp/categories/:id', component: ProductsComponent },
-  { path: ':sp/:idSp/search', component: SearchProductsComponent },
-  { path: ':sp/salespoint', component: SalesPointComponent},
+  { path: ':idSp/categories', component: CategoriesComponent },
+  { path: ':idSp/categories/:id', component: ProductsComponent },
+  { path: ':idSp/search', component: SearchProductsComponent },
+  { path: 'salespoint', component: SalesPointComponent},
   { path: 'error', component: PageNotFoundComponent},
   { path: '**', redirectTo: 'error' }
 

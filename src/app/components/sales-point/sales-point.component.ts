@@ -14,7 +14,6 @@ export class SalesPointComponent implements OnInit {
 
   // Subscriptions
   private salesPointSub : Observable<SalesPoint[]>;
-  private mainSp : string;
 
   constructor(
     private salesPointService: SalesPointService,
@@ -24,7 +23,6 @@ export class SalesPointComponent implements OnInit {
 
   ngOnInit() { 
     this.salesPointSub = this.getSalesPoint();
-    this.mainSp = this.route.snapshot.paramMap.get("sp");
   }
 
   //TODO:

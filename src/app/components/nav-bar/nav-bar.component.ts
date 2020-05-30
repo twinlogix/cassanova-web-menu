@@ -12,7 +12,6 @@ export class NavBarComponent implements OnInit {
 
   private pageType : PageType;
   private PageType = PageType;
-  private sp : string;
   private idSp : string;
 
   constructor(private pageInfo : PageStatusService,
@@ -23,7 +22,6 @@ export class NavBarComponent implements OnInit {
       filter(e => e instanceof NavigationEnd)
     ).subscribe(e => {
       this.pageType = pageInfo.getpageType();
-      this.sp = pageInfo.getTokenizedUrl()[0];
       if(this.pageType !== PageType.SALESPOINT) {
         this.idSp = pageInfo.getTokenizedUrl()[1];
       }

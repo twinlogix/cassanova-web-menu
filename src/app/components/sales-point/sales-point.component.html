@@ -11,7 +11,7 @@
     <!-- Virtual Scroll -->
     <cdk-virtual-scroll-viewport itemSize="{{scroll.itemSize}}" [ngStyle]= "scroll.viewPortSize">
       <!-- Products -->
-      <a *cdkVirtualFor="let sp of salesPoints;" class="line" clickable routerLink="/{{mainSp}}/{{sp.id}}/categories">
+      <a *cdkVirtualFor="let sp of salesPoints;" class="line" clickable routerLink="/{{sp.id}}/categories">
         <mat-icon class="salepoint-img">store</mat-icon>
         <!-- Text -->
         <div class="text-container">

@@ -19,19 +19,19 @@ export class PageStatusService {
 
   public getpageType(): PageType {
     const url : string[] = this.getTokenizedUrl();
-    if(url.length === 3 && url[2] === PageType.CATEGORIES) {
+    if(url.length === 2 && url[1] === PageType.CATEGORIES) {
       return PageType.CATEGORIES;
     }
-    if(url.length === 4) {
+    if(url.length === 3) {
       return PageType.PRODUCTS;
     }
-    if(url.length === 3 && url[2] === PageType.SEARCH) {
+    if(url.length === 2 && url[1] === PageType.SEARCH) {
       return PageType.SEARCH
     }
     if(url.length === 1 && url[0] === PageType.ERROR) {
       return PageType.ERROR;
     }
-    if(url.length === 2 && url[1] === PageType.SALESPOINT) {
+    if(url.length === 1 && url[0] === PageType.SALESPOINT) {
       return PageType.SALESPOINT;
     }
     return PageType.OTHER;
