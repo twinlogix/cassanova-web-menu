@@ -4,6 +4,7 @@ import {CategoryService} from '@services/category.service';
 import {VirtualScrollService} from '../../virtual-scroll.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { CategoriesRequest } from '@classes/QueryParams'
 
 @Component({
   selector: 'app-categories',
@@ -23,10 +24,10 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit() {
     const idSp : number = parseInt(this.route.snapshot.paramMap.get("idSp"));
-    this.categorySub = this.getCategories(idSp);
+    this.categorySub = this.getCategories({ idsSalesPoint : [idSp]});
   }
 
-  public getCategories(idSp : number): Observable<Category[]> {
-    return this.categoryService.getCategories([idSp]);
+  public getCategories(params : CategoriesRequest): Observable<Category[]> {
+    return this.categoryService.getCategories(params);
   }
 }

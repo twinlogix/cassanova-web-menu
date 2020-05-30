@@ -41,7 +41,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     const defaultImageUrl : string = '/assets/default.png';
     const categoryId : string = this.route.snapshot.paramMap.get('id');
     const idSp : number = parseInt(this.route.snapshot.paramMap.get('idSp'));
-    return this.productService.getProducts([idSp], [categoryId], 0, this.scroll.getLimitShow()).pipe(
+    return this.productService.getProducts({idsSalesPoint : [idSp], idsCategory : [categoryId], start : 0, limit : this.scroll.getLimitShow()}).pipe(
       tap(prods => {
         for(let p of prods) {
           if(!p.images) {

@@ -3,6 +3,7 @@ import {HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
+import {CategoriesRequest, ProductsRequest} from "@classes/QueryParams"
 
 const LOAD_LIMIT_MAX = 100;
 const LOAD_LIMIT_MINIMUM = 1;
@@ -18,22 +19,7 @@ const BASIC_HTTP_HEADERS = new HttpHeaders({
   'Content-Type': 'application/json',
   'X-Version': '1.0.0'
 });
-
-export interface CategoriesRequest {
-  start?: number,
-  limit?: number,
-  ids?: string[],
-  idsSalesPoint?: number[]
-}
-
-export interface ProductsRequest {
-  start?: number,
-  limit?: number,
-  ids?: string[],
-  idsSalesPoint?: number[],
-  idsCategory?: string[]
-}
-
+ 
 export interface QueryUrl {
   base: string,
   options?: { headers?: HttpHeaders, params?: HttpParams} 
@@ -57,7 +43,7 @@ export class HttpUtilsService {
   }
 
   public getProductsRequestURL(query : ProductsRequest) : QueryUrl {
-    return {base : `${environment.hostname}/products?}`, options : { headers : BASIC_HTTP_HEADERS, params : this.getParams(query)}};
+    return {base : `${environment.hostname}/products?`, options : { headers : BASIC_HTTP_HEADERS, params : this.getParams(query)}};
   }
 
   public handleError<T>(operation = 'operation', result ?: T) {
@@ -113,7 +99,11 @@ export class HttpUtilsService {
                 params = params.append(k, `[${val}]`);
               }
             } else {
-              params = params.append(k, queryParams[k]);
+              let param = queryParams[k];
+              if(typeof param === "string") {
+                param = `"${param}"`;
+              }
+              params = params.append(k, param);
             }
           });
     return params;

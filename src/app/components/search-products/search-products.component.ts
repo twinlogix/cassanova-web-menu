@@ -9,6 +9,7 @@ import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Category } from '@app/classes/Category';
 import { CategoryService } from '@app/services/category.service';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
+import {ProductsRequest} from '@classes/QueryParams'
 
 @Component({
   selector: 'app-search-products',
@@ -45,13 +46,13 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.idSp = parseInt(this.route.snapshot.paramMap.get('idSp'));
-    this.resultsSub = this.getProducts(this.idSp);
-    this.categoriesSub = this.categoryService.getCategories([this.idSp], 0, 100);
+    this.resultsSub = this.getProducts({idsSalesPoint : [this.idSp]});
+    this.categoriesSub = this.categoryService.getCategories({idsSalesPoint : [this.idSp], start : 0, limit : 100});  //TODO: remove magic number 100
   }
 
-  private getProducts(idSp : number, idCategory?: string, start?: number, limit?: number): Observable<Product[]> {
+  private getProducts(params : ProductsRequest): Observable<Product[]> {
     const defaultImageUrl : string = '/assets/default.png';
-    return this.productService.getProducts([idSp], [idCategory], 0, limit).pipe(
+    return this.productService.getProducts(params).pipe(
       map(p => this.filterProducts(p)),
       tap(prods => {
         for(let p of prods) {
@@ -67,11 +68,14 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   }
 
   private onSubmit(): void {
-    this.resultsSub = this.getProducts(this.idSp, this.productCategory, 0, 100);
+    this.resultsSub = this.getProducts({ idsSalesPoint : [this.idSp], 
+                                         idsCategory : [this.productCategory],
+                                         start : 0, 
+                                         limit : 100}); //TODO: remove magic number 100
   }
 
   private filterProducts(products: Product[]): Product[] {
-    return products.filter(p => p.description.toLocaleLowerCase().includes(this.productName) &&
+    return products.filter(p => p.description.toLowerCase().includes(this.productName) &&
                                 this.checkDescr(p.descriptionExtended, this.productDescription));
   }
 
