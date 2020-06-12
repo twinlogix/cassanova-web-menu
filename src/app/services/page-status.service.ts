@@ -28,11 +28,11 @@ export class PageStatusService {
     if(url.length === 2 && url[1] === PageType.SEARCH) {
       return PageType.SEARCH
     }
-    if(url.length === 1 && url[0] === PageType.ERROR) {
-      return PageType.ERROR;
-    }
     if(url.length === 1 && url[0] === PageType.SALESPOINT) {
       return PageType.SALESPOINT;
+    }
+    if(url.length === 1) {
+      return PageType.ERROR;
     }
     return PageType.OTHER;
   }
