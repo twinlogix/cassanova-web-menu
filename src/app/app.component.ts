@@ -1,21 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { PageStatusService, PageType } from './services/page-status.service';
-import { TokenService } from "@services/token.service"
-import { Observable } from 'rxjs';
+import { Component } from '@angular/core';
+import { NavigationDetectionService } from '@services/navigation-detection.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
+
+  constructor(private navigationDet : NavigationDetectionService) {}
+
   title = 'cassanova-web-menu';
-  private tokenSub : Observable<any>;
-  
-  constructor(private token: TokenService ){ }
-  
-  //TODO: remove this method, substitute with guard
-  ngOnInit(): void {
-    this.tokenSub = this.token.loadToken();
-  }
 }

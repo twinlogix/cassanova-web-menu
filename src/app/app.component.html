@@ -1,18 +1,5 @@
-<div *ngIf="tokenSub | async as token; else authenticating">
-  <app-nav-bar></app-nav-bar>
-  <!-- Page -->
-  <router-outlet></router-outlet>  
-</div>
+<app-message-template *ngIf="navigationDet.navigationPending | async; else authenticated" [title]="'Autenticazione in corso'" [content]="'Potrebbe volerci fino ad un minuto'"></app-message-template>
 
-<ng-template #authenticating>
-  <div>
-    <mat-card>
-      <mat-card-content>
-        <p class="no-product overflow-text">Autenticazione in corso...</p>
-      </mat-card-content>
-    </mat-card>
-  </div>
+<ng-template #authenticated>
+    <router-outlet></router-outlet> 
 </ng-template>
-
-
-
