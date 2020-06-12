@@ -1,3 +1,4 @@
+<app-nav-bar></app-nav-bar>
 <div *ngIf="categoriesSub | async as categories" class="center search-line" [ngClass]="{disabled: disabled}">
   <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
     <select id="productCategory" [(ngModel)]="productCategory" name="category" #category="ngModel">
@@ -19,7 +20,7 @@
   <mat-card-title>
     <h2 class="overflow-text">Risultati</h2>
   </mat-card-title>
-
+  
   <!-- Content -->
   <mat-card-content *ngIf = "resultsSub | async as results" class = "center">
 
