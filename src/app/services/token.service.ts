@@ -6,7 +6,7 @@ import {tap} from 'rxjs/internal/operators/tap';
 import {of} from 'rxjs/internal/observable/of';
 import {HttpUtilsService} from './http-utils.service';
 import {PageStatusService} from './page-status.service';
-import {share} from 'rxjs/operators';
+import {share, map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +23,9 @@ export class TokenService implements OnDestroy {
   constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private page: PageStatusService) {}
 
 
-  public loadToken(): Observable<any> {
+  public loadToken(): Observable<boolean> {
     this.apiKey = 'ebf79958-415e-4333-b746-7b3375802fa7'//apiKey;
-    if (this.token === undefined /*|| this.apiKey.localeCompare(apiKey) !== 0*/) { // Load token
+    if (true/*this.token === undefined /*|| this.apiKey.localeCompare(apiKey) !== 0*/) { // Load token
       console.log('Loading token'); // TODO log
       return this.http.post(this.requestUrl, JSON.stringify(this.getBody()), this.httpUtils.getTokenHttpOptions()).pipe(
         tap(response => {
@@ -33,13 +33,13 @@ export class TokenService implements OnDestroy {
           this.token = response.access_token;
           setInterval(() => this.updateToken(this), 3600000); // Update token every hour
         }),
-        catchError(this.httpUtils.handleError('token', [])), // then handle the error
-        share()
+        map(res => true),
+        catchError(this.httpUtils.handleError('token', false)), // then handle the error
       );
-    } else { // Token yet loaded
+    } /*else { // Token yet loaded
       // console.log('Token yet present'); // TODO log
       return of(true);
-    }
+    }*/
   }
 
   public getToken(): string { return this.token; }
