@@ -18,11 +18,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProductDetailComponent } from '@components/product-detail/product-detail.component';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ScrollingModule} from '@angular/cdk/scrolling';
-import { PageNotFoundComponent } from '@components/page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from '@app/components/messages/page-not-found/page-not-found.component';
 import { SearchProductsComponent } from '@components/search-products/search-products.component';
 import {FormsModule} from '@angular/forms';
 import { SalesPointComponent } from '@components/sales-point/sales-point.component';
 import { NavBarComponent } from '@components/nav-bar/nav-bar.component';
+import { MessageTemplateComponent } from './components/messages/message-template/message-template.component';
+import { AuthFailedComponent } from './components/messages/auth-failed/auth-failed.component';
+import { ServerErrorComponent } from './components/messages/server-error/server-error.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import { NavBarComponent } from '@components/nav-bar/nav-bar.component';
     PageNotFoundComponent,
     SearchProductsComponent,
     SalesPointComponent,
-    NavBarComponent
+    NavBarComponent,
+    MessageTemplateComponent,
+    AuthFailedComponent,
+    ServerErrorComponent,
   ],
   imports: [
     BrowserModule,
