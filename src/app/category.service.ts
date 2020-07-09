@@ -32,9 +32,7 @@ export class CategoryService  implements  OnDestroy {
 
     this.salesPoints.checkIdSalesExist();
     const id = this.page.getId();
-    if (this.idSalePoint === null) { // First request
-      this.loadNewCategory(id);
-    } else if (id.toLocaleString().localeCompare(this.idSalePoint.toLocaleString()) !== 0) { // New sales point
+    if (this.idSalePoint === null || id.toLocaleString().localeCompare(this.idSalePoint.toLocaleString()) !== 0) { // First request
       this.loadNewCategory(id);
     }
     return of(this.categories);
@@ -68,7 +66,7 @@ export class CategoryService  implements  OnDestroy {
   }
 
   private updateRequestUrl(): void {
-    this.requestUrl = `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=${this.httpUtils.getLoadLimit()}&idsSalesPoint=[${this.idSalePoint}]&enabledForChannels=["SELF_ORDER"]`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/categories?idsSalesPoint=[${this.idSalePoint}]&enabledForChannels=["SELF_ORDER"]`;
   }
 
   private resetStart(): void { this.start = 0; }
