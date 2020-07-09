@@ -52,7 +52,21 @@ export class SearchProductsService {
             images.push(image.imageUrl);
           }
         } else { images.push(defaultImageUrl); }
-        const productItem = new Product(product.id, product.description, descriptionLong, product.prices[0].value, images);
+
+        let productPrice = null;
+        for (const price of product.prices) {
+          if (!price.hasOwnProperty('idSalesMode')) {
+            if (price.hasOwnProperty('idSalesPoint')) {
+              if (price.idSalesPoint == this.idSalesPoint) {
+                productPrice = price;
+                break;
+              }
+            } else {
+              productPrice = price;
+            }
+          }
+        }
+        const productItem = new Product(product.id, product.description, descriptionLong, productPrice.value, images);
         result.push(productItem); // Add product to result
       }
     }));
