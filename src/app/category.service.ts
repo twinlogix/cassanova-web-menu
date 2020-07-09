@@ -3,7 +3,7 @@ import { Category } from './Category';
 import {Observable} from 'rxjs';
 import {of} from 'rxjs/internal/observable/of';
 import {HttpClient} from '@angular/common/http';
-import {catchError, share} from 'rxjs/operators';
+import {catchError, delay, share} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 import {SalesPointService} from './sales-point.service';
 import {PageStatusService} from './page-status.service';
@@ -66,7 +66,7 @@ export class CategoryService  implements  OnDestroy {
   }
 
   private updateRequestUrl(): void {
-    this.requestUrl = `${this.httpUtils.getHostname()}/categories?idsSalesPoint=[${this.idSalePoint}]&enabledForChannels=["SELF_ORDER"]`;
+    this.requestUrl = `${this.httpUtils.getHostname()}/categories?start=${this.start}&limit=200&idsSalesPoint=[${this.idSalePoint}]&enabledForChannels=["SELF_ORDER"]`;
   }
 
   private resetStart(): void { this.start = 0; }
