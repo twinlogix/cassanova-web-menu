@@ -90,7 +90,12 @@ mat-card:hover, mat-card-content:hover, .mat-card-image:hover {
 
 
 
-@media only screen and (min-width: 550px), (max-height: 580px) {
+@media only screen and (min-width: 550px) {
+
+  cdk-virtual-scroll-viewport {
+    height: 85vh;
+  }
+
   div.sp-container {
     display: grid;
     grid-template-columns: repeat( auto-fill, minmax(35vw, 1fr) );
