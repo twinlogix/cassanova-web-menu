@@ -1,26 +1,25 @@
 mat-toolbar{
   display: flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .mat-toolbar.mat-primary{
   background: #333333;
 }
 
-
 .space{
   flex-grow: 1;
 }
 
 mat-toolbar .mat-icon{
-  font-size: xx-large;
+  font-size: x-large;
   width: auto;
   height: auto;
 }
 
 mat-toolbar h1{
-  font-size: xx-large !important;
-  text-align: center;
-  height: auto;
+  font-size: small;
 }
 
 /* Remove blue border when clicking on back arrow */
@@ -28,13 +27,13 @@ mat-toolbar mat-icon:focus{
   outline: none;
 }
 
-/* For phones */
-@media only screen and (max-width: 600px) {
+// /* For phones */
+// @media only screen and (max-width: 600px) {
 
- mat-toolbar h1 {
-   font-size: smaller !important;
- }
-  .mat-toolbar-row{
-    padding: 0 2px !important;
-  }
-}
+//  mat-toolbar h1 {
+//    font-size: smaller !important;
+//  }
+//   .mat-toolbar-row{
+//     padding: 0 2px !important;
+//   }
+// }
