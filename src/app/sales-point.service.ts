@@ -62,7 +62,8 @@ export class SalesPointService {
             if (city !== '') {
               address = address + (street !== '' ? ' ( ' : '') + city + (street !== '' ? ' )' : '');
             }
-            const salePointItem = new SalePoint(salePoint.id, salePoint.name, address);
+            let pvName = salePoint.hasOwnProperty('description') ? salePoint.description : salePoint.name;
+            const salePointItem = new SalePoint(salePoint.id, pvName, address);
             this.salesPoint.push(salePointItem);
             this.salesPointMap.set(salePoint.id, salePointItem);
           }
