@@ -78,40 +78,40 @@ html, body, mat-dialog-container{
 }
 
 
-/* For phones */
-@media only screen and (max-width: 600px) {
+// /* For phones */
+// @media only screen and (max-width: 600px) {
 
-  /* Dialog dimension */
-  .cdk-overlay-pane {
-    width: 100vw;
-    height: 100vh;
-  }
+//   /* Dialog dimension */
+//   .cdk-overlay-pane {
+//     width: 100vw;
+//     height: 100vh;
+//   }
 
-  /* Display toolbar
-  .mat-dialog-container{
-    margin-top: 56px;
-  }
-  */
+//   /* Display toolbar
+//   .mat-dialog-container{
+//     margin-top: 56px;
+//   }
+//   */
 
-  .center {
-    width: 100vw;
-  }
+//   .center {
+//     width: 100vw;
+//   }
 
-  body{
-    background: whitesmoke;
-  }
+//   body{
+//     background: whitesmoke;
+//   }
 
-  .carousel{
-    display: block;
-    width: 90vw;
-    height: 40vh;
-  }
+//   .carousel{
+//     display: block;
+//     width: 90vw;
+//     height: 40vh;
+//   }
 
-  .line {
-    margin-bottom: 0px !important;
-  }
+//   .line {
+//     margin-bottom: 0px !important;
+//   }
 
-  .line:nth-child(even) {
-    background-color: #EAEAEA
-  }
-}
+//   .line:nth-child(even) {
+//     background-color: #EAEAEA
+//   }
+// }
