@@ -1,53 +1,161 @@
-@import "menu-style";
-@import "virtual-scroll-style";
+//@import "menu-style";
+//@import "virtual-scroll-style";
+
+/*Note: default layout is vertical medium sized phone (around 360x740 resolution)*/
+
+cdk-virtual-scroll-viewport {
+  width: 100vw; 
+  height: 95vh;
+}
 
 .salepoint-name {
-  font-size: 130%;
-  display: inline-block;
-  max-height: 5vh;
-  width: 50vw;
-}
-
-.first-line{
-  max-height: 5vh;
-  margin-bottom: 1vh;
-}
-
-.second-line{
-  height: 6vh;
-  margin: 0px;
-}
-
-
-.salepoint-address{
-  display: block;
-  width: 50vw;
-  max-height: 6vh;
-  font-size: 90%;
-  font-style: italic;
-  clear: both;
-  white-space: normal !important;
-}
-
-.salepoint-img{
-  display: inline;
-  font-size: 8vh;
-  margin-right: 2vw;
-}
-
-/* Bold product's name when hover */
-.line:hover .salepoint-name{
+  font-size: 1.1em;
   font-weight: bold;
 }
 
-/* For phones */
-@media only screen and (max-width: 600px) {
+.first-line {
+  margin-bottom: 1.5vh;
+}
 
-  .salepoint-name, .first-line {
-    max-height: 7vh; /* increment line height */
+.second-line {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+mat-card {
+  background-color: whitesmoke;
+  margin-top: 0px !important;
+  padding: 0px;
+  display: block;
+  line-height: 1em;
+}
+
+div.sp-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 5vh;
+}
+
+mat-card img {
+  margin: 0px;
+  height: 16.5vh; //55% of 30vh (original mat card size)
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  //object-position: bottom;
+}
+
+mat-card-content {
+  padding: .8em;
+  overflow-wrap: anywhere;
+}
+
+mat-card-actions {
+  text-align: end;
+  padding-top: 0px;
+}
+
+button {
+  border: none;
+  border-radius: 40px;
+  height: 6.5vh;
+  width: 6.5vh;
+  top: 3.25vh;
+  z-index: 1;
+  position: relative;
+  margin: 0px 3%;
+}
+
+mat-icon.cart {
+  vertical-align: middle;
+  
+}
+
+mat-card:hover, mat-card-content:hover, .mat-card-image:hover {
+  cursor: pointer;
+}
+
+.salepoint-address{
+  font-weight: bolder;
+  font-size: .9em;
+  font-style: italic;
+  white-space: normal;
+}
+
+// /* Bold product's name when hover */
+// .line:hover .salepoint-name{
+//   font-weight: bold;
+// }
+
+
+
+@media only screen and (min-width: 550px), (max-height: 580px) {
+  div.sp-container {
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax(35vw, 1fr) );
+    width: 100vw;
+    grid-column-gap: 3vw;
+    padding: 0vw 3vw;
   }
 
-  .salepoint-name, .salepoint-address {
-    width: 63vw;
+  button {
+    border-radius: 30px;
+    height: 7vw;
+    width: 7vw;
+    top: 3.5vw;
+    margin: 0px 3%;
   }
+
+  mat-card {
+     height: 85%;
+  }
+
+  mat-card img {
+    height: 16.5vw; //55% of 30vw (original mat card size)
+  }
+
+}
+
+@media only screen and (min-width: 800px) {
+  div.sp-container {
+    grid-template-columns: repeat( auto-fill, minmax(25vw, 1fr) );
+  }
+
+  mat-icon.cart {
+    font-size: 1.8em;
+    position: relative;
+    right: .075em;
+    bottom: .075em;
+  }
+
+  button {
+    border-radius: 50px;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  div.sp-container {
+    grid-template-columns: repeat( auto-fill, minmax(20vw, 1fr) );
+  }
+  
+  mat-icon.cart {
+    font-size: 2em;
+    position: relative;
+    right: .15em;
+    bottom: .15em;
+  }
+
+  mat-card img {
+    height: 10vw; //55% of 30vw (original mat card size)
+  }
+
+  button {
+    border-radius: 50px;
+    height: 4vw;
+    width: 4vw;
+    top: 2vw;
+    margin: 0px 3%;
+  }
+
 }
