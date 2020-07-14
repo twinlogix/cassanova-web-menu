@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row *ngIf="pageType !== PageType.ERROR">
-        <!-- Home -->
+      <!-- Backwards navigation buttons -->
       <a class="icon-link" aria-label="Vai alle categorie" routerLink="/{{idSp}}/categories" *ngIf="pageType === PageType.PRODUCTS"><mat-icon>keyboard_arrow_left</mat-icon></a>
       <a class="icon-link" aria-label="Vai alle categorie" routerLink="/{{idSp}}/categories" *ngIf="pageType === PageType.SEARCH"><mat-icon >close</mat-icon></a>
       <a class="icon-link" aria-label="Vai ai punti vendita" routerLink="/salespoint" *ngIf="pageType === PageType.CATEGORIES"><mat-icon >store</mat-icon></a>
       <div aria-hidden="true" class="space"></div>
-      <!-- Padding added when icon present, in order to center the restaurant name -->
-      <!-- <h1 class="overflow-text" [ngStyle]="{'padding-right': isPage(page.SEARCH)?'32px':'0px' }">{{page.getSalePointName() | async}}</h1> -->
+      <!-- Page Title, async to handle cases in which the title is the product's category or name-->
+      <h1 *ngIf="barTitle | async as title">{{title}}</h1>
       <div aria-hidden="true" class="space"></div>
       <a class="icon-link" aria-label="Vai alla pagina di ricerca" routerLink="/{{idSp}}/search" *ngIf="pageType !== PageType.SEARCH && pageType !== PageType.SALESPOINT"><mat-icon >search</mat-icon></a>
     </mat-toolbar-row>
