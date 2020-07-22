@@ -1,26 +1,11 @@
 //@import "menu-style";
 //@import "virtual-scroll-style";
 
-/*Note: default layout is vertical medium sized phone (around 360x740 resolution)*/
+/*Note: default layout is vertical medium sized phone (around 360x740 viewport)*/
 
 cdk-virtual-scroll-viewport {
   width: 100vw; 
   height: 95vh;
-}
-
-.salepoint-name {
-  font-size: 1.1em;
-  font-weight: bold;
-}
-
-.first-line {
-  margin-bottom: 1.5vh;
-}
-
-.second-line {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
 }
 
 mat-card {
@@ -37,7 +22,7 @@ div.sp-container {
   margin-bottom: 5vh;
 }
 
-mat-card img {
+mat-card > img {
   margin: 0px;
   height: 16.5vh; //55% of 30vh (original mat card size)
   max-width: 100%;
@@ -49,11 +34,25 @@ mat-card img {
 mat-card-content {
   padding: .8em;
   overflow-wrap: anywhere;
-}
 
-mat-card-actions {
-  text-align: end;
-  padding-top: 0px;
+  .first-line {
+    margin-bottom: 1.5vh;
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  
+  .second-line {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+  }
+  
+  .salepoint-address{
+    font-weight: bolder;
+    font-size: .9em;
+    font-style: italic;
+    white-space: normal;
+  }
 }
 
 button {
@@ -65,30 +64,15 @@ button {
   z-index: 1;
   position: relative;
   margin: 0px 3%;
+
+  mat-icon.cart {
+    vertical-align: middle;  
+  }
 }
 
-mat-icon.cart {
-  vertical-align: middle;
-  
-}
-
-mat-card:hover, mat-card-content:hover, .mat-card-image:hover {
+/*mat-card:hover, mat-card-content:hover, .mat-card-image:hover {
   cursor: pointer;
-}
-
-.salepoint-address{
-  font-weight: bolder;
-  font-size: .9em;
-  font-style: italic;
-  white-space: normal;
-}
-
-// /* Bold product's name when hover */
-// .line:hover .salepoint-name{
-//   font-weight: bold;
-// }
-
-
+}*/
 
 @media only screen and (min-width: 550px) {
 
