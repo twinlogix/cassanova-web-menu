@@ -1,0 +1,29 @@
+$grid-item-w-550:   35vw !default;
+$grid-item-w-800:   25vw !default;
+$grid-item-w-1300:  20vw !default;
+
+.responsive-container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+@media only screen and (min-width: 550px) {
+    div.responsive-container {
+        display: grid;
+        grid-template-columns: repeat( auto-fill, minmax($grid-item-w-550, 1fr) );
+        width: 100vw;
+    }
+}
+
+@media only screen and (min-width: 800px) {
+    div.responsive-container {
+      grid-template-columns: repeat( auto-fill, minmax($grid-item-w-800, 1fr) );
+    }
+}
+
+@media only screen and (min-width: 1300px) {
+  div.responsive-container {
+    grid-template-columns: repeat( auto-fill, minmax($grid-item-w-1300, 1fr) );
+  }
+}
