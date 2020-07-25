@@ -1,25 +1,21 @@
-//@import "menu-style";
-//@import "virtual-scroll-style";
-
+@import "virtual-scroll-style";
+@import "responsive-container";
 /*Note: default layout is vertical medium sized phone (around 360x740 viewport)*/
-
-cdk-virtual-scroll-viewport {
-  width: 100vw; 
-  height: 95vh;
-}
 
 mat-card {
   background-color: whitesmoke;
-  margin-top: 0px !important;
+  margin-top: 0px;
   padding: 0px;
   display: block;
   line-height: 1em;
+  position: relative;
+  bottom: 2em;
 }
 
-div.sp-container {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 5vh;
+div.responsive-container {
+  position: relative;
+  padding: 1em;
+  bottom: .5em;
 }
 
 mat-card > img {
@@ -48,56 +44,27 @@ mat-card-content {
   }
   
   .salepoint-address{
-    font-weight: bolder;
     font-size: .9em;
     font-style: italic;
     white-space: normal;
   }
 }
 
-button {
-  border: none;
-  border-radius: 40px;
-  height: 6.5vh;
-  width: 6.5vh;
-  top: 3.25vh;
+.sp-button {
   z-index: 1;
-  position: relative;
   margin: 0px 3%;
-
-  mat-icon.cart {
-    vertical-align: middle;  
-  }
+  padding: 1em;
+  border-radius: 40px;
 }
-
-/*mat-card:hover, mat-card-content:hover, .mat-card-image:hover {
-  cursor: pointer;
-}*/
 
 @media only screen and (min-width: 550px) {
 
-  cdk-virtual-scroll-viewport {
-    height: 85vh;
-  }
-
-  div.sp-container {
-    display: grid;
-    grid-template-columns: repeat( auto-fill, minmax(35vw, 1fr) );
-    width: 100vw;
+  div.responsive-container {
     grid-column-gap: 3vw;
-    padding: 0vw 3vw;
-  }
-
-  button {
-    border-radius: 30px;
-    height: 7vw;
-    width: 7vw;
-    top: 3.5vw;
-    margin: 0px 3%;
   }
 
   mat-card {
-     height: 85%;
+     height: 80%;
   }
 
   mat-card img {
@@ -106,45 +73,9 @@ button {
 
 }
 
-@media only screen and (min-width: 800px) {
-  div.sp-container {
-    grid-template-columns: repeat( auto-fill, minmax(25vw, 1fr) );
-  }
-
-  mat-icon.cart {
-    font-size: 1.8em;
-    position: relative;
-    right: .075em;
-    bottom: .075em;
-  }
-
-  button {
-    border-radius: 50px;
-  }
-}
-
 @media only screen and (min-width: 1300px) {
-  div.sp-container {
-    grid-template-columns: repeat( auto-fill, minmax(20vw, 1fr) );
-  }
-  
-  mat-icon.cart {
-    font-size: 2em;
-    position: relative;
-    right: .15em;
-    bottom: .15em;
-  }
-
   mat-card img {
     height: 10vw; //55% of 30vw (original mat card size)
-  }
-
-  button {
-    border-radius: 50px;
-    height: 4vw;
-    width: 4vw;
-    top: 2vw;
-    margin: 0px 3%;
   }
 
 }
