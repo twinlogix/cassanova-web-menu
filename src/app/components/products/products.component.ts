@@ -4,7 +4,6 @@ import {ProductService} from '@services/product.service';
 import {ActivatedRoute, Router, NavigationStart} from '@angular/router';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {ProductDetailComponent} from '../product-detail/product-detail.component';
-import {VirtualScrollService} from '../../virtual-scroll.service';
 import { Observable, Subscription } from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
 
@@ -23,7 +22,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private productService: ProductService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    public scroll: VirtualScrollService, // Used in HTML
     public router: Router
   ) { }
 
@@ -41,7 +39,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     const defaultImageUrl : string = '/assets/default.png';
     const categoryId : string = this.route.snapshot.paramMap.get('id');
     const idSp : number = parseInt(this.route.snapshot.paramMap.get('idSp'));
-    return this.productService.getProducts({idsSalesPoint : [idSp], idsCategory : [categoryId], start : 0, limit : this.scroll.getLimitShow()}).pipe(
+    return this.productService.getProducts({idsSalesPoint : [idSp], idsCategory : [categoryId], start : 0, limit : 6/*this.scroll.getLimitShow()*/}).pipe(
       tap(prods => {
         for(let p of prods) {
           if(!p.images) {

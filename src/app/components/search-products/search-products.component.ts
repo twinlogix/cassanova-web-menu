@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product} from '@classes/Product';
 import { MatDialog } from '@angular/material/dialog';
-import { VirtualScrollService} from '../../virtual-scroll.service';
 import { Observable, Subscription} from 'rxjs';
 import { tap, map, filter } from 'rxjs/operators';
 import { ProductService } from '@app/services/product.service';
@@ -31,7 +30,6 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
 
   constructor(
     public dialog: MatDialog,
-    public scroll: VirtualScrollService, // Used in HTML
     private productService: ProductService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,

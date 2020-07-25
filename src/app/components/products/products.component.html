@@ -1,16 +1,10 @@
 <!-- Card -->
 <app-nav-bar></app-nav-bar>
 <mat-card [ngClass]="{disabled: disabled}" class="center">
-
-  <!-- Title -->
-  <!-- <mat-card-title *ngIf="categoryName.length > 1">
-    <h2 class="overflow-text">{{categoryName[1]}}</h2>
-  </mat-card-title> -->
-
   <!-- Content -->
   <mat-card-content *ngIf="productsSub | async as products " class = "center">
     <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport *ngIf="products.length > 0; else noProducts" itemSize="{{scroll.itemSize}}" [ngStyle]= "scroll.viewPortSize" > <!--(scrolledIndexChange)="checkLoad($event)"-->
+    <cdk-virtual-scroll-viewport *ngIf="products.length > 0; else noProducts" > <!--(scrolledIndexChange)="checkLoad($event)"-->
       <!-- Products -->
       <a *cdkVirtualFor="let product of products;" class="line" (click)="openDetail(product)">
         <!-- Image -->
@@ -26,7 +20,7 @@
         </div>
       </a>
       <!-- Spinner -->
-      <mat-spinner *ngIf="loading" class="center"></mat-spinner> <!-- [diameter]="this.scroll.itemSize" -->
+      <mat-spinner *ngIf="loading" class="center"></mat-spinner>
     </cdk-virtual-scroll-viewport>
   </mat-card-content>
 

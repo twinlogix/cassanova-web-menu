@@ -25,7 +25,7 @@
   <mat-card-content *ngIf = "resultsSub | async as results" class = "center">
 
     <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport *ngIf="results.length > 0; else noResults" [itemSize]="scroll.itemSize" [ngStyle]= "scroll.viewPortSizeSearch" > <!--(scrolledIndexChange)="checkLoad($event)"-->
+    <cdk-virtual-scroll-viewport *ngIf="results.length > 0; else noResults"> <!--(scrolledIndexChange)="checkLoad($event)"-->
       <!-- Products -->
       <a *cdkVirtualFor="let product of results;" class="line" (click)="openDetail(product)">
         <!-- Image -->
