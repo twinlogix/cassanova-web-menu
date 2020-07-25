@@ -1,30 +1,23 @@
-<!-- Card -->
 <app-nav-bar></app-nav-bar>
-<mat-card class="center">
 
-  <!-- Content -->
-  <mat-card-content *ngIf="categorySub | async as categories; else loading" class ="center">
-    <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport itemSize="{{scroll.itemSize}}" [ngStyle]= "scroll.viewPortSize" >
-      <!-- Categories -->
-      <a *cdkVirtualFor="let category of categories;" class="line" clickable routerLink="{{category.id}}" >
-        <!-- Image -->
-        <div class="img-container">
-          <span aria-hidden="true" class="centerVertical"></span>
-          <img src="{{category.imageUrl}}"/>
-        </div>
-        <!-- Text -->
-        <div class="text-container">
-          <span class="category-name">{{category.description}}</span>
-        </div>
-      </a>
-    </cdk-virtual-scroll-viewport>
-  </mat-card-content>
+<cdk-virtual-scroll-viewport itemSize=auto>
+  <div class="responsive-container" *ngIf="categorySub | async as categories; else loading">
+    <div *cdkVirtualFor="let category of categories;">
+      <div class="cat-container">
+        <a routerLink="{{category.id}}">
+            <img src="{{category.imageUrl}}"/>
+            <span class="category-name">
+              {{category.description | uppercase}}
+            </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</cdk-virtual-scroll-viewport>
 
-  <ng-template #loading>
-    <mat-card-content >
-      <p class="no-product overflow-text">Recupero dati in corso...</p>
-    </mat-card-content>
-  </ng-template>
-</mat-card>
+
+<ng-template #loading>
+  <!--mat card?-->
+  <p class="no-product overflow-text">Recupero dati in corso...</p>
+</ng-template>
 
