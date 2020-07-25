@@ -1,10 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Category } from '@classes/Category';
 import {CategoryService} from '@services/category.service';
-import {VirtualScrollService} from '../../virtual-scroll.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { CategoriesRequest } from '@classes/QueryParams'
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-categories',
@@ -18,7 +18,6 @@ export class CategoriesComponent implements OnInit {
 
   constructor(
     private categoryService: CategoryService,
-    private scroll: VirtualScrollService, // Used in HTML
     private route: ActivatedRoute
   ) {}
 
@@ -28,6 +27,15 @@ export class CategoriesComponent implements OnInit {
   }
 
   public getCategories(params : CategoriesRequest): Observable<Category[]> {
-    return this.categoryService.getCategories(params);
+    return this.categoryService.getCategories(params).pipe(
+      map(res => res.map((cat : Category) => this.prepareCategory(cat)))
+    );
   }
+
+  private prepareCategory(cat : Category) : Category {
+    let res = cat;
+    res.imageUrl = res.imageUrl ?? "/assets/default.png"
+    return res;
+  }
+
 }
