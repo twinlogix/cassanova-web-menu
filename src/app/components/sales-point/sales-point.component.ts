@@ -1,5 +1,4 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {VirtualScrollService} from '../../virtual-scroll.service';
 import {SalesPointService} from '@services/sales-point.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { SalesPoint } from '@app/classes/SalePoint';
@@ -17,7 +16,6 @@ export class SalesPointComponent implements OnInit {
 
   constructor(
     private salesPointService: SalesPointService,
-    private scroll: VirtualScrollService, // Used in HTML
     private route : ActivatedRoute
   ) {}
 
