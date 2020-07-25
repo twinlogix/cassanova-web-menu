@@ -1,0 +1,40 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+
+// A primary palette: colors most widely used across all screens and components.
+// An accent palette: colors used for the floating action button and interactive elements.
+// A warn palette: colors used to convey error state.
+// A foreground palette: colors for text and icons.
+// A background palette: colors used for element backgrounds.
+
+$cassaweb-primary: mat-palette($mat-red);
+$cassaweb-accent:  mat-palette($mat-blue-grey, 500, 200, 700);
+$cassaweb-warn:    mat-palette($mat-red);
+$cassaweb-fg:      map_get($mat-blue-grey, 50);
+$cassaweb-bg:      #00AABB;
+
+$cassaweb-theme: mat-light-theme(
+    $cassaweb-primary,
+    $cassaweb-accent,
+    $cassaweb-warn
+);
+
+// Insert custom background color
+$background: map-get($cassaweb-theme, background);
+$background: map_merge($background, (background: $cassaweb-bg));
+$cassaweb-theme: map_merge($cassaweb-theme, (background: $background));
+
+@include angular-material-theme($cassaweb-theme);
+
+//Alternative theming per mat-component
+// @include mat-core-theme($theme);
+// @include mat-button-theme($theme);
+// @include mat-checkbox-theme($theme2);
