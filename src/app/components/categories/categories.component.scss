@@ -1,12 +1,65 @@
-@import 'menu-style';
+$grid-item-w-800:   30vw;
+$grid-item-w-1300:  25vw;
 @import "virtual-scroll-style";
+@import "responsive-container";
 
-.category-name{
-  font-size: 130%;
-  line-height: 1;
+.responsive-container {
+  position: relative;
+  padding-top: 2.2em;
+  bottom: 2.2em;
 }
 
+a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+}
 
-.line:hover .category-name{
-  font-weight: bold;
+.category-name{
+  font-size: 1.1em;
+  position: relative;
+  bottom: 1.8em;
+  margin-left: .3em;
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 95%;
+  display: block;
+}
+
+div.cat-container {
+  height: 35vw;
+  overflow: hidden;
+}
+
+img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+  transition: transform .2s;
+}
+
+div.cat-container:hover img,
+div.cat-container:focus img {
+  transform: scale(1.2);
+}
+
+@media only screen and (min-width: 550px) {
+  .responsive-container {
+    padding-top: 2.8em;
+    bottom: 2.8em;
+  }
+
+  .cat-container {
+    height: 30vw;
+  }
+}
+
+@media only screen and (min-width: 1500px) {
+  .responsive-container {
+    padding-top: 1.8em;
+    bottom: 1.8em;
+  }
 }
