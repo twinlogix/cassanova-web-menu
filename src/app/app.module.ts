@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button'
 import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -49,6 +50,7 @@ import { ServerErrorComponent } from './components/messages/server-error/server-
     BrowserAnimationsModule,
     MatListModule,
     MatIconModule,
+    MatButtonModule,
     MatToolbarModule,
     MatDialogModule,
     MatCardModule,
