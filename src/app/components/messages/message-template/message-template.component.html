@@ -1,13 +1,5 @@
 <app-nav-bar></app-nav-bar>
-<mat-card class="center">
-
-  <!-- Title -->
-  <mat-card-title *ngIf="title">
-    <h2 class="overflow-text">{{title}}</h2>
-  </mat-card-title>
-
-  <mat-card-content *ngIf="content">
-    <p>{{content}}</p>
-  </mat-card-content>
-
-</mat-card>
+<div class="message-container">
+  <h2 *ngIf="title">{{title}}</h2>
+  <p *ngIf="content">{{content}}</p>
+</div>
