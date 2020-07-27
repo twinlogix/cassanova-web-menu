@@ -26,7 +26,6 @@
     "@angular/router": "^9.1.9",
     "@fortawesome/fontawesome-free": "^5.8.1",
     "@types/chart.js": "^2.7.51",
-    "angular-bootstrap-md": "^7.5.0",
     "chart.js": "^2.5.0",
     "core-js": "^2.5.4",
     "ngx-text-overflow-clamp": "0.0.1",

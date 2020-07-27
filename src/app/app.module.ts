@@ -10,14 +10,11 @@ import {TokenInterceptor } from './services/token-interceptor';
 import { NoHTMLPipe } from './no-html.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
-import { MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button'
 import { MatListModule } from '@angular/material/list';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ProductDetailComponent } from '@components/product-detail/product-detail.component';
-import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {ScrollingModule} from '@angular/cdk/scrolling';
 import { PageNotFoundComponent } from '@app/components/messages/page-not-found/page-not-found.component';
 import { SearchProductsComponent } from '@components/search-products/search-products.component';
@@ -52,18 +49,11 @@ import { ServerErrorComponent } from './components/messages/server-error/server-
     MatIconModule,
     MatButtonModule,
     MatToolbarModule,
-    MatDialogModule,
     MatCardModule,
-    MDBBootstrapModule.forRoot(),
     ScrollingModule,
-    MatProgressSpinnerModule,
     FormsModule
   ],
   providers: [
-      {
-        provide: MAT_DIALOG_DEFAULT_OPTIONS,
-        useValue: { hasBackdrop: false }
-      },
       {
         provide: HTTP_INTERCEPTORS,
         useClass: TokenInterceptor,
