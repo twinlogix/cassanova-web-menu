@@ -8,6 +8,7 @@ import {SalesPointComponent} from '@components/sales-point/sales-point.component
 import { TokenAuthGuard } from './guards/token-auth.guard';
 import { AuthFailedComponent } from './components/messages/auth-failed/auth-failed.component';
 import { ServerErrorComponent } from './components/messages/server-error/server-error.component';
+import { ProductDetailComponent } from '@components/product-detail/product-detail.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'salespoint', pathMatch: 'full'},
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: '401', component: AuthFailedComponent},
   { path: '500', component: ServerErrorComponent},
   { path: 'salespoint', canActivate: [TokenAuthGuard], component: SalesPointComponent},
+  { path: 'products/:id', canActivate: [TokenAuthGuard], component: ProductDetailComponent},
   {
     path: ':idSp',
     canActivateChild: [TokenAuthGuard],
@@ -22,10 +24,10 @@ const routes: Routes = [
       { path: 'categories', component: CategoriesComponent },
       { path: 'categories/:id', component: ProductsComponent },
       { path: 'search', component: SearchProductsComponent },
-      { path: '**', redirectTo: '/error'}
+      { path: '**', redirectTo: '/404'}
     ]
   },
-  { path: '**', redirectTo: '/error'}
+  { path: '**', redirectTo: '/404'}
 ];
 
 @NgModule({
