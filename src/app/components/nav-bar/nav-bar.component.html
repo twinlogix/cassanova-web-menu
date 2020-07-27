@@ -1,13 +1,18 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row *ngIf="pageType !== PageType.ERROR">
+    <mat-toolbar-row *ngIf="pageType !== PageType.ERROR; else errorPage">
       <!-- Backwards navigation buttons -->
-      <a mat-icon-button aria-label="Vai alle categorie" routerLink="/{{idSp}}/categories" *ngIf="pageType === PageType.PRODUCTS"><mat-icon>keyboard_arrow_left</mat-icon></a>
-      <a mat-icon-button aria-label="Vai alle categorie" routerLink="/{{idSp}}/categories" *ngIf="pageType === PageType.SEARCH"><mat-icon >close</mat-icon></a>
-      <a mat-icon-button aria-label="Vai ai punti vendita" routerLink="/salespoint" *ngIf="pageType === PageType.CATEGORIES"><mat-icon >store</mat-icon></a>
+      <a mat-icon-button aria-label="Torna alle categorie" routerLink="/{{idSp}}/categories" *ngIf="pageType === PageType.PRODUCTS"><mat-icon>keyboard_arrow_left</mat-icon></a>
+      <a mat-icon-button aria-label="Torna alle categorie" routerLink="/{{idSp}}/categories" *ngIf="pageType === PageType.SEARCH"><mat-icon >close</mat-icon></a>
+      <a mat-icon-button aria-label="Torna ai punti vendita" routerLink="/salespoint" *ngIf="pageType === PageType.CATEGORIES"><mat-icon >store</mat-icon></a>
       <div aria-hidden="true" class="space"></div>
       <!-- Page Title, async to handle cases in which the title is the product's category or name-->
       <h1 *ngIf="barTitle | async as title">{{title}}</h1>
       <div aria-hidden="true" class="space"></div>
       <a mat-icon-button aria-label="Vai alla pagina di ricerca" routerLink="/{{idSp}}/search" *ngIf="pageType !== PageType.SEARCH && pageType !== PageType.SALESPOINT"><mat-icon >search</mat-icon></a>
     </mat-toolbar-row>
+    <ng-template #errorPage>
+      <mat-toolbar-row >
+        <a mat-icon-button aria-label="Torna alla homepage" routerLink="/salespoint"><mat-icon >store</mat-icon></a>
+      </mat-toolbar-row>
+    </ng-template>
 </mat-toolbar>

@@ -36,7 +36,7 @@ export class NavBarComponent implements OnInit {
         //querying the server two times
         if(catId) {
           this.barTitle = this.categories.getCategories({ids : [catId]}).pipe(
-            map(res => res[0].description)
+            map(res => res.length > 0 ? res[0].description : "")
           );
         }
         break;
