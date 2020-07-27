@@ -18,12 +18,11 @@ export class ProductService {
     return this.loadProducts(params);
   }
 
-  public loadProducts(params : ProductsRequest): Observable<Product[]> {
+  private loadProducts(params : ProductsRequest): Observable<Product[]> {
     const request = this.httpUtils.getProductsRequestURL(params);
     const res = this.http.get<[Product[], number]>(request.base, request.options).pipe(
       map(res => res["products"]),
-      catchError(this.httpUtils.handleError('products loading', [])),
-
+      catchError(this.httpUtils.handleError('products loading', []))
     );
     return res;
   }

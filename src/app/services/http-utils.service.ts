@@ -50,7 +50,7 @@ export class HttpUtilsService {
     return (error: any): Observable<T> => {
       console.error(error);
       console.log(`${operation} failed: ${error.message}`);
-      this.router.navigateByUrl("error");
+      this.router.navigateByUrl("404");
       return of(result as T);
     };
   }
