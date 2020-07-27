@@ -1,6 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import {Product} from '@classes/Product';
+import { ProductService } from '@app/services/product.service';
+import { Observable } from 'rxjs';
+import { Product } from '@app/classes/Product';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-detail',
@@ -9,12 +12,15 @@ import {Product} from '@classes/Product';
 })
 export class ProductDetailComponent implements OnInit {
 
-  constructor(
-    public dialogRef: MatDialogRef<ProductDetailComponent>,
-    @Inject(MAT_DIALOG_DATA) public product: Product
-    ) { }
+  private productSub : Observable<Product[]>;
 
-  ngOnInit() {}
+  constructor(private productService : ProductService,
+              private route : ActivatedRoute) { }
 
-  public closeDialog(): void { this.dialogRef.close(); }
+  ngOnInit() {
+    const id : string = this.route.snapshot.paramMap.get("id");
+    this.productSub = this.productService.getProducts({ids : [id]})
+  }
+
+  public closeDialog(): void {  }
 }

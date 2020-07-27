@@ -1,27 +1,54 @@
 <!-- Header -->
-<a class="icon-link" aria-label="Chiudi"><mat-icon class="close" (click)="closeDialog()">close</mat-icon></a>
+<!-- <a class="icon-link" aria-label="Chiudi"><mat-icon class="close" (click)="closeDialog()">close</mat-icon></a> -->
 
 <!-- Content -->
-<mat-dialog-content>
+<!-- <mat-dialog-content> -->
   <!-- Carousel -->
-  <mdb-carousel class="center" *ngIf="product.images.length > 1 else noCarousel" [animation]="'slide'">
-    <mdb-carousel-item *ngFor="let image of product.images">
-        <span aria-hidden="true" class="centerVertical"></span>
-        <img src="{{image.imageUrl}}">
-    </mdb-carousel-item>
-  </mdb-carousel>
+  <!-- <mdb-carousel class="center" *ngIf="product.images.length > 1 else noCarousel" [animation]="'slide'"> -->
+    <!-- <mdb-carousel-item *ngFor="let image of product.images"> -->
+        <!-- <span aria-hidden="true" class="centerVertical"></span> -->
+        <!-- <img src="{{image.imageUrl}}"> -->
+    <!-- </mdb-carousel-item> -->
+  <!-- </mdb-carousel> -->
   <!-- Don't show carousel if only one image is present -->
-  <ng-template #noCarousel>
-    <div class="img-container center">
+  <!-- <ng-template #noCarousel> -->
+    <!-- <div class="img-container center"> -->
+      <!-- <span aria-hidden="true" class="centerVertical"></span> -->
+      <!-- <img src="{{product.images[0].imageUrl}}"> -->
+    <!-- </div> -->
+  <!-- </ng-template> -->
+  <!-- Text -->
+  <!-- <div class="dialog-text-container"> -->
+    <!-- <h3 mat-dialog-title class="overflow-text">{{product.description}}</h3> -->
+    <!-- <span class="label">Prezzo:</span><span class="dialog-price"> {{product.prices[0].value | currency}} </span> -->
+    <!-- <span class="label dialog-description">Descrizione: </span> -->
+    <!-- <span class="dialog-product-description" [innerHTML]="product.descriptionExtended | noHTML: 'no-div'"></span> -->
+  <!-- </div> -->
+<!-- </mat-dialog-content> -->
+
+<app-nav-bar></app-nav-bar>
+<ng-container *ngIf="productSub | async as products; else loading">
+  <ng-container *ngIf="products[0] as product; else noProduct">
+
+
+    <mdb-carousel [animation]="'slide'">
+      <mdb-carousel-item *ngFor="let image of product.images">
+          <span aria-hidden="true" class="centerVertical"></span>
+          <img src="{{image.imageUrl}}">
+      </mdb-carousel-item>
+    </mdb-carousel>
+
+    <!-- <div class="img-container center">
       <span aria-hidden="true" class="centerVertical"></span>
       <img src="{{product.images[0].imageUrl}}">
-    </div>
-  </ng-template>
-  <!-- Text -->
-  <div class="dialog-text-container">
-    <h3 mat-dialog-title class="overflow-text">{{product.description}}</h3>
-    <span class="label">Prezzo:</span><span class="dialog-price"> {{product.prices[0].value | currency}} </span>
-    <span class="label dialog-description">Descrizione: </span>
-    <span class="dialog-product-description" [innerHTML]="product.descriptionExtended | noHTML: 'no-div'"></span>
-  </div>
-</mat-dialog-content>
+    </div> -->
+
+  </ng-container>
+</ng-container>
+
+<ng-template #loading>
+  <p>Caricamento...</p>
+</ng-template>
+<!--product img-->
+<!--sticky header when the user scrolls (optional)-->
+<!--buy button-->
