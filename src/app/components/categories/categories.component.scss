@@ -1,5 +1,7 @@
-$grid-item-w-800:   30vw;
-$grid-item-w-1300:  25vw;
+$grid-item-num-800:    3;
+$grid-item-num-1300:   4;
+$grid-column-gap:      0px;
+
 @import "virtual-scroll-style";
 @import "responsive-container";
 

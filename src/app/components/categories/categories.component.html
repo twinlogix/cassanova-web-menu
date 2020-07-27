@@ -1,23 +1,30 @@
-<app-nav-bar></app-nav-bar>
 
-<cdk-virtual-scroll-viewport itemSize=auto>
-  <div class="responsive-container" *ngIf="categorySub | async as categories; else loading">
-    <div *cdkVirtualFor="let category of categories;">
-      <div class="cat-container">
-        <a routerLink="{{category.id}}">
-            <img src="{{category.imageUrl}}"/>
-            <span class="category-name">
-              {{category.description | uppercase}}
-            </span>
-        </a>
+<ng-container *ngIf="categorySub | async as categories; else loading">
+  <ng-container *ngIf="categories.length > 0; else noItems">
+    <app-nav-bar></app-nav-bar>
+    <cdk-virtual-scroll-viewport itemSize=auto>
+      <div class="responsive-container">
+        <div *cdkVirtualFor="let category of categories;">
+          <div class="cat-container">
+            <a routerLink="{{category.id}}">
+                <img src="{{category.imageUrl}}"/>
+                <span class="category-name">
+                  {{category.description | uppercase}}
+                </span>
+            </a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</cdk-virtual-scroll-viewport>
+    </cdk-virtual-scroll-viewport>
+  </ng-container>
+  <ng-template #noItems>
+    <app-message-template title="Nessuna categoria trovata" content="Nessuna categoria trovata"></app-message-template>
+  </ng-template>
+</ng-container>
 
 
 <ng-template #loading>
   <!--mat card?-->
-  <p class="no-product overflow-text">Recupero dati in corso...</p>
+  <p>Recupero dati in corso...</p>
 </ng-template>
 
