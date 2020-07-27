@@ -1,71 +1,67 @@
-@import "menu-style";
+$grid-item-num-0:      2;
+$grid-item-num-550:    4;
+$grid-item-num-800:    5;
+$grid-item-num-1300:   6;
+$price-tag-bg-color:   #231f26;
+
 @import "virtual-scroll-style";
+@import "responsive-container";
 
+mat-card {
+  margin-top: 0px;
+  padding: 0px;
+  line-height: 1em;
+  margin-bottom: .8em;
+  height: 95%;
+}
 
-.product-name {
-  display: inline-block;
-  font-size: 130%;
-  vertical-align:  middle;
-  width: 35vw;
-  margin-right: 1vw; /* 2% of .text-container */
-  overflow: hidden;
+mat-card-content {
+  padding: .5em;
+  overflow-wrap: anywhere;
+}
+
+mat-card:hover {
+  cursor: pointer;
+}
+
+div.item-content-container {
+  position: relative;
+}
+
+div.price-tag {
+  z-index: 1;
+  position: absolute;
+  top:   1em;
+  right: .5em;
+}
+
+div.price-tag > span {
+  border-radius: 10px;
+  background-color: $price-tag-bg-color;
+  opacity: .8;
+  padding: .5em;
+  color: white;
+}
+
+div.responsive-container {
+  grid-column-gap: 3vw;
+}
+
+div.responsive-container {
+  position: relative;
+  padding: 2em 1em;
+  bottom: 1em;
+}
+
+mat-card > img {
+  margin: 0px;
+  height: 14.5vmax;
+  width: 100%;
   max-height: 100%;
-  text-overflow: ellipsis;
-  line-height: 1;
+  object-fit: cover;
+  object-position: center;
 }
 
-.first-line{
-  margin-bottom: 1vh;
-}
-
-.product-price {
-  font-size: 130%;
-  display: inline-block;
-  vertical-align:  middle;
-  width: 13vw;
-  text-align: right;
-}
-
-
-/*
-@supports( (display: -webkit-box) and (-webkit-line-clamp: 3) and  (-webkit-box-orient: vertical) ){
-
- .product-description{
-   -webkit-box-orient: vertical !important;
-   display: -webkit-box;
-   -webkit-line-clamp: 3;
-
- }
-}
-*/
-
-.no-product{
-  clear: both;
-  display: block;
-  text-align: center;
-  font-size: 120%;
-  margin-top: 5vh;
-}
-
-/* Bold product's name when hover */
-.line:hover .product-name{
-  font-weight: bold;
-}
-
-/* For phones */
-@media only screen and (max-width: 600px) {
-
-  /* Uncomment for allineate .product-description with .product-name */
-  .product-name/*, .product-description */ {
-    width: 43vw; /* 68% of .text-container */
-  }
-
-  .product-price{
-    width: 19vw; /* 30% of .text-container */
-  }
-
-  .no-product{
-    width: 100vw;
-    margin-top: 5vh !important;
-  };
+a {
+  text-decoration: none;
 }

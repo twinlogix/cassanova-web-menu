@@ -1,33 +1,31 @@
 <!-- Card -->
-<app-nav-bar></app-nav-bar>
-<mat-card [ngClass]="{disabled: disabled}" class="center">
-  <!-- Content -->
-  <mat-card-content *ngIf="productsSub | async as products " class = "center">
-    <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport *ngIf="products.length > 0; else noProducts" > <!--(scrolledIndexChange)="checkLoad($event)"-->
-      <!-- Products -->
-      <a *cdkVirtualFor="let product of products;" class="line" (click)="openDetail(product)">
-        <!-- Image -->
-        <div class="img-container">
-            <span aria-hidden="true" class="centerVertical"></span>
-            <img src="{{product.images[0].imageUrl}}">
+<ng-container *ngIf="productsSub | async as products; else loading">
+  <ng-container *ngIf="products.length > 0; else noProducts">
+    <app-nav-bar></app-nav-bar>
+    <cdk-virtual-scroll-viewport itemSize=auto > <!--(scrolledIndexChange)="checkLoad($event)"-->
+      <div class="responsive-container">
+        <div class="item-content-container" *cdkVirtualFor="let product of products">
+          <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
+          <a routerLink="/products/{{product.id}}">
+            <mat-card>
+              <img src="{{product.images[0].imageUrl}}">
+              <mat-card-content>
+                <p>{{product.description}}</p>
+              </mat-card-content>
+            </mat-card>
+          </a>
         </div>
-        <!-- Text -->
-        <div class="text-container product-description">
-          <!-- First Line -->
-            <div class="product-name">{{product.description}}</div>
-            <div class="product-price">{{product.prices[0].value | currency}}</div>
-        </div>
-      </a>
-      <!-- Spinner -->
-      <mat-spinner *ngIf="loading" class="center"></mat-spinner>
+      </div>
     </cdk-virtual-scroll-viewport>
-  </mat-card-content>
+  </ng-container>
+  <ng-template #noProducts>
+    <app-message-template title="Nessun prodotto trovato" content="Nessun prodotto trovato"></app-message-template>
+  </ng-template>
+</ng-container>
+
 
   <!-- No Products -->
-  <ng-template #noProducts>
-    <mat-card-content>
-      <p class="no-product overflow-text">Nessun prodotto da mostrare</p>
-    </mat-card-content>
-  </ng-template>
-</mat-card>
+<ng-template #loading>
+  <p>Caricamento prodotti...</p>
+</ng-template>
+<!-- </mat-card> -->
