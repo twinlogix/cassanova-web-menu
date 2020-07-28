@@ -44,15 +44,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   white-space: nowrap;
 }
 
-/* Dialog dimension */
-.cdk-overlay-pane {
-  width: 60vw;
-}
-
-mat-dialog-container{
-  padding: 2vh 2vw !important;
-}
-
 .carousel{
   display: inline-block;
   width: 22vw;
@@ -66,50 +57,6 @@ mat-dialog-container{
   filter: invert(100%);
 }
 
-html, body, mat-dialog-container{
+html, body {
   overflow: hidden;
 }
-
-/* Little space at the end of virtual scrolling, in order to load new products */
-.cdk-virtual-scroll-content-wrapper{
-  padding-bottom: 20px;
-}
-
-
-// /* For phones */
-// @media only screen and (max-width: 600px) {
-
-//   /* Dialog dimension */
-//   .cdk-overlay-pane {
-//     width: 100vw;
-//     height: 100vh;
-//   }
-
-//   /* Display toolbar
-//   .mat-dialog-container{
-//     margin-top: 56px;
-//   }
-//   */
-
-//   .center {
-//     width: 100vw;
-//   }
-
-//   body{
-//     background: whitesmoke;
-//   }
-
-//   .carousel{
-//     display: block;
-//     width: 90vw;
-//     height: 40vh;
-//   }
-
-//   .line {
-//     margin-bottom: 0px !important;
-//   }
-
-//   .line:nth-child(even) {
-//     background-color: #EAEAEA
-//   }
-// }

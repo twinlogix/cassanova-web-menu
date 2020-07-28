@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Product} from '@classes/Product';
-import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription} from 'rxjs';
 import { tap, map, filter } from 'rxjs/operators';
 import { ProductService } from '@app/services/product.service';
@@ -29,7 +28,6 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
   private idSp : number;
 
   constructor(
-    public dialog: MatDialog,
     private productService: ProductService,
     private categoryService: CategoryService,
     private route: ActivatedRoute,
@@ -82,15 +80,4 @@ export class SearchProductsComponent implements OnInit, OnDestroy {
     return d.toLocaleLowerCase().includes(filterDescr);
   }
 
-  private openDetail(product: Product): void {
-    const dialogRef = this.dialog.open(ProductDetailComponent, { data: product }); // Open Dialog
-    this.disabled = true;
-    this.routerSub = this.router.events.pipe(
-      filter(e => e instanceof NavigationStart)
-    ).subscribe(e => dialogRef.close());
-
-    dialogRef.afterClosed().subscribe(() =>  {
-      this.disabled = false;
-    });
-  }
 }

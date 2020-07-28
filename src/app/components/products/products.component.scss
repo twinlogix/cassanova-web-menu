@@ -44,13 +44,9 @@ div.price-tag > span {
 }
 
 div.responsive-container {
-  grid-column-gap: 3vw;
-}
-
-div.responsive-container {
   position: relative;
-  padding: 2em 1em;
-  bottom: 1em;
+  padding: 3em 1em;
+  bottom: 1.5em;
 }
 
 mat-card > img {
@@ -64,4 +60,8 @@ mat-card > img {
 
 a {
   text-decoration: none;
+}
+
+@media only screen and (min-width: 550px) {
+  
 }

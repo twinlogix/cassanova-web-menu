@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Product } from '@classes/Product';
 import {ProductService} from '@services/product.service';
 import {ActivatedRoute, Router, NavigationStart} from '@angular/router';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {ProductDetailComponent} from '../product-detail/product-detail.component';
 import { Observable, Subscription } from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
@@ -21,7 +20,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
-    public dialog: MatDialog,
     public router: Router
   ) { }
 
@@ -64,17 +62,5 @@ export class ProductsComponent implements OnInit, OnDestroy {
   //     this.loading = false; // Remove Spinner
   //   });
   // }
-
-  public openDetail(product: Product): void {
-    const dialogRef = this.dialog.open(ProductDetailComponent, { data: product }); // Open Dialog
-    this.disabled = true;
-    this.routerSub = this.router.events.pipe(
-      filter(e => e instanceof NavigationStart)
-    ).subscribe(e => dialogRef.close());
-
-    dialogRef.afterClosed().subscribe(() =>  {
-      this.disabled = false;
-    });
-  }
 
 }

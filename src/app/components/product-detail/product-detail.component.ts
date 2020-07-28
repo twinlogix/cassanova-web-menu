@@ -1,5 +1,4 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProductService } from '@app/services/product.service';
 import { Observable } from 'rxjs';
 import { Product } from '@app/classes/Product';
@@ -22,5 +21,4 @@ export class ProductDetailComponent implements OnInit {
     this.productSub = this.productService.getProducts({ids : [id]})
   }
 
-  public closeDialog(): void {  }
 }
