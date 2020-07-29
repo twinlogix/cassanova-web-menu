@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ProductService } from '@app/services/product.service';
 import { Observable } from 'rxjs';
 import { Product } from '@app/classes/Product';
@@ -18,7 +18,7 @@ export class ProductDetailComponent implements OnInit {
 
   ngOnInit() {
     const id : string = this.route.snapshot.paramMap.get("id");
-    this.productSub = this.productService.getProducts({ids : [id]})
+    this.productSub = this.productService.getProducts({ids : [id]});
   }
 
 }
