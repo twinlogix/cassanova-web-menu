@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
-import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CategoriesComponent } from '@components/categories/categories.component';
@@ -54,7 +53,6 @@ import { CassawebCarouselComponent } from './components/cassaweb-carousel/cassaw
     MatCardModule,
     ScrollingModule,
     FormsModule,
-    NgxUsefulSwiperModule
   ],
   providers: [
       {
