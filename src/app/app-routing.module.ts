@@ -16,13 +16,13 @@ const routes: Routes = [
   { path: '401', component: AuthFailedComponent},
   { path: '500', component: ServerErrorComponent},
   { path: 'salespoint', canActivate: [TokenAuthGuard], component: SalesPointComponent},
-  { path: 'products/:id', canActivate: [TokenAuthGuard], component: ProductDetailComponent},
   {
     path: ':idSp',
     canActivateChild: [TokenAuthGuard],
     children: [
       { path: 'categories', component: CategoriesComponent },
       { path: 'categories/:id', component: ProductsComponent },
+      { path: 'categories/:idCat/products/:id', component: ProductDetailComponent},
       { path: 'search', component: SearchProductsComponent },
       { path: '**', redirectTo: '/404'}
     ]
