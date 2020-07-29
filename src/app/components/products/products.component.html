@@ -6,7 +6,7 @@
       <div class="responsive-container">
         <div class="item-content-container" *cdkVirtualFor="let product of products">
           <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
-          <a routerLink="/products/{{product.id}}">
+          <a routerLink="products/{{product.id}}">
             <mat-card>
               <img src="{{product.images[0].imageUrl}}">
               <mat-card-content>
