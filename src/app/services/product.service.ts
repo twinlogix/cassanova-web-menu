@@ -2,10 +2,10 @@ import {Injectable} from '@angular/core';
 import { Product } from '../classes/Product';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {catchError, map} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
 import { ProductsRequest } from '@classes/QueryParams'
-// const defaultImageUrl = '/assets/default.png';
+
 @Injectable({
   providedIn: 'root'
 })

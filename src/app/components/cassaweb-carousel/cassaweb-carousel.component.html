@@ -1,12 +1,9 @@
-<swiper [config]="config">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide" *ngFor="let slide of slides">
-        <img src="{{slide.imageUrl}}" />
-      </div>
+<!-- <swiper class="swiper-container" [config]="config">
+    <div class="swiper-slide" *ngFor="let slide of slides">
+      <img src="{{slide.imageUrl}}" />
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-    <!-- Add Arrows -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
-</swiper>
+</swiper> -->
+
+<img src="{{slides[0].imageUrl}}">
