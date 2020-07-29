@@ -1,54 +1,26 @@
-<!-- Header -->
-<!-- <a class="icon-link" aria-label="Chiudi"><mat-icon class="close" (click)="closeDialog()">close</mat-icon></a> -->
-
-<!-- Content -->
-<!-- <mat-dialog-content> -->
-  <!-- Carousel -->
-  <!-- <mdb-carousel class="center" *ngIf="product.images.length > 1 else noCarousel" [animation]="'slide'"> -->
-    <!-- <mdb-carousel-item *ngFor="let image of product.images"> -->
-        <!-- <span aria-hidden="true" class="centerVertical"></span> -->
-        <!-- <img src="{{image.imageUrl}}"> -->
-    <!-- </mdb-carousel-item> -->
-  <!-- </mdb-carousel> -->
-  <!-- Don't show carousel if only one image is present -->
-  <!-- <ng-template #noCarousel> -->
-    <!-- <div class="img-container center"> -->
-      <!-- <span aria-hidden="true" class="centerVertical"></span> -->
-      <!-- <img src="{{product.images[0].imageUrl}}"> -->
-    <!-- </div> -->
-  <!-- </ng-template> -->
-  <!-- Text -->
-  <!-- <div class="dialog-text-container"> -->
-    <!-- <h3 mat-dialog-title class="overflow-text">{{product.description}}</h3> -->
-    <!-- <span class="label">Prezzo:</span><span class="dialog-price"> {{product.prices[0].value | currency}} </span> -->
-    <!-- <span class="label dialog-description">Descrizione: </span> -->
-    <!-- <span class="dialog-product-description" [innerHTML]="product.descriptionExtended | noHTML: 'no-div'"></span> -->
-  <!-- </div> -->
-<!-- </mat-dialog-content> -->
-
 <app-nav-bar></app-nav-bar>
 <ng-container *ngIf="productSub | async as products; else loading">
   <ng-container *ngIf="products[0] as product; else noProduct">
     <app-cassaweb-carousel [slides]=product.images></app-cassaweb-carousel>
-
-    <!-- <mdb-carousel [animation]="'slide'">
-      <mdb-carousel-item *ngFor="let image of product.images">
-          <span aria-hidden="true" class="centerVertical"></span>
-          <img src="{{image.imageUrl}}">
-      </mdb-carousel-item>
-    </mdb-carousel> -->
-
-    <!-- <div class="img-container center">
-      <span aria-hidden="true" class="centerVertical"></span>
-      <img src="{{product.images[0].imageUrl}}">
-    </div> -->
-
+    <div class="content-container"> <!--stesso margin di margin destro bottone--> <!--margin top-->
+      <button mat-raised-button class="cart-button" color="accent" aria-label="buy"><mat-icon>shopping_cart</mat-icon></button>
+      <div class="summary">
+        <span class="product-name">{{product.description}}</span>
+        <span class="product-price">{{product.prices[0].value | currency}}</span>
+      </div>
+      <div class="buy options">
+        <!--Quantità (?) drop down menu ? Placeholder comunque-->
+        <!--button add to cart (colour accent)-->
+        <button mat-raised-button class="add-to-cart-button" color="accent" aria-label="add to cart">Aggiungi al carrello</button>
+      </div>
+      <section>
+        <h2>Descrizione</h2>
+        <p [innerHTML]="product.descriptionExtended | noHTML: 'no-div'"></p>
+      </section>
+    </div>
   </ng-container>
 </ng-container>
 
 <ng-template #loading>
   <p>Caricamento...</p>
 </ng-template>
-<!--product img-->
-<!--sticky header when the user scrolls (optional)-->
-<!--buy button-->
