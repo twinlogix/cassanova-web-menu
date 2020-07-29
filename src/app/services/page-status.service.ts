@@ -3,7 +3,8 @@ import { Location } from '@angular/common';
 
 export enum PageType {
   CATEGORIES = 'categories',
-  PRODUCTS = 'products',
+  PRODUCT_DETAIL = 'products',
+  PRODUCTS = 'productsList',
   SEARCH = 'search',
   ERROR = 'error',
   SALESPOINT = 'salespoint',
@@ -21,6 +22,9 @@ export class PageStatusService {
     const url : string[] = this.getTokenizedUrl();
     if(url.length === 2 && url[1] === PageType.CATEGORIES) {
       return PageType.CATEGORIES;
+    }
+    if(url.length === 5) {
+      return PageType.PRODUCT_DETAIL;
     }
     if(url.length === 3) {
       return PageType.PRODUCTS;
