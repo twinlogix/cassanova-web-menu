@@ -11,10 +11,9 @@ import { tap, filter } from 'rxjs/operators';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss']
 })
-export class ProductsComponent implements OnInit, OnDestroy {
+export class ProductsComponent implements OnInit {
 
   private productsSub : Observable<Product[]>;
-  private routerSub : Subscription;
   private disabled : boolean = false;
 
   constructor(
@@ -22,12 +21,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public router: Router
   ) { }
-
-  ngOnDestroy(): void {
-    if(this.routerSub) {
-      this.routerSub.unsubscribe();
-    }
-  }
 
   ngOnInit() {
     this.productsSub = this.getProducts();
