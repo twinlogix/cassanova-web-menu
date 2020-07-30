@@ -1,5 +1,5 @@
 <!-- Card -->
-<ng-container *ngIf="productsSub | async as products; else loading">
+<ng-container *ngIf="productsSub | async as products;">
   <ng-container *ngIf="products.length > 0; else noProducts">
     <app-nav-bar></app-nav-bar>
     <cdk-virtual-scroll-viewport itemSize=auto > <!--(scrolledIndexChange)="checkLoad($event)"-->

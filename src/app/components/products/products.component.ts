@@ -1,10 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Product } from '@classes/Product';
 import {ProductService} from '@services/product.service';
 import {ActivatedRoute, Router, NavigationStart} from '@angular/router';
-import {ProductDetailComponent} from '../product-detail/product-detail.component';
-import { Observable, Subscription } from 'rxjs';
-import { tap, filter } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Channel, ProductsRequest } from '@app/classes/QueryParams';
 
 @Component({
   selector: 'app-products',
@@ -27,33 +27,31 @@ export class ProductsComponent implements OnInit {
   }
 
   private getProducts(): Observable<Product[]> {
-    const defaultImageUrl : string = '/assets/default.png';
     const categoryId : string = this.route.snapshot.paramMap.get('id');
     const idSp : number = parseInt(this.route.snapshot.paramMap.get('idSp'));
-    return this.productService.getProducts({idsSalesPoint : [idSp], idsCategory : [categoryId], start : 0, limit : 6/*this.scroll.getLimitShow()*/}).pipe(
-      tap(prods => {
-        for(let p of prods) {
-          if(!p.images) {
-            p.images = [{imageUrl : defaultImageUrl}];
-          }
-          if(p.images.length == 0) {
-            p.images.push({imageUrl : defaultImageUrl});
-          }
-        }
-      })
+    const query : ProductsRequest = {
+      idsSalesPoint: [idSp],
+      idsCategory: [categoryId],
+      enabledForChannels: [Channel.MOBILE_COMMERCE],
+      start: 0,
+      limit : 6/*TEMP*/
+    }
+
+    return this.productService.getProducts(query).pipe(
+      map(res => res.map(prod => this.prepareProduct(prod)))
     );
   }
 
-  // private loadMore() {
-  //   if (this.page.isDisabled()) { return; }
-  //   this.loading = true; // Add Spinner
-  //   if (this.products.length + this.scroll.getLimitShow() >= Number.parseInt(this.categoryName[2])) { this.stopLoad = true; } // Stop load more
-  //   // Load products
-  //   if (this.productSub !== null) { this.productSub.unsubscribe(); }
-  //   this.productSub = this.productService.getProducts(this.categoryId, this.products.length, this.scroll.getLimitShow(), this.products).subscribe(() => {
-  //     this.products = [... this.products]; // Update Products
-  //     this.loading = false; // Remove Spinner
-  //   });
-  // }
+  private prepareProduct(prod : Product) : Product {
+    const defaultImageUrl : string = '/assets/default.png';
+    let res = prod;
+    if(!res.images) {
+      res.images = [{imageUrl : defaultImageUrl}];
+    }
+    if(res.images.length == 0) {
+      res.images.push({imageUrl : defaultImageUrl});
+    }
+    return res;
+  }
 
 }
