@@ -9,6 +9,8 @@ import { map } from 'rxjs/operators';
 })
 export class TokenAuthGuard implements CanActivate, CanActivateChild {
 
+  private ERR_CODE : number;
+
   constructor(private token: TokenService, private router: Router) {}
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean | UrlTree> {
@@ -20,7 +22,7 @@ export class TokenAuthGuard implements CanActivate, CanActivateChild {
     state: RouterStateSnapshot): Observable<boolean | UrlTree>
   {
     return this.token.loadToken().pipe(
-      map(res => res === false ? this.router.parseUrl('/401') : res)
+      map(res => res === this.ERR_CODE ? this.router.parseUrl('/401') : true)
     )
   }
 }
