@@ -56,3 +56,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 // .carousel-control-next-icon, .carousel-control-prev-icon { /* Add .carousel-indicators li for lower indicators */
 //   filter: invert(100%);
 // }
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.overflow-visible {
+  overflow: auto;
+}
