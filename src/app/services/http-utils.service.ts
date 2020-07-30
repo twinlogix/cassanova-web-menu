@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
@@ -46,12 +46,20 @@ export class HttpUtilsService {
     return {base : `${environment.hostname}/products?`, options : { headers : BASIC_HTTP_HEADERS, params : this.getParams(query)}};
   }
 
-  public handleError<T>(operation = 'operation', result ?: T) {
-    return (error: any): Observable<T> => {
+  public handleError<T>(operation = 'operation', result : T) {
+    return (error: HttpErrorResponse): Observable<T> => {
       console.error(error);
       console.log(`${operation} failed: ${error.message}`);
       //this.router.navigateByUrl("404");
       return of(result as T);
+    };
+  }
+
+  public handleErrorErrCode(operation = 'operation') {
+    return (error: HttpErrorResponse): Observable<number> => {
+      console.error(error);
+      console.log(`${operation} failed: ${error.message}`);
+      return of(error.status);
     };
   }
 
