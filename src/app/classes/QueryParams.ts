@@ -11,5 +11,15 @@ export interface ProductsRequest {
   ids?: string[],
   idsSalesPoint?: number[],
   idsCategory?: string[],
-  description?: string
+  description?: string,
+  enabledForChannels?: Channel[]
+}
+
+export enum Channel {
+  RISTO = "RISTO",
+  SALE = "SALE",
+  ECOMMERCE = "ECOMMERCE",
+  MOBILE_COMMERCE = "MOBILE_COMMERCE",
+  SELF_ORDER = "SELF_ORDER",
+  KIOSK = "KIOSK"
 }
