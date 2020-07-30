@@ -1,4 +1,4 @@
-<app-message-template *ngIf="navigationDet.navigationPending | async; else authenticated" [title]="'Autenticazione in corso'" [content]="'Potrebbe volerci fino ad un minuto'"></app-message-template>
+<app-message-template *ngIf="navigationDet.navigationPending | async; else authenticated" [title]="'Autenticazione in corso'" [content]="'Attendere...'"></app-message-template>
 
 <ng-template #authenticated>
     <router-outlet></router-outlet> 
