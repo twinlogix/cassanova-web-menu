@@ -1,5 +1,5 @@
 <app-nav-bar></app-nav-bar>
-<ng-container *ngIf="productSub | async as products; else loading">
+<ng-container *ngIf="productSub | async as products;">
   <ng-container *ngIf="products[0] as product; else noProduct">
     <app-cassaweb-carousel [slides]=product.images></app-cassaweb-carousel>
     <div class="content-container"> <!--stesso margin di margin destro bottone--> <!--margin top-->
