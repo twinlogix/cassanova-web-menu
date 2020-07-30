@@ -23,6 +23,4 @@ export class TokenAuthGuard implements CanActivate, CanActivateChild {
       map(res => res === false ? this.router.parseUrl('/401') : res)
     )
   }
-
-  
 }

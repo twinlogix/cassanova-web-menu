@@ -1,5 +1,5 @@
 
-<ng-container *ngIf="categorySub | async as categories; else loading">
+<ng-container *ngIf="categorySub | async as categories;">
   <ng-container *ngIf="categories.length > 0; else noItems">
     <app-nav-bar></app-nav-bar>
     <cdk-virtual-scroll-viewport itemSize=auto>

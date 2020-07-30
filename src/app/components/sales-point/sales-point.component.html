@@ -1,7 +1,7 @@
 <!-- Card -->
 <app-nav-bar></app-nav-bar>
 
-<ng-container *ngIf="salesPointSub | async as salesPoints; else loading">
+<ng-container *ngIf="salesPointSub | async as salesPoints;">
   <cdk-virtual-scroll-viewport itemSize="auto">
     <div class="responsive-container">
       <div class="sp-content-container" *cdkVirtualFor="let sp of salesPoints">
