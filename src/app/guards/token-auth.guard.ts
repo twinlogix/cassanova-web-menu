@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class TokenAuthGuard implements CanActivate, CanActivateChild {
 
-  private ERR_CODE : number;
+  private ERR_CODE : number = 400;
 
   constructor(private token: TokenService, private router: Router) {}
 
