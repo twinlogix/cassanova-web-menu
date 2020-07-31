@@ -1,9 +1,5 @@
-<!-- <swiper class="swiper-container" [config]="config">
-    <div class="swiper-slide" *ngFor="let slide of slides">
+<swiper [config]="config" class="swiper-container">
+    <div *ngFor="let slide of slides" class="swiper-slide">
       <img src="{{slide.imageUrl}}" />
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</swiper> -->
-
-<img src="{{slides[0].imageUrl}}">
+</swiper>

@@ -1,0 +1,12 @@
+@import "swiper/swiper.scss";
+
+img {
+    width: 100%;
+    height: 100%;
+    object-position: center;
+    object-fit: cover;
+}
+
+div.swiper-slide {
+    overflow: hidden !important;
+}
