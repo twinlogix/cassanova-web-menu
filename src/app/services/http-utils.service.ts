@@ -3,7 +3,7 @@ import {HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
-import {CategoriesRequest, ProductsRequest} from "@classes/QueryParams"
+import {CategoriesRequest, ProductsRequest, StockRequest} from "@classes/QueryParams"
 
 const LOAD_LIMIT_MAX = 100;
 const LOAD_LIMIT_MINIMUM = 1;
@@ -34,16 +34,20 @@ export class HttpUtilsService {
   getHostname(): string { return environment.hostname; }
   getTokenHttpOptions(): any  { return TOKEN_HTTP_HEADERS; }
 
-  public getCategoriesRequestURL(query : CategoriesRequest) : QueryUrl {
-    return {base : `${environment.hostname}/categories?`, options : { headers : BASIC_HTTP_HEADERS, params : this.getParams(query)}};
-  }
-
   public getSalesPointRequestURL() : QueryUrl {
     return {base : `${environment.hostname}/salespoint`, options : {headers : BASIC_HTTP_HEADERS}};
   }
 
+  public getCategoriesRequestURL(query : CategoriesRequest) : QueryUrl {
+    return {base : `${environment.hostname}/categories?`, options : { headers : BASIC_HTTP_HEADERS, params : this.getParams(query)}};
+  }
+
   public getProductsRequestURL(query : ProductsRequest) : QueryUrl {
     return {base : `${environment.hostname}/products?`, options : { headers : BASIC_HTTP_HEADERS, params : this.getParams(query)}};
+  }
+
+  public getStocksRequestURL(query : StockRequest, idSalesPoint : number) : QueryUrl {
+    return {base : `${environment.hostname}/stocks/${idSalesPoint}?`, options : { headers : BASIC_HTTP_HEADERS, params : this.getParams(query)}};
   }
 
   public handleError<T>(operation = 'operation', result : T) {
