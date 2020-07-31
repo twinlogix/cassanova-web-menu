@@ -16,15 +16,20 @@ export class CassawebCarouselComponent implements OnInit {
 
   @Input()
   private slides : Slide[];
+  private slidesPerView: number = 1;
+  private autoplayDelayMs: number = 6000;
 
   private config: SwiperConfigInterface = {
-    // a11y: true,
     direction: 'horizontal',
-    slidesPerView: 1,
+    slidesPerView: this.slidesPerView,
     keyboard: true,
     mousewheel: false,
     navigation: true,
     pagination: true,
+    autoplay : {
+      delay: this.autoplayDelayMs,
+      disableOnInteraction: true
+    }
   }
 
   constructor() { }
