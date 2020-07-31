@@ -15,6 +15,14 @@ export interface ProductsRequest {
   enabledForChannels?: Channel[]
 }
 
+export interface StockRequest {
+  start?: number,
+  limit?: number,
+  sorts?: Sort[],
+  idProduct?: string[],
+  idProductVariant?: string[]
+}
+
 export enum Channel {
   RISTO = "RISTO",
   SALE = "SALE",
@@ -22,4 +30,9 @@ export enum Channel {
   MOBILE_COMMERCE = "MOBILE_COMMERCE",
   SELF_ORDER = "SELF_ORDER",
   KIOSK = "KIOSK"
+}
+
+export interface Sort {
+  key: string,
+  direction: number
 }
