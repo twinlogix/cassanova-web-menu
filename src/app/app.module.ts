@@ -1,3 +1,5 @@
+import { SwiperModule } from 'ngx-swiper-wrapper';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -53,6 +55,7 @@ import { CassawebCarouselComponent } from './components/cassaweb-carousel/cassaw
     MatCardModule,
     ScrollingModule,
     FormsModule,
+    SwiperModule
   ],
   providers: [
       {
