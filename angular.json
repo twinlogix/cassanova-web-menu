@@ -28,11 +28,12 @@
             ],
             "styles": [
               "src/styles.scss",
-              "src/theme.scss",
+              "src/theme.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/app/styles/"
+                "src/app/styles/",
+                "node_modules/"
               ]
             },
             "scripts": [
