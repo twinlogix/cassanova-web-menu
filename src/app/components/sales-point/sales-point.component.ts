@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SalesPointService} from '@services/sales-point.service';
 import { Observable } from 'rxjs/internal/Observable';
-import { SalesPoint } from '@app/classes/SalePoint';
+import { SalesPoint } from '@classes/SalesPoint';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -47,6 +47,6 @@ export class SalesPointComponent implements OnInit {
 
 
   private getSalesPoint(): Observable<SalesPoint[]> {
-    return this.salesPointService.loadSalesPoint();
+    return this.salesPointService.getSalesPoints();
   }
 }
