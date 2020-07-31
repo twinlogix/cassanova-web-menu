@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {HttpUtilsService} from './http-utils.service';
 import {Observable} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
-import {SalesPoint} from '@classes/SalePoint';
+import {SalesPoint} from '@classes/SalesPoint';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class SalesPointService {
     return this.loadSalesPoint(); 
   }
 
-  public loadSalesPoint(): Observable<SalesPoint[]> {
+  private loadSalesPoint(): Observable<SalesPoint[]> {
     const requestUrl = this.httpUtils.getSalesPointRequestURL();
     return this.http.get<[SalesPoint[], number]>(requestUrl.base, requestUrl.options).pipe(
       map( res => res["salesPoint"]),

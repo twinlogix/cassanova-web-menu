@@ -27,8 +27,7 @@ export class TokenService {
     if (this.token === undefined || this.lastApiKey.localeCompare(currApiKey) !== 0 || currDate - this.lastDate >= this.tokenValidityMs) { // Load token
       return this.http.post(this.requestUrl, JSON.stringify(this.getBody(currApiKey)), this.httpUtils.getTokenHttpOptions()).pipe(
         tap(response => {
-          console.log(response)
-          this.tokenValidityMs = response["expires_in"] * 1000;
+          this.tokenValidityMs = response["expires_in"] * 1000; //Seconds to Ms
           this.token = response["access_token"];
           this.lastApiKey = currApiKey;
           this.lastDate = currDate;
