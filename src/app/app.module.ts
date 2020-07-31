@@ -26,6 +26,7 @@ import { MessageTemplateComponent } from './components/messages/message-template
 import { AuthFailedComponent } from './components/messages/auth-failed/auth-failed.component';
 import { ServerErrorComponent } from './components/messages/server-error/server-error.component';
 import { CassawebCarouselComponent } from './components/cassaweb-carousel/cassaweb-carousel.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { CassawebCarouselComponent } from './components/cassaweb-carousel/cassaw
     MatCardModule,
     ScrollingModule,
     FormsModule,
-    SwiperModule
+    SwiperModule,
+    MatSelectModule
   ],
   providers: [
       {
