@@ -11,9 +11,11 @@
         <div class="cat-container">
           <a routerLink="{{category.id}}">
             <img src="{{category.imageUrl}}"/>
+            <div class="overlay">
               <span class="category-name">
                 {{category.description | uppercase}}
               </span>
+            </div>
           </a>
         </div>
       </div>
