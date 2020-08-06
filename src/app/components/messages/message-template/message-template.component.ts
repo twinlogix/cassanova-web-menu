@@ -7,7 +7,11 @@ import { Component, Input } from '@angular/core';
 })
 export class MessageTemplateComponent{
 
-  @Input() title: string;
-  @Input() content: string;
+  @Input()
+  protected disableNavBar : boolean;
+  @Input()
+  protected title: string;
+  @Input()
+  protected content: string;
 
 }

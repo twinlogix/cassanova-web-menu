@@ -1,4 +1,4 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar *ngIf="!disableNavBar"></app-nav-bar>
 <div class="message-container">
   <h2 *ngIf="title">{{title}}</h2>
   <p *ngIf="content">{{content}}</p>
