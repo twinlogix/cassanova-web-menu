@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CassaWebRequest, DEFAULT_START, DEFAULT_LIMIT } from '@app/classes/QueryParams';
 import { FetchService } from '@app/classes/FetchService';
+import { BooleanInput } from '@angular/cdk/coercion';
 
 @Component({
   template: 'THIS SHOULD NOT BE SEEN'
@@ -12,6 +13,7 @@ export abstract class InfiniteScrollableComponent<T> implements OnDestroy {
   private subs : Subscription = new Subscription();
   private query : CassaWebRequest;
   protected items : T[] = []; 
+  protected firstFetch : boolean = false;
   protected fetching : boolean = true;
 
   constructor(private fetchService : FetchService<T>, private itemProcessFunc ?: (prod : T) => T, private collectionProcessFunc ?: (arr : T[]) => T[]) { }
@@ -29,13 +31,15 @@ export abstract class InfiniteScrollableComponent<T> implements OnDestroy {
 
     if(refresh) {
       this.end = false;
+      this.firstFetch = false;
     }
 
     if(this.end) {
       return;
     }
+    this.fetching = true;
 
-   this.subs.add(this.fetchService.getData(this.query).subscribe(
+    this.subs.add(this.fetchService.getData(this.query).subscribe(
       res => {
         if(this.collectionProcessFunc) {
           res = this.collectionProcessFunc(res);
@@ -45,6 +49,7 @@ export abstract class InfiniteScrollableComponent<T> implements OnDestroy {
           res = res.map(prod => this.itemProcessFunc(prod));
         }
         this.items = !refresh ? this.items.concat(res) : res;
+        this.firstFetch = true;
         this.fetching = false;
         if(res.length < this.query.limit) {
           this.end = true;
