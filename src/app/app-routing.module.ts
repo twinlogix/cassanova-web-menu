@@ -21,9 +21,10 @@ const routes: Routes = [
     canActivateChild: [TokenAuthGuard],
     children: [
       { path: 'categories', component: CategoriesComponent },
+      { path: 'categories/search', component: SearchProductsComponent },
       { path: 'categories/:id', component: ProductsComponent },
+      { path: 'categories/:idCat/search', component: SearchProductsComponent},
       { path: 'categories/:idCat/products/:id', component: ProductDetailComponent},
-      { path: 'search', component: SearchProductsComponent },
       { path: '**', redirectTo: '/404'}
     ]
   },
