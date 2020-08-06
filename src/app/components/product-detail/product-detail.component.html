@@ -20,7 +20,7 @@
         </mat-form-field>
         <button mat-raised-button class="add-to-cart-button" color="accent" aria-label="add to cart">Aggiungi al carrello</button>
       </div>
-      <div *ngIf="quantity.length <= 0" class="not-in-stock">
+      <div *ngIf="quantity.length <= 0 && !unauthorized" class="not-in-stock">
         <p>Non attualmente presente in magazzino</p>
       </div>
       <!--/Form?-->
