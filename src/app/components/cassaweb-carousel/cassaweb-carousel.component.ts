@@ -1,23 +1,21 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SwiperConfigInterface } from 'ngx-swiper-wrapper';
 
 interface Slide {
   imageUrl : string
 }
 
-//Currently it does not work as a carousel and only displays one image
-
 @Component({
   selector: 'app-cassaweb-carousel',
   templateUrl: './cassaweb-carousel.component.html',
   styleUrls: ['./cassaweb-carousel.component.scss']
 })
-export class CassawebCarouselComponent implements OnInit {
+export class CassawebCarouselComponent {
 
   @Input()
   private slides : Slide[];
   private slidesPerView: number = 1;
-  private autoplayDelayMs: number = 6000;
+  private autoplayDelayMs: number = 8000;
 
   private config: SwiperConfigInterface = {
     direction: 'horizontal',
@@ -25,7 +23,13 @@ export class CassawebCarouselComponent implements OnInit {
     keyboard: true,
     mousewheel: false,
     navigation: true,
-    pagination: true,
+    spaceBetween: 0,
+    
+    pagination : {
+      el: '.swiper-pagination',
+      clickable: true,
+      hideOnClick: false,
+    },
     autoplay : {
       delay: this.autoplayDelayMs,
       disableOnInteraction: true
@@ -33,8 +37,5 @@ export class CassawebCarouselComponent implements OnInit {
   }
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
