@@ -1,41 +1,39 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 import { Category } from '@classes/Category';
-import {CategoryService} from '@services/category.service';
+import { CategoryService } from '@services/category.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { CategoriesRequest } from '@classes/QueryParams'
-import { map } from 'rxjs/operators';
+import { InfiniteScrollableComponent } from '../infinite-scrollable/infinite-scrollable.component';
 
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
 })
-export class CategoriesComponent implements OnInit {
-
-  // Subscriptions
-  private categorySub : Observable<Category[]>;
+export class CategoriesComponent extends InfiniteScrollableComponent<Category> {
+//Possibile implementazione a mano di virtual scrolling: ascolta evento ridimensionamento finestra e basati sul layout per definire quanti elementi vuoi nel buffer
 
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    super(categoryService, prepareCategory)
+  }
 
   ngOnInit() {
     const idSp : number = parseInt(this.route.snapshot.paramMap.get("idSp"));
-    this.categorySub = this.getCategories({ idsSalesPoint : [idSp]});
+    const query : CategoriesRequest = {
+      idsSalesPoint: [idSp],
+      start: 0,
+      limit : 15
+    }
+    this.setQuery(query);
+    this.getItems();
   }
+}
 
-  public getCategories(params : CategoriesRequest): Observable<Category[]> {
-    return this.categoryService.getCategories(params).pipe(
-      map(res => res.map((cat : Category) => this.prepareCategory(cat)))
-    );
-  }
-
-  private prepareCategory(cat : Category) : Category {
-    let res = cat;
-    res.imageUrl = res.imageUrl ?? "/assets/default.png"
-    return res;
-  }
-
+function prepareCategory(cat : Category) : Category {
+  let res = cat;
+  res.imageUrl = res.imageUrl ?? "/assets/default.png"
+  return res;
 }
