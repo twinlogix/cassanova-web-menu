@@ -4,10 +4,7 @@ import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
 import {CategoriesRequest, ProductsRequest, StockRequest} from "@classes/QueryParams"
-
-const LOAD_LIMIT_MAX = 100;
-const LOAD_LIMIT_MINIMUM = 1;
-const LOAD_LIMIT_DEFAULT = 10;
+import {MIN_LIMIT, MAX_LIMIT, DEFAULT_LIMIT} from "@classes/QueryParams"
 
 const TOKEN_HTTP_HEADERS = {
   headers : new HttpHeaders({
@@ -54,7 +51,6 @@ export class HttpUtilsService {
     return (error: HttpErrorResponse): Observable<T> => {
       console.error(error);
       console.log(`${operation} failed: ${error.message}`);
-      //this.router.navigateByUrl("404");
       return of(result as T);
     };
   }
@@ -83,15 +79,15 @@ export class HttpUtilsService {
     }
 
     if(!Object.keys(queryParams).find(k => k === "limit")){
-      params = params.append("limit", LOAD_LIMIT_DEFAULT.toString());
+      params = params.append("limit", MIN_LIMIT.toString());
     } else {
-      let limit = queryParams.limit ?? LOAD_LIMIT_DEFAULT;
-      if(limit < LOAD_LIMIT_MINIMUM) {
-        console.log(`WARNING HttpRequest: 'limit' parameter provided was < ${LOAD_LIMIT_MINIMUM}`);
-        limit = LOAD_LIMIT_MINIMUM;
-      } else if(limit > LOAD_LIMIT_MAX) {
-        console.log(`WARNING HttpRequest: 'limit' parameter provided was > ${LOAD_LIMIT_MAX}`);
-        limit = LOAD_LIMIT_MAX;
+      let limit = queryParams.limit ?? DEFAULT_LIMIT;
+      if(limit < MIN_LIMIT) {
+        console.log(`WARNING HttpRequest: 'limit' parameter provided was < ${MIN_LIMIT}`);
+        limit = MIN_LIMIT;
+      } else if(limit > MAX_LIMIT) {
+        console.log(`WARNING HttpRequest: 'limit' parameter provided was > ${MAX_LIMIT}`);
+        limit = MAX_LIMIT;
       }
       params = params.append("limit", limit.toString());
     }

@@ -5,19 +5,19 @@ import {HttpClient} from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {HttpUtilsService} from '@services/http-utils.service';
 import {SalesPointService} from './sales-point.service';
-import {CategoriesRequest} from '@classes/QueryParams'
+import {CategoriesRequest, CassaWebRequest} from '@classes/QueryParams';
+import {FetchService} from '@classes/FetchService';
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class CategoryService implements FetchService<Category> {
 
   constructor(private http: HttpClient,
               private httpUtils: HttpUtilsService,
               private salesPoints: SalesPointService) {}
 
-  // Return all the categories
-  public getCategories(params : CategoriesRequest): Observable<Category[]> {
-    //caching?
+  getData(params: CategoriesRequest): Observable<Category[]> {
+    //Caching?
     return this.loadCategories(params);
   }
 

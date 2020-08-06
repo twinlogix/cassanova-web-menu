@@ -22,9 +22,11 @@ export class TokenService {
   constructor(private http: HttpClient, private httpUtils: HttpUtilsService, private page: PageStatusService) {}
 
   public loadToken(): Observable<number> {
-    const currApiKey = 'ebf79958-415e-4333-b746-7b3375802fa7'//apiKey;
+    //'ebf79958-415e-4333-b746-7b3375802fa7'//heroku apiKey;
+    //"a2c7bfa8-1c11-48f8-9c7c-a5c6fcea76ea" //production Key (javaqueen, molti prodotti)
+    const currApiKey = 'ebf79958-415e-4333-b746-7b3375802fa7';
     const currDate = Date.now();
-    if (this.token === undefined || this.lastApiKey.localeCompare(currApiKey) !== 0 || currDate - this.lastDate >= this.tokenValidityMs) { // Load token
+    if (this.token === undefined || this.lastApiKey.localeCompare(currApiKey) !== 0 || currDate - this.lastDate >= this.tokenValidityMs) {
       return this.http.post(this.requestUrl, JSON.stringify(this.getBody(currApiKey)), this.httpUtils.getTokenHttpOptions()).pipe(
         tap(response => {
           this.tokenValidityMs = response["expires_in"] * 1000; //Seconds to Ms
@@ -33,7 +35,7 @@ export class TokenService {
           this.lastDate = currDate;
         }),
         map(res => this.OK_CODE),
-        catchError(this.httpUtils.handleErrorErrCode('token')), // then handle the error
+        catchError(this.httpUtils.handleErrorErrCode('token'))
       );
     } else {
       return of(this.OK_CODE);

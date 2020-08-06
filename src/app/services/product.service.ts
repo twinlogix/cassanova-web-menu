@@ -4,16 +4,17 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {catchError, map, tap} from 'rxjs/operators';
 import {HttpUtilsService} from './http-utils.service';
-import { ProductsRequest } from '@classes/QueryParams'
+import { ProductsRequest, CassaWebRequest } from '@classes/QueryParams'
+import { FetchService } from '@app/classes/FetchService';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProductService {
+export class ProductService implements FetchService<Product>{
 
   constructor(private http: HttpClient, private httpUtils: HttpUtilsService) {}
 
-  public getProducts(params : ProductsRequest): Observable<Product[]> {
+  getData(params: ProductsRequest): Observable<Product[]> {
     //caching?
     return this.loadProducts(params);
   }

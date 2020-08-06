@@ -14,6 +14,12 @@ export class StockService {
   constructor(private http: HttpClient,
               private httpUtils: HttpUtilsService) {}
 
+  private _UNAUTHORIZED_MESSAGE : string = "unauthorized";
+
+  public get UNAUTHORIZED_MESSAGE() : string {
+    return this._UNAUTHORIZED_MESSAGE;
+  }
+
   public getStock(params : StockRequest, idSalesPoint : number): Observable<Stock[]> {
     //caching?
     return this.loadStock(params, idSalesPoint); 
@@ -22,7 +28,8 @@ export class StockService {
   private loadStock(params : StockRequest, idSalesPoint : number): Observable<Stock[]> {
     const requestUrl = this.httpUtils.getStocksRequestURL(params, idSalesPoint);
     return this.http.get<[Stock[], number]>(requestUrl.base, requestUrl.options).pipe(
-    map(res => res["stocks"]),
-    catchError(this.httpUtils.handleError('stocks loading', [])));
+      map(res => res["stocks"]),
+      catchError(this.httpUtils.handleError('stocks loading', this._UNAUTHORIZED_MESSAGE))
+    );
   }
 }

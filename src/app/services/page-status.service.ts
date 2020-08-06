@@ -20,6 +20,9 @@ export class PageStatusService {
 
   public getpageType(): PageType {
     const url : string[] = this.getTokenizedUrl();
+    if(url.find(u => u === PageType.SEARCH)) {
+      return PageType.SEARCH
+    }
     if(url.length === 2 && url[1] === PageType.CATEGORIES) {
       return PageType.CATEGORIES;
     }
@@ -28,9 +31,6 @@ export class PageStatusService {
     }
     if(url.length === 3) {
       return PageType.PRODUCTS;
-    }
-    if(url.length === 2 && url[1] === PageType.SEARCH) {
-      return PageType.SEARCH
     }
     if(url.length === 1 && url[0] === PageType.SALESPOINT) {
       return PageType.SALESPOINT;
