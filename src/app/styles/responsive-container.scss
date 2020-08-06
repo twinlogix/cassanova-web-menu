@@ -20,7 +20,7 @@ $grid-item-num-1300:  4  !default;
 div.responsive-container {
   display: grid;
   grid-template-columns: repeat( $grid-item-num-0, 1fr/*minmax(1fr, $grid-item-max-w-0)*/ );
-  width: 100vw;
+  // width: 100vw;
   box-sizing: border-box;
   grid-column-gap: $grid-column-gap;
 }
