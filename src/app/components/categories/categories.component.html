@@ -1,21 +1,23 @@
 
-<ng-container *ngIf="categorySub | async as categories;">
-  <ng-container *ngIf="categories.length > 0; else noItems">
+<ng-container *ngIf="!fetching">
+  <ng-container *ngIf="items.length > 0; else noItems">
     <app-nav-bar></app-nav-bar>
-    <cdk-virtual-scroll-viewport itemSize=auto>
-      <div class="responsive-container">
-        <div *cdkVirtualFor="let category of categories;">
-          <div class="cat-container">
-            <a routerLink="{{category.id}}">
-                <img src="{{category.imageUrl}}"/>
-                <span class="category-name">
-                  {{category.description | uppercase}}
-                </span>
-            </a>
-          </div>
+    <div class="responsive-container search-results"
+      infinite-scroll
+      (scrolled)="onScrollDown()"
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="300">
+      <div *ngFor="let category of items;">
+        <div class="cat-container">
+          <a routerLink="{{category.id}}">
+            <img src="{{category.imageUrl}}"/>
+              <span class="category-name">
+                {{category.description | uppercase}}
+              </span>
+          </a>
         </div>
       </div>
-    </cdk-virtual-scroll-viewport>
+    </div>
   </ng-container>
   <ng-template #noItems>
     <app-message-template title="Nessuna categoria trovata" content="Nessuna categoria trovata"></app-message-template>
@@ -24,7 +26,6 @@
 
 
 <ng-template #loading>
-  <!--mat card?-->
   <p>Recupero dati in corso...</p>
 </ng-template>
 
