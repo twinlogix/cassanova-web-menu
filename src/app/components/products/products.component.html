@@ -1,22 +1,24 @@
 <!-- Card -->
-<ng-container *ngIf="productsSub | async as products;">
-  <ng-container *ngIf="products.length > 0; else noProducts">
+<ng-container *ngIf="!fetching">
+  <ng-container *ngIf="items.length > 0; else noProducts">
     <app-nav-bar></app-nav-bar>
-    <cdk-virtual-scroll-viewport itemSize=auto > <!--(scrolledIndexChange)="checkLoad($event)"-->
-      <div class="responsive-container">
-        <div class="item-content-container" *cdkVirtualFor="let product of products">
-          <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
-          <a routerLink="products/{{product.id}}">
-            <mat-card>
-              <img src="{{product.images[0].imageUrl}}">
-              <mat-card-content>
-                <p>{{product.description}}</p>
-              </mat-card-content>
-            </mat-card>
-          </a>
-        </div>
+    <div class="responsive-container search-results"
+      infinite-scroll
+      (scrolled)="onScrollDown()"
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="300">
+      <div class="item-content-container" *ngFor="let product of items">
+        <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
+        <a routerLink="products/{{product.id}}">
+          <mat-card>
+            <img src="{{product.images[0].imageUrl}}">
+            <mat-card-content>
+              <p>{{product.description}}</p>
+            </mat-card-content>
+          </mat-card>
+        </a>
       </div>
-    </cdk-virtual-scroll-viewport>
+    </div>
   </ng-container>
   <ng-template #noProducts>
     <app-message-template title="Nessun prodotto trovato" content="Nessun prodotto trovato"></app-message-template>
@@ -24,8 +26,7 @@
 </ng-container>
 
 
-  <!-- No Products -->
+<!-- No Products -->
 <ng-template #loading>
   <p>Caricamento prodotti...</p>
 </ng-template>
-<!-- </mat-card> -->
