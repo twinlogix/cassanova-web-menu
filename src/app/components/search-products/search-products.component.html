@@ -1,58 +1,66 @@
 <app-nav-bar></app-nav-bar>
-<div *ngIf="categoriesSub | async as categories" class="center search-line" [ngClass]="{disabled: disabled}">
+<div *ngIf="categoriesSub | async as categories" id="search-form">
   <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
-    <select id="productCategory" [(ngModel)]="productCategory" name="category" #category="ngModel">
-      <option [value]=undefined>Tutte le categorie</option>
-      <option *ngFor="let cat of categories" [value]="cat.id">{{cat.description}}</option>
-    </select>
-    <input type="text" id="prodName" aria-label="cerca per nome" [(ngModel)]="productName" placeholder="Nome Prodotto" name="prodName"/>
-    <input type="text" id="prodDescr" aria-label="cerca per descrizione" [(ngModel)]="productDescription" placeholder="Descrizione Prodotto" name="prodDescr"/>
-    <button type="submit" class="mdc-icon-button material-icons">search</button>
+    <mat-form-field>
+      <input matInput color="accent" type="text" id="prodName" aria-label="cerca per nome" [(ngModel)]="productName" placeholder="Nome Prodotto" name="prodName"/>
+    </mat-form-field>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Opzioni di ricerca aggiuntive
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-form-field *ngIf="!idCategory">
+        <mat-label>Categoria</mat-label>
+        <mat-select color="accent" id="productCategory" [(ngModel)]="productCategory" name="category" #category="ngModel">
+          <mat-option [value]=undefined></mat-option>
+          <mat-option *ngFor="let cat of categories" [value]="cat.id">{{cat.description}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput color="accent" type="text" id="prodDescr" aria-label="cerca per descrizione" [(ngModel)]="productDescription" placeholder="Descrizione Prodotto" name="prodDescr"/>
+      </mat-form-field>
+    </mat-expansion-panel>
+    <button mat-raised-button aria-label="cerca" type="submit" color="accent"><mat-icon>search</mat-icon></button>
   </form>
-  <!-- <mat-icon>search</mat-icon> -->
 </div>
 
+<ng-container *ngIf="!fetching">
+  <ng-container *ngIf="items.length > 0; else noProducts">
+    <div class="responsive-container search-results"
+      infinite-scroll
+      (scrolled)="onScrollDown()"
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="300">
+      <div class="item-content-container" *ngFor="let product of items">
+        <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
+        <a *ngIf="!idCategory" routerLink="../{{product.idCategory}}/products/{{product.id}}">
+          <mat-card>
+            <img src="{{product.images[0].imageUrl}}">
+            <mat-card-content>
+              <p>{{product.description}}</p>
+            </mat-card-content>
+          </mat-card>
+        </a>
+        <a *ngIf="idCategory" routerLink="../products/{{product.id}}">
+          <mat-card>
+            <img src="{{product.images[0].imageUrl}}">
+            <mat-card-content>
+              <p>{{product.description}}</p>
+            </mat-card-content>
+          </mat-card>
+        </a>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noProducts>
+    <app-message-template [disableNavBar]="true" title="Nessun prodotto trovato" content="Nessun prodotto trovato"></app-message-template>
+  </ng-template>
+</ng-container>
 
-<!-- Card -->
-<mat-card [ngClass]="{disabled: disabled}" class="center">
 
-  <!-- Title -->
-  <mat-card-title>
-    <h2 class="overflow-text">Risultati</h2>
-  </mat-card-title>
-  
-  <!-- Content -->
-  <mat-card-content *ngIf = "resultsSub | async as results" class = "center">
-
-    <!-- Virtual Scroll -->
-    <cdk-virtual-scroll-viewport *ngIf="results.length > 0; else noResults"> <!--(scrolledIndexChange)="checkLoad($event)"-->
-      <!-- Products -->
-      <a *cdkVirtualFor="let product of results;" class="line" (click)="openDetail(product)">
-        <!-- Image -->
-        <div class="img-container">
-          <span aria-hidden="true" class="centerVertical"></span>
-          <img src="{{product.images[0].imageUrl}}">
-        </div>
-        <!-- Text -->
-        <div class="text-container">
-          <!-- First Line -->
-          <p class="first-line">
-            <span class="product-name overflow-text">{{product.description}}</span>
-            <span class="product-price overflow-text">{{product.prices[0].value | currency}}</span>
-          </p>
-        </div>
-      </a>
-      <!-- Spinner -->
-      <mat-spinner *ngIf="loading" class="center"></mat-spinner> <!-- [diameter]="this.scroll.itemSize" -->
-    </cdk-virtual-scroll-viewport>
-
-    <!-- No Products -->
-    <ng-template #noResults>
-      <mat-card-content>
-        <p class="no-product overflow-text">Nessun prodotto da mostrare</p>
-      </mat-card-content>
-    </ng-template>
-
-  </mat-card-content>
-</mat-card>
+<!-- No Products -->
+<ng-template #loading>
+  <p>Caricamento prodotti...</p>
+</ng-template>
 
