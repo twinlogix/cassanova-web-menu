@@ -47,6 +47,6 @@ export class SalesPointComponent implements OnInit {
 
 
   private getSalesPoint(): Observable<SalesPoint[]> {
-    return this.salesPointService.getSalesPoints();
+    return this.salesPointService.getData();
   }
 }
