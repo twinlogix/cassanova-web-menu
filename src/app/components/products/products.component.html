@@ -1,5 +1,5 @@
 <!-- Card -->
-<ng-container *ngIf="!fetching">
+<ng-container *ngIf="firstFetch">
   <ng-container *ngIf="items.length > 0; else noProducts">
     <app-nav-bar></app-nav-bar>
     <div class="responsive-container search-results"
