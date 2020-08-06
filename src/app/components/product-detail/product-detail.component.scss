@@ -10,8 +10,14 @@ app-cassaweb-carousel {
   padding: 1em;
   border-radius: 40px;
   position: relative;
-  left: calc(100% - 4.25em);
+  left: calc(100% - 5.25em);
   margin: 0px 0px;
+  bottom: 2.25em;
+}
+
+.cart-button + div.content-container {
+  position: relative;
+  bottom: 2em;
 }
 
 .mat-form-field {
@@ -19,8 +25,6 @@ app-cassaweb-carousel {
 }
 
 .content-container {
-  position: relative;
-  bottom: 2em;
   padding: 1em;
   padding-top: 0px;
   display: block;
