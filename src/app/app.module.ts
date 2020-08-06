@@ -1,5 +1,5 @@
 import { SwiperModule } from 'ngx-swiper-wrapper';
-
+import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -27,6 +27,9 @@ import { AuthFailedComponent } from './components/messages/auth-failed/auth-fail
 import { ServerErrorComponent } from './components/messages/server-error/server-error.component';
 import { CassawebCarouselComponent } from './components/cassaweb-carousel/cassaweb-carousel.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,11 @@ import { MatSelectModule } from '@angular/material/select';
     ScrollingModule,
     FormsModule,
     SwiperModule,
-    MatSelectModule
+    MatSelectModule,
+    InfiniteScrollModule,
+    MatExpansionModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [
       {
