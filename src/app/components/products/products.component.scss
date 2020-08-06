@@ -1,10 +1,9 @@
 $grid-item-num-0:      2;
-$grid-item-num-550:    4;
-$grid-item-num-800:    5;
-$grid-item-num-1300:   6;
+$grid-item-num-550:    3;
+$grid-item-num-800:    4;
+$grid-item-num-1300:   5;
 $price-tag-bg-color:   #231f26;
 
-@import "virtual-scroll-style";
 @import "responsive-container";
 
 mat-card {
@@ -44,9 +43,9 @@ div.price-tag > span {
 }
 
 div.responsive-container {
-  position: relative;
-  padding: 3em 1em;
-  bottom: 1.5em;
+  // position: relative;
+  padding: 1em 1em;
+  // bottom: 1.5em;
 }
 
 mat-card > img {
@@ -60,8 +59,4 @@ mat-card > img {
 
 a {
   text-decoration: none;
-}
-
-@media only screen and (min-width: 550px) {
-  
 }
