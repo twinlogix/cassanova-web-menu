@@ -13,5 +13,8 @@ export interface SalesPoint {
   vatNumber :	string,
   taxCode :	string,
   phoneNumber :	string,
-  email :	string
+  email :	string,
+  logoBig : string,
+  logoSmall : string,
+  img : string
 }
