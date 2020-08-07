@@ -11,20 +11,24 @@ import { ServerErrorComponent } from './components/messages/server-error/server-
 import { ProductDetailComponent } from '@components/product-detail/product-detail.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'salespoint', pathMatch: 'full'},
   { path: '404', component: PageNotFoundComponent},
   { path: '401', component: AuthFailedComponent},
   { path: '500', component: ServerErrorComponent},
-  { path: 'salespoint', canActivate: [TokenAuthGuard], component: SalesPointComponent},
-  {
-    path: ':idSp',
+  { path: ':apiKey',
+    canActivate: [TokenAuthGuard],
     canActivateChild: [TokenAuthGuard],
     children: [
-      { path: 'categories', component: CategoriesComponent },
-      { path: 'search', component: SearchProductsComponent },
-      { path: 'categories/:id', component: ProductsComponent },
-      { path: 'categories/:idCat/:id', component: ProductDetailComponent},
-      { path: '**', redirectTo: '/404'}
+      { path: 'salespoint', component: SalesPointComponent},
+      {
+        path: ':idSp',
+        children: [
+          { path: 'categories', component: CategoriesComponent },
+          { path: 'search', component: SearchProductsComponent },
+          { path: 'categories/:id', component: ProductsComponent },
+          { path: 'categories/:idCat/:id', component: ProductDetailComponent},
+          { path: '**', redirectTo: '/404'}
+        ]
+      }
     ]
   },
   { path: '**', redirectTo: '/404'}
