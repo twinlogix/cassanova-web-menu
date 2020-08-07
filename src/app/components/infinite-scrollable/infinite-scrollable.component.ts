@@ -2,7 +2,6 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CassaWebRequest, DEFAULT_START, DEFAULT_LIMIT } from '@app/classes/QueryParams';
 import { FetchService } from '@app/classes/FetchService';
-import { BooleanInput } from '@angular/cdk/coercion';
 
 @Component({
   template: 'THIS SHOULD NOT BE SEEN'
