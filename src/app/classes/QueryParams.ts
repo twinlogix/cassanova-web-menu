@@ -20,6 +20,7 @@ export interface CassaWebRequest {
 export interface CategoriesRequest extends CassaWebRequest {
   idsSalesPoint?: number[]
   ids?: string[],
+  enabledForChannels?: Channel[]
 }
   
 export interface ProductsRequest extends CassaWebRequest {
