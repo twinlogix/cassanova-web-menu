@@ -4,14 +4,14 @@
     <app-cassaweb-carousel [slides]=product.images></app-cassaweb-carousel>
     <ng-container *ngIf="quantitySub | async as quantity">
       <div class="content-wrapper">
-        <button mat-raised-button *ngIf="quantity.length > 0" class="cart-button" color="accent" aria-label="buy"><mat-icon>shopping_cart</mat-icon></button>
+        <button mat-raised-button *ngIf="quantity.length > 0 && !HIDE_BUY_OPTIONS" class="cart-button" color="accent" aria-label="buy"><mat-icon>shopping_cart</mat-icon></button>
         <div class="content-container">
           <!--Form?-->
           <div class="summary">
             <span class="product-name">{{product.description}}</span>
             <span class="product-price">{{product.prices[0].value | currency}}</span>
           </div>
-          <div class="buy options" *ngIf="quantity.length > 0">
+          <div class="buy options" *ngIf="quantity.length > 0 && !HIDE_BUY_OPTIONS">
             <mat-form-field appearance="outline" color="accent">
               <mat-label>Quantità</mat-label>
               <mat-select [(value)]="selectedQuantity">

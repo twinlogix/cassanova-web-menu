@@ -14,6 +14,7 @@ import { Stock } from '@classes/Stock'
 })
 export class ProductDetailComponent implements OnInit {
 
+  private HIDE_BUY_OPTIONS : boolean = true;
   private productSub  : Observable<Product[]>;
   private quantitySub : Observable<number[]>;
   private selectedQuantity : number = 1;
