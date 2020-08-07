@@ -1,12 +1,33 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row *ngIf="pageType !== PageType.ERROR; else errorPage">
       <!-- Backwards navigation buttons -->
-      <a mat-icon-button *ngIf="backLabel" [attr.aria-label]="backLabel" routerLink="{{backRoute}}"><mat-icon>{{backIcon}}</mat-icon></a>
-      <div aria-hidden="true" class="space"></div>
-      <!-- Page Title, async to handle cases in which the title is the product's category or name-->
-      <h1 *ngIf="barTitle | async as title">{{title}}</h1>
-      <div aria-hidden="true" class="space"></div>
-      <a mat-icon-button *ngIf="searchLabel" [attr.aria-label]="searchLabel" routerLink="{{searchRoute}}" [queryParams]="searchParams"><mat-icon>search</mat-icon></a>
+      <div aria-hidden="true" class="space" *ngIf="!backIcon"></div>
+      <ng-container *ngIf="backIcon | async as icon">
+        <ng-container *ngIf="!backLogoLoaded; else logoButton">
+          <div class="icon-wrapper icon-wrapper-left">
+            <a mat-icon-button [attr.aria-label]="backLabel" routerLink="{{backRoute}}"><mat-icon>{{icon}}</mat-icon></a>
+          </div>
+        </ng-container>
+        <ng-template #logoButton>
+          <a [attr.aria-label]="backLabel" routerLink="{{backRoute}}" class="customBackButton"><img src="{{icon}}" alt="{{backLabel}}"/></a>
+        </ng-template>
+      </ng-container>
+
+      <ng-container *ngIf="barTitle | async as title">
+        <ng-container *ngIf="!titleLogoLoaded; else logoTitle">
+          <h1>{{title}}</h1>
+        </ng-container>
+        <ng-template #logoTitle>
+          <div class="title-image-wrapper">
+            <img src="{{title}}"/>
+          </div>
+        </ng-template>
+      </ng-container>
+
+      <div aria-hidden="true" class="space" *ngIf="!searchLabel"></div>
+      <div class="icon-wrapper icon-wrapper-right" *ngIf="searchLabel">
+        <a mat-icon-button [attr.aria-label]="searchLabel" routerLink="{{searchRoute}}" [queryParams]="searchParams"><mat-icon>search</mat-icon></a>
+      </div>
     </mat-toolbar-row>
     <ng-template #errorPage>
       <mat-toolbar-row >
