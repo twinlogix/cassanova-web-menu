@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { CategoryService } from '@app/services/category.service';
 import { ProductService } from '@app/services/product.service';
+import { ParamsEnum, SearchQueryString } from '@app/classes/SearchQueryStringParams';
 
 @Component({
   selector: 'app-nav-bar',
@@ -21,6 +22,7 @@ export class NavBarComponent implements OnInit {
   private backLabel : string;
   private searchLabel : string;
   private searchRoute : string;
+  private searchParams : SearchQueryString = null;
 
   constructor(private pageInfo : PageStatusService,
               private route : ActivatedRoute,
@@ -39,7 +41,7 @@ export class NavBarComponent implements OnInit {
         this.backLabel = "Torna ai punti vendita";
         this.backIcon = "store";
         this.searchLabel = "Vai alla pagina di ricerca";
-        this.searchRoute = "search";
+        this.searchRoute = "../search";
         break;
       case PageType.PRODUCTS:
         const idCat : string = this.route.snapshot.paramMap.get("id");
@@ -52,15 +54,21 @@ export class NavBarComponent implements OnInit {
           this.barTitle = this.categoriesService.getData({ids : [idCat]}).pipe(
             map(res => res.length > 0 ? res[0].description : "")
           );
+          this.searchParams = { cat : idCat }
           this.searchLabel = "Vai alla pagina di ricerca";
-          this.searchRoute = "search";
+          this.searchRoute = "../../search"
         }
         break;
       case PageType.SEARCH:
         this.barTitle = of("Cerca");
         this.backIcon = "keyboard_arrow_left";
         this.backLabel = "Torna indietro";
-        this.backRoute = "../"
+        const cat = this.route.snapshot.queryParamMap.get(ParamsEnum.CATEGORY)
+        if(cat) {
+          this.backRoute = `../categories/${cat}`
+        } else {
+          this.backRoute = "../categories"
+        }
         break;
       case PageType.PRODUCT_DETAIL:
         {
