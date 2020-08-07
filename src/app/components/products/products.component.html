@@ -9,7 +9,7 @@
       [infiniteScrollThrottle]="300">
       <div class="item-content-container" *ngFor="let product of items">
         <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
-        <a routerLink="products/{{product.id}}">
+        <a routerLink="{{product.id}}">
           <mat-card>
             <img src="{{product.images[0].imageUrl}}">
             <mat-card-content>
