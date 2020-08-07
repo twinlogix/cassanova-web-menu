@@ -23,16 +23,16 @@ export class PageStatusService {
     if(url.find(u => u === PageType.SEARCH)) {
       return PageType.SEARCH
     }
-    if(url.length === 2 && url[1] === PageType.CATEGORIES) {
+    if(url.length === 3 && url[2] === PageType.CATEGORIES) {
       return PageType.CATEGORIES;
     }
-    if(url.length === 4) {
+    if(url.length === 5) {
       return PageType.PRODUCT_DETAIL;
     }
-    if(url.length === 3) {
+    if(url.length === 4) {
       return PageType.PRODUCTS;
     }
-    if(url.length === 1 && url[0] === PageType.SALESPOINT) {
+    if(url.length === 2 && url[1] === PageType.SALESPOINT) {
       return PageType.SALESPOINT;
     }
     if(url.length === 1) {
