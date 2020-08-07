@@ -73,7 +73,7 @@ export class NavBarComponent implements OnInit {
               this.backIcon = of("keyboard_arrow_left");
               this.searchParams = { cat : idCat }
               this.searchLabel = "Vai alla pagina di ricerca";
-              this.searchRoute = "../../search"    
+              this.searchRoute = "../../search"
             })
           );
           break;
@@ -106,10 +106,9 @@ export class NavBarComponent implements OnInit {
   }
 
   private getLogo(defaultValue : string, logoDim : LogoDim) : Observable<string> {
-    // console.log(logoDim)
     return this.salesPointService.getData().pipe(
       map(res => res[0]),
-      map(res => logoDim === LogoDim.BIG ? res.logoBig ?? defaultValue : res.logoSmall ?? defaultValue)      
+      map(res => logoDim === LogoDim.BIG ? res.logoBig ?? defaultValue : res.logoSmall ?? defaultValue)
     )
   }
 
