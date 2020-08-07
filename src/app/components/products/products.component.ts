@@ -29,7 +29,7 @@ constructor(
     const query = {
        idsSalesPoint: [idSp],
        idsCategory: [categoryId],
-       enabledForChannels: [Channel.MOBILE_COMMERCE],
+       enabledForChannels: [Channel.SELF_ORDER],
        start : start,
        limit : limit
     }
