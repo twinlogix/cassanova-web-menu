@@ -5,8 +5,8 @@
   <!-- <cdk-virtual-scroll-viewport itemSize="auto"> -->
     <div class="responsive-container">
       <div class="sp-content-container" *ngFor="let sp of salesPoints">
-        <a mat-raised-button class="sp-button" color="accent" aria-label="Go to salespoint" routerLink="/{{sp.id}}/categories"><mat-icon class="cart">shopping_cart</mat-icon></a>
-        <a routerLink="/{{sp.id}}/categories">
+        <a mat-raised-button class="sp-button" color="accent" aria-label="Go to salespoint" routerLink="../{{sp.id}}/categories"><mat-icon class="cart">shopping_cart</mat-icon></a>
+        <a routerLink="../{{sp.id}}/categories">
           <mat-card>
             <img mat-card-image src="http://www.bahrain101.com/wp-content/uploads/2016/11/coffee-shop-cover.jpg" alt="Photo of the salespoint"/>
             <mat-card-content>
