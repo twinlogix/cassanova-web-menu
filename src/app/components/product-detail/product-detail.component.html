@@ -3,32 +3,34 @@
   <ng-container *ngIf="products[0] as product; else noProduct">
     <app-cassaweb-carousel [slides]=product.images></app-cassaweb-carousel>
     <ng-container *ngIf="quantitySub | async as quantity">
-      <button mat-raised-button *ngIf="quantity.length > 0" class="cart-button" color="accent" aria-label="buy"><mat-icon>shopping_cart</mat-icon></button>
-      <div class="content-container">
-        <!--Form?-->
-        <div class="summary">
-          <span class="product-name">{{product.description}}</span>
-          <span class="product-price">{{product.prices[0].value | currency}}</span>
+      <div class="content-wrapper">
+        <button mat-raised-button *ngIf="quantity.length > 0" class="cart-button" color="accent" aria-label="buy"><mat-icon>shopping_cart</mat-icon></button>
+        <div class="content-container">
+          <!--Form?-->
+          <div class="summary">
+            <span class="product-name">{{product.description}}</span>
+            <span class="product-price">{{product.prices[0].value | currency}}</span>
+          </div>
+          <div class="buy options" *ngIf="quantity.length > 0">
+            <mat-form-field appearance="outline" color="accent">
+              <mat-label>Quantità</mat-label>
+              <mat-select [(value)]="selectedQuantity">
+                <mat-option *ngFor="let q of quantity" [value]="q">
+                  {{q}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-raised-button class="add-to-cart-button" color="accent" aria-label="add to cart">Aggiungi al carrello</button>
+          </div>
+          <div *ngIf="quantity.length <= 0 && !unauthorized" class="not-in-stock">
+            <p>Non attualmente presente in magazzino</p>
+          </div>
+          <!--/Form?-->
+          <section>
+            <h2>Descrizione</h2>
+            <p [innerHTML]="product.descriptionExtended | noHTML: 'no-div'"></p>
+          </section>
         </div>
-        <div class="buy options" *ngIf="quantity.length > 0">
-          <mat-form-field appearance="outline" color="accent">
-            <mat-label>Quantità</mat-label>
-            <mat-select [(value)]="selectedQuantity">
-              <mat-option *ngFor="let q of quantity" [value]="q">
-                {{q}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <button mat-raised-button class="add-to-cart-button" color="accent" aria-label="add to cart">Aggiungi al carrello</button>
-        </div>
-        <div *ngIf="quantity.length <= 0 && !unauthorized" class="not-in-stock">
-          <p>Non attualmente presente in magazzino</p>
-        </div>
-        <!--/Form?-->
-        <section>
-          <h2>Descrizione</h2>
-          <p [innerHTML]="product.descriptionExtended | noHTML: 'no-div'"></p>
-        </section>
       </div>
     </ng-container>
   </ng-container>
