@@ -10,9 +10,9 @@
           Opzioni di ricerca aggiuntive
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-form-field *ngIf="!idCategory">
+      <mat-form-field *ngIf="!idLockedCategory">
         <mat-label>Categoria</mat-label>
-        <mat-select color="accent" id="productCategory" [(ngModel)]="productCategory" name="category" #category="ngModel">
+        <mat-select color="accent" id="idCategory" [(ngModel)]="idCategory" name="category" #category="ngModel">
           <mat-option [value]=undefined></mat-option>
           <mat-option *ngFor="let cat of categories" [value]="cat.id">{{cat.description}}</mat-option>
         </mat-select>
@@ -33,16 +33,8 @@
       [infiniteScrollDistance]="2"
       [infiniteScrollThrottle]="300">
       <div class="item-content-container" *ngFor="let product of items">
-        <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
-        <a *ngIf="!idCategory" routerLink="../{{product.idCategory}}/products/{{product.id}}">
-          <mat-card>
-            <img src="{{product.images[0].imageUrl}}">
-            <mat-card-content>
-              <p>{{product.description}}</p>
-            </mat-card-content>
-          </mat-card>
-        </a>
-        <a *ngIf="idCategory" routerLink="../products/{{product.id}}">
+        <a routerLink="../categories/{{product.idCategory}}/{{product.id}}">
+          <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
           <mat-card>
             <img src="{{product.images[0].imageUrl}}">
             <mat-card-content>
