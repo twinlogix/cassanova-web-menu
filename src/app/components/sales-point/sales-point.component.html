@@ -8,7 +8,7 @@
         <a mat-raised-button class="sp-button" color="accent" aria-label="Go to salespoint" routerLink="../{{sp.id}}/categories"><mat-icon class="cart">shopping_cart</mat-icon></a>
         <a routerLink="../{{sp.id}}/categories">
           <mat-card>
-            <img mat-card-image src="http://www.bahrain101.com/wp-content/uploads/2016/11/coffee-shop-cover.jpg" alt="Photo of the salespoint"/>
+            <img mat-card-image src="{{sp.img}}" alt="Photo of the salespoint"/>
             <mat-card-content>
                 <!-- First Line -->
                 <p class="first-line">
@@ -18,7 +18,7 @@
                 <p class="second-line">
                   <mat-icon aria-hidden="true">location_on</mat-icon>
                   <span class="salepoint-address">
-                    NOTA: dato a caso, formatta il testo in salesPoints component {{sp.city}}
+                    {{getAddress(sp)}}
                   </span>
                 </p>
             </mat-card-content>
