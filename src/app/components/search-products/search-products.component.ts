@@ -7,6 +7,8 @@ import { Category } from '@app/classes/Category';
 import { CategoryService } from '@app/services/category.service';
 import { ProductsRequest } from '@classes/QueryParams'
 import { InfiniteScrollableComponent } from '../infinite-scrollable/infinite-scrollable.component';
+import { ParamsEnum } from '@classes/SearchQueryStringParams'
+import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 
 @Component({
   selector: 'app-search-products',
@@ -16,9 +18,9 @@ import { InfiniteScrollableComponent } from '../infinite-scrollable/infinite-scr
 export class SearchProductsComponent extends InfiniteScrollableComponent<Product> {
 
   private categoriesSub : Observable<Category[]>;
+  private idLockedCategory : string;
   private productName : string = "";
   private productDescription : string = "";
-  private productCategory : string = undefined;
   private idSp : number;
   private idCategory : string;
 
@@ -33,25 +35,26 @@ export class SearchProductsComponent extends InfiniteScrollableComponent<Product
 
   ngOnInit() {
     this.idSp = parseInt(this.route.snapshot.paramMap.get('idSp'));
-    this.idCategory = this.route.snapshot.paramMap.get("idCat");
-    const query : ProductsRequest = {idsSalesPoint : [this.idSp]}
-    if(this.idCategory) {
-      query.idsCategory = [this.idCategory];
+    this.idLockedCategory =  this.route.snapshot.queryParamMap.get(ParamsEnum.CATEGORY);
+    if(this.idLockedCategory) {
+      this.idCategory = this.idLockedCategory;
     }
-    this.setQuery(query);
+    this.setQuery(this.prepareQuery());
     this.getItems();
     this.categoriesSub = this.categoryService.getData({idsSalesPoint : [this.idSp], start : 0, limit : 100});  //TODO: remove magic number 100
   }
 
   private onSubmit(): void {
-    const query : ProductsRequest = {
-      idsSalesPoint : [this.idSp], 
-      idsCategory : [this.idCategory ?? this.productCategory],
-      start : 0, 
-      limit : 100
-    }
-    this.setQuery(query)
+    this.setQuery(this.prepareQuery());
     this.getItems(true);
+  }
+
+  private prepareQuery() : ProductsRequest {
+    let query : ProductsRequest = {idsSalesPoint : [this.idSp]};
+    if (this.idCategory) {
+      query.idsCategory = [this.idCategory];
+    }
+    return query;
   }
 }
 
