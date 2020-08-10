@@ -3,6 +3,7 @@ import {SalesPointService} from '@services/sales-point.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { SalesPoint } from '@classes/SalesPoint';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sales-point',
@@ -36,6 +37,17 @@ export class SalesPointComponent implements OnInit {
   }
 
   private getSalesPoint(): Observable<SalesPoint[]> {
-    return this.salesPointService.getData();
+    return this.salesPointService.getData().pipe(
+      map(res => res.map(sp => this.prepareItem(sp)))
+    );
+  }
+
+  private prepareItem(sp : SalesPoint) : SalesPoint {
+    const defaultImageUrl : string = '/assets/default.png';
+    let res = sp;
+    if(!res.img) {
+      res.img = defaultImageUrl;
+    }
+    return res;
   }
 }
