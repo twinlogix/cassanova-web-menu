@@ -8,7 +8,7 @@ import { NavigationDetectionService } from '@services/navigation-detection.servi
 })
 export class AppComponent {
 
-  constructor(private navigationDet : NavigationDetectionService) {}
+  constructor(public navigationDet : NavigationDetectionService) {}
 
   title = 'cassanova-web-menu';
 }

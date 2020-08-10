@@ -13,11 +13,11 @@ interface Slide {
 export class CassawebCarouselComponent {
 
   @Input()
-  private slides : Slide[];
+  public slides : Slide[];
   private slidesPerView: number = 1;
   private autoplayDelayMs: number = 8000;
 
-  private config: SwiperConfigInterface = {
+  public config: SwiperConfigInterface = {
     direction: 'horizontal',
     slidesPerView: this.slidesPerView,
     keyboard: true,

@@ -17,7 +17,7 @@ import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
 })
 export class SearchProductsComponent extends InfiniteScrollableComponent<Product> {
 
-  private categoriesSub : Observable<Category[]>;
+  public categoriesSub : Observable<Category[]>;
   private idLockedCategory : string;
   private productName : string = "";
   private productDescription : string = "";

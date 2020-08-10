@@ -22,8 +22,8 @@ export class NavBarComponent implements OnInit {
 
   private backLogoLoaded : boolean = false;
   private titleLogoLoaded : boolean = false;
-  private pageType : PageType;
-  private PageType = PageType;
+  public pageType : PageType;
+  public PageType = PageType;
   private barTitle : Observable<string>;
   private backRoute : string;
   private backIcon : Observable<string>;

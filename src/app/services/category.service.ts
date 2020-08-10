@@ -1,4 +1,4 @@
-import {Injectable, OnDestroy} from '@angular/core';
+import {Injectable} from '@angular/core';
 import { Category } from '@classes/Category';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';

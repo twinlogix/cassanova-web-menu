@@ -15,7 +15,7 @@ import { Stock } from '@classes/Stock'
 export class ProductDetailComponent implements OnInit {
 
   private HIDE_BUY_OPTIONS : boolean = true;
-  private productSub  : Observable<Product[]>;
+  public productSub  : Observable<Product[]>;
   private quantitySub : Observable<number[]>;
   private selectedQuantity : number = 1;
   //Due to permission restrictions to some accounts (apiKeys), some stores are not allowed to access the Stock server.

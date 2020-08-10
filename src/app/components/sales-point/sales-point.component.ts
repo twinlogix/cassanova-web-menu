@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SalesPointComponent implements OnInit {
 
-  private salesPointSub : Observable<SalesPoint[]>;
+  public salesPointSub : Observable<SalesPoint[]>;
 
   constructor(
     private salesPointService: SalesPointService,

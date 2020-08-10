@@ -1,6 +1,10 @@
 import { CassaWebRequest } from './QueryParams';
 import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
 
-export interface FetchService<T> {
-    getData(params : CassaWebRequest) : Observable<Array<T>>
+@Injectable({
+    providedIn: 'root'
+  })
+export abstract class FetchService<T> {
+    abstract getData(params : CassaWebRequest) : Observable<Array<T>>
 }

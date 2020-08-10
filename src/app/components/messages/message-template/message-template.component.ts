@@ -8,10 +8,10 @@ import { Component, Input } from '@angular/core';
 export class MessageTemplateComponent{
 
   @Input()
-  protected disableNavBar : boolean;
+  public disableNavBar : boolean;
   @Input()
-  protected title: string;
+  public title: string;
   @Input()
-  protected content: string;
+  public content: string;
 
 }

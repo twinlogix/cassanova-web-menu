@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, Injectable, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CassaWebRequest, DEFAULT_START, DEFAULT_LIMIT } from '@app/classes/QueryParams';
 import { FetchService } from '@app/classes/FetchService';
@@ -12,10 +12,12 @@ export abstract class InfiniteScrollableComponent<T> implements OnDestroy {
   private subs : Subscription = new Subscription();
   private query : CassaWebRequest;
   protected items : T[] = []; 
-  protected firstFetch : boolean = false;
+  public firstFetch : boolean = false;
   protected fetching : boolean = true;
 
-  constructor(private fetchService : FetchService<T>, private itemProcessFunc ?: (prod : T) => T, private collectionProcessFunc ?: (arr : T[]) => T[]) { }
+  constructor(private fetchService : FetchService<T>,
+              @Inject(Function) private itemProcessFunc ?: (prod : T) => T,
+              @Inject(Function) private collectionProcessFunc ?: (arr : T[]) => T[]) { }
 
   protected setQuery(query : CassaWebRequest) {
     query.limit = query.limit ?? DEFAULT_LIMIT;
