@@ -2,6 +2,7 @@ import { Component, OnDestroy, Injectable, Inject } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CassaWebRequest, DEFAULT_START, DEFAULT_LIMIT } from '@app/classes/QueryParams';
 import { FetchService } from '@app/classes/FetchService';
+import { IPageInfo } from 'ngx-virtual-scroller';
 
 @Component({
   template: 'THIS SHOULD NOT BE SEEN'
@@ -63,7 +64,8 @@ export abstract class InfiniteScrollableComponent<T> implements OnDestroy {
     this.subs.unsubscribe();
   }
 
-  onScrollDown (ev) {
+  onScrollDown (ev : IPageInfo) {
+    if(ev.endIndex !== this.items.length - 1) return;
     this.getItems();
   }
 }
