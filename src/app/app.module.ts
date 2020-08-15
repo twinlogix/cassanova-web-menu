@@ -1,5 +1,4 @@
 import { SwiperModule } from 'ngx-swiper-wrapper';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, DEFAULT_CURRENCY_CODE } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +29,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller';
+import { LineTruncationLibModule } from 'ngx-line-truncation';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     CassawebCarouselComponent,
   ],
   imports: [
+    LineTruncationLibModule,
+    VirtualScrollerModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
@@ -61,7 +64,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormsModule,
     SwiperModule,
     MatSelectModule,
-    InfiniteScrollModule,
     MatExpansionModule,
     MatInputModule,
     MatFormFieldModule
