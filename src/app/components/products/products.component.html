@@ -1,32 +1,31 @@
 <!-- Card -->
-<ng-container *ngIf="firstFetch">
-  <ng-container *ngIf="items.length > 0; else noProducts">
-    <app-nav-bar></app-nav-bar>
-    <div class="responsive-container search-results"
-      infinite-scroll
-      (scrolled)="onScrollDown()"
-      [infiniteScrollDistance]="2"
-      [infiniteScrollThrottle]="300">
-      <div class="item-content-container" *ngFor="let product of items">
-        <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
-        <a routerLink="{{product.id}}">
-          <mat-card>
-            <img src="{{product.images[0].imageUrl}}">
-            <mat-card-content>
-              <p>{{product.description}}</p>
-            </mat-card-content>
-          </mat-card>
-        </a>
+<div class="page-container">
+  <ng-container *ngIf="firstFetch">
+    <ng-container *ngIf="items.length > 0; else noProducts">
+      <app-nav-bar></app-nav-bar>
+      <div class="scroller-wrapper">
+        <virtual-scroller #scroll [items]="items" [bufferAmount]="4" (vsEnd)="onScrollDown($event)" >
+          <div class="item-content-container" *ngFor="let product of scroll.viewPortItems">
+            <a routerLink="{{product.id}}">
+              <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
+              <mat-card>
+                <img src="{{product.images[0].imageUrl}}">
+                <mat-card-content>
+                    <p [line-truncation]="2">{{product.description}}</p>
+                </mat-card-content>
+              </mat-card>
+            </a>
+          </div>
+        </virtual-scroller>
       </div>
-    </div>
+    </ng-container>
+    <ng-template #noProducts>
+      <app-message-template title="Nessun prodotto trovato" content="Nessun prodotto trovato"></app-message-template>
+    </ng-template>
   </ng-container>
-  <ng-template #noProducts>
-    <app-message-template title="Nessun prodotto trovato" content="Nessun prodotto trovato"></app-message-template>
+
+  <!-- No Products -->
+  <ng-template #loading>
+    <p>Caricamento prodotti...</p>
   </ng-template>
-</ng-container>
-
-
-<!-- No Products -->
-<ng-template #loading>
-  <p>Caricamento prodotti...</p>
-</ng-template>
+</div>
