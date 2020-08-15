@@ -1,16 +1,11 @@
-$grid-item-num-800:    3;
-$grid-item-num-1300:   4;
-$grid-column-gap:      0px;
+$grid-cols-800:    3;
+$grid-cols-1300:   4;
+$grid-item-hmargin-0:    0px;
+$grid-item-hmargin-550:  0px;
+$grid-item-hmargin-800:  0px;
+$grid-item-hmargin-1300: 0px;
 
 @import "virtual-scroll-style";
-@import "responsive-container";
-
-//Commented out since cdkvirtualfor has been removed
-// .responsive-container {
-//   position: relative;
-//   padding-top: 3.5em;
-//   bottom: 3.5em;
-// }
 
 a {
   display: block;
@@ -59,19 +54,7 @@ div.cat-container:focus img {
 }
 
 @media only screen and (min-width: 550px) {
-  // .responsive-container {
-  //   padding-top: 4em;
-  //   bottom: 4em;
-  // }
-
   .cat-container {
     height: 30vw;
   }
-}
-
-@media only screen and (min-width: 1300px) {
-  // .responsive-container {
-  //   padding-top: 2.8em;
-  //   bottom: 2.8em;
-  // }
 }

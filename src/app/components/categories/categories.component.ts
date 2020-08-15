@@ -11,8 +11,6 @@ import { InfiniteScrollableComponent } from '../infinite-scrollable/infinite-scr
   styleUrls: ['./categories.component.scss']
 })
 export class CategoriesComponent extends InfiniteScrollableComponent<Category> {
-//Possibile implementazione a mano di virtual scrolling: ascolta evento ridimensionamento finestra e basati sul layout per definire quanti elementi vuoi nel buffer
-
   constructor(
     private categoryService: CategoryService,
     private route: ActivatedRoute
