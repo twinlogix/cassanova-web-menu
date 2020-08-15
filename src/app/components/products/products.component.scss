@@ -1,40 +1,49 @@
-$grid-item-num-0:      2;
-$grid-item-num-550:    3;
-$grid-item-num-800:    4;
-$grid-item-num-1300:   5;
+$grid-cols-0:      2;
+$grid-cols-550:    3;
+$grid-cols-800:    4;
+$grid-cols-1300:   5;
 $price-tag-bg-color:   #231f26;
 
-@import "responsive-container";
+@import "virtual-scroll-style";
 
 mat-card {
   margin-top: 0px;
   padding: 0px;
-  line-height: 1em;
   margin-bottom: .8em;
-  height: 95%;
 }
 
 mat-card-content {
-  padding: .5em;
+  padding: 1em .5em;
   overflow-wrap: anywhere;
+}
+
+mat-card-content > div {
+  height: 100%;
+}
+
+mat-card-content {
+  overflow: hidden;
+  line-height: 1.4em;
+  display: flex;
+  align-items: center;
 }
 
 mat-card:hover {
   cursor: pointer;
 }
 
-div.item-content-container {
+.item-content-container {
   position: relative;
 }
 
-div.price-tag {
+.price-tag {
   z-index: 1;
   position: absolute;
   top:   1em;
   right: .5em;
 }
 
-div.price-tag > span {
+.price-tag > span {
   border-radius: 10px;
   background-color: $price-tag-bg-color;
   opacity: .8;
@@ -42,10 +51,12 @@ div.price-tag > span {
   color: white;
 }
 
-div.responsive-container {
-  // position: relative;
-  padding: 1em 1em;
-  // bottom: 1.5em;
+.scroller-wrapper {
+  padding: .5em 0px;
+}
+
+mat-card-content {
+  height: 2em;
 }
 
 mat-card > img {
