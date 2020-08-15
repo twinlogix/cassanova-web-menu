@@ -11,9 +11,8 @@ import { InfiniteScrollableComponent } from '../infinite-scrollable/infinite-scr
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent extends InfiniteScrollableComponent<Product> {
-//Possibile implementazione a mano di virtual scrolling: ascolta evento ridimensionamento finestra e basati sul layout per definire quanti elementi vuoi nel buffer
 
-constructor(
+  constructor(
   private productService: ProductService,
   private route: ActivatedRoute,
   public router: Router
