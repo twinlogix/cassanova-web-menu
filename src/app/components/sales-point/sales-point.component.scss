@@ -1,9 +1,6 @@
-$grid-column-gap: 2vw;
 @import "virtual-scroll-style";
-@import "responsive-container";
 
 mat-card {
-  // background-color: whitesmoke;
   margin-top: 0px;
   padding: 0px;
   display: block;
@@ -21,10 +18,13 @@ mat-card:hover {
   cursor: pointer;
 }
 
-div.responsive-container {
+div.scroller-wrapper {
   position: relative;
-  padding: 3em 1em;
-  bottom: 1.5em;
+  padding: .5em;
+}
+
+.item-content-container {
+  padding-top: .5em;
 }
 
 mat-card > img {
@@ -33,7 +33,6 @@ mat-card > img {
   width: 100%;
   max-height: 100%;
   object-fit: cover;
-  //object-position: bottom;
 }
 
 mat-card-content {
@@ -48,7 +47,7 @@ mat-card-content {
   .second-line {
     display: flex;
     flex-direction: row;
-    align-items: last baseline;
+    align-items: flex-end;
   }
   
   .salepoint-address{
