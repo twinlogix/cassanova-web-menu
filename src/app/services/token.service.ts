@@ -24,7 +24,7 @@ export class TokenService {
   public loadToken(): Observable<number> {
     //'ebf79958-415e-4333-b746-7b3375802fa7'//heroku apiKey;
     //"a2c7bfa8-1c11-48f8-9c7c-a5c6fcea76ea" //production Key (javaqueen, molti prodotti)
-    const currApiKey = this.pageInfo.getTokenizedUrl()[0];//'ebf79958-415e-4333-b746-7b3375802fa7';
+    const currApiKey = this.pageInfo.getTokenizedUrl()[0];
     const currDate = Date.now();
     if (this.token === undefined || this.lastApiKey.localeCompare(currApiKey) !== 0 || currDate - this.lastDate >= this.tokenValidityMs) {
       return this.http.post(this.requestUrl, JSON.stringify(this.getBody(currApiKey)), this.httpUtils.getTokenHttpOptions()).pipe(
