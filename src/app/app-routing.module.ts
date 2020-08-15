@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: '404', component: PageNotFoundComponent},
   { path: '401', component: AuthFailedComponent},
   { path: '500', component: ServerErrorComponent},
+  { path: ':apiKey', pathMatch: 'full', canActivate: [TokenAuthGuard], redirectTo: '/:apiKey/salespoint'},
   { path: ':apiKey',
     canActivate: [TokenAuthGuard],
     canActivateChild: [TokenAuthGuard],
