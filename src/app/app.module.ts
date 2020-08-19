@@ -30,7 +30,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
-import { LineTruncationLibModule } from 'ngx-line-truncation';
+import { EllipsisModule } from 'ngx-ellipsis';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { LineTruncationLibModule } from 'ngx-line-truncation';
     CassawebCarouselComponent,
   ],
   imports: [
-    LineTruncationLibModule,
+    EllipsisModule,
     VirtualScrollerModule,
     BrowserModule,
     AppRoutingModule,
