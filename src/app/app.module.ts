@@ -31,6 +31,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { VirtualScrollerModule } from 'ngx-virtual-scroller';
 import { EllipsisModule } from 'ngx-ellipsis';
+import { ProductCardComponent } from './components/product-card/product-card.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { EllipsisModule } from 'ngx-ellipsis';
     AuthFailedComponent,
     ServerErrorComponent,
     CassawebCarouselComponent,
+    ProductCardComponent,
   ],
   imports: [
     EllipsisModule,
