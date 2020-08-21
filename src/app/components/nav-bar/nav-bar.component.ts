@@ -7,6 +7,7 @@ import { CategoryService } from '@app/services/category.service';
 import { ProductService } from '@app/services/product.service';
 import { ParamsEnum, SearchQueryString } from '@app/classes/SearchQueryStringParams';
 import { SalesPointService } from '@app/services/sales-point.service';
+import { ROUTE_PARAMS } from '@app/enums/route-params';
 
 enum LogoDim {
     BIG,
@@ -40,7 +41,7 @@ export class NavBarComponent implements OnInit {
   
   ngOnInit(): void {
     this.pageType = this.pageInfo.getpageType();
-    const key : string = this.route.snapshot.paramMap.get("apiKey");
+    const key : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.API_KEY);
     //The page is refreshed when the authentication ends, so this check prevents
     //querying the server two times and potential errors due to the fact that the page is not yet fully loaded
     if(key) {
@@ -63,7 +64,7 @@ export class NavBarComponent implements OnInit {
           )
           break;
         case PageType.PRODUCTS:
-          const idCat : string = this.route.snapshot.paramMap.get("id");
+          const idCat : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_CAT);
           this.barTitle = this.categoriesService.getData({ids : [idCat]}).pipe(
             map(res => res.length > 0 ? res[0].description : ""),
             tap(res => {
@@ -90,7 +91,7 @@ export class NavBarComponent implements OnInit {
           break;
         case PageType.PRODUCT_DETAIL:
           {
-            const prodId : string = this.route.snapshot.paramMap.get("id");
+            const prodId : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_PROD);
             this.backRoute = "../";
             this.backLabel = "Torna alla lista prodotti";
             this.backIcon = of("keyboard_arrow_left");
