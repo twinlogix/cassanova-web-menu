@@ -1,20 +1,11 @@
-<!-- Card -->
 <div class="page-container">
   <ng-container *ngIf="firstFetch">
     <ng-container *ngIf="items.length > 0; else noProducts">
       <app-nav-bar></app-nav-bar>
       <div class="scroller-wrapper">
-        <virtual-scroller #scroll [items]="items" [bufferAmount]="4" (vsEnd)="onScrollDown($event)" >
+        <virtual-scroller #scroll [items]="items" [bufferAmount]="1" (vsEnd)="onScrollDown($event)" >
           <div class="item-content-container" *ngFor="let product of scroll.viewPortItems">
-            <a routerLink="{{product.id}}">
-              <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
-              <mat-card>
-                <img src="{{product.images[0].imageUrl}}">
-                <mat-card-content>
-                    <p [line-truncation]="2">{{product.description}}</p>
-                </mat-card-content>
-              </mat-card>
-            </a>
+            <app-product-card [product]="product"></app-product-card>
           </div>
         </virtual-scroller>
       </div>
