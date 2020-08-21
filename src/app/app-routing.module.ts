@@ -9,24 +9,25 @@ import { TokenAuthGuard } from './guards/token-auth.guard';
 import { AuthFailedComponent } from './components/messages/auth-failed/auth-failed.component';
 import { ServerErrorComponent } from './components/messages/server-error/server-error.component';
 import { ProductDetailComponent } from '@components/product-detail/product-detail.component';
+import { ROUTE_PARAMS } from './enums/route-params';
 
 const routes: Routes = [
   { path: '404', component: PageNotFoundComponent},
   { path: '401', component: AuthFailedComponent},
   { path: '500', component: ServerErrorComponent},
-  { path: ':apiKey', pathMatch: 'full', canActivate: [TokenAuthGuard], redirectTo: '/:apiKey/salespoint'},
-  { path: ':apiKey',
+  { path: `:${ROUTE_PARAMS.API_KEY}`, pathMatch: 'full', canActivate: [TokenAuthGuard], redirectTo: `:${ROUTE_PARAMS.API_KEY}`},
+  { path: `:${ROUTE_PARAMS.API_KEY}`,
     canActivate: [TokenAuthGuard],
     canActivateChild: [TokenAuthGuard],
     children: [
       { path: 'salespoint', component: SalesPointComponent},
       {
-        path: ':idSp',
+        path: `:${ROUTE_PARAMS.ID_SP}`,
         children: [
           { path: 'categories', component: CategoriesComponent },
           { path: 'search', component: SearchProductsComponent },
-          { path: 'categories/:id', component: ProductsComponent },
-          { path: 'categories/:idCat/:id', component: ProductDetailComponent},
+          { path: `categories/:${ROUTE_PARAMS.ID_CAT}`, component: ProductsComponent },
+          { path: `categories/:${ROUTE_PARAMS.ID_CAT}/:${ROUTE_PARAMS.ID_PROD}`, component: ProductDetailComponent},
           { path: '**', redirectTo: '/404'}
         ]
       }
