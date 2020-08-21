@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, tap } from 'rxjs/operators';
 import { StockService } from '@app/services/stock.service';
 import { Stock } from '@classes/Stock'
+import { ROUTE_PARAMS } from '@app/enums/route-params';
 
 @Component({
   selector: 'app-product-detail',
@@ -26,8 +27,8 @@ export class ProductDetailComponent implements OnInit {
               private route          : ActivatedRoute) { }
 
   ngOnInit() {
-    const idSp : number = Number.parseInt(this.route.snapshot.paramMap.get("idSp"));
-    const idProd : string = this.route.snapshot.paramMap.get("id");
+    const idSp : number = Number.parseInt(this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_SP));
+    const idProd : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_PROD);
     this.productSub = this.productService.getData({ids : [idProd]}).pipe(
       map(res => res.map(prod => this.prepareProduct(prod)))
     );
@@ -38,7 +39,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   private prepareProduct(prod : Product) : Product {
+    const defaultImageUrl : string = '/assets/default.png';
     let res = prod;
+    res.images = res.images ?? [{imageUrl : defaultImageUrl}]
     res.descriptionExtended = res.descriptionExtended ?? "Nessuna descrizione disponibile."
     return res;
   }
