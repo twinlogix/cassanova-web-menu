@@ -1,0 +1,56 @@
+$price-tag-bg-color:   #231f26;
+
+mat-card {
+  margin-top: 0px;
+  padding: 0px;
+  margin-bottom: .8em;
+}
+
+mat-card-content {
+  padding:.5em;
+  overflow-wrap: anywhere;
+}
+
+mat-card-content > div {
+  height: 2.2em;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+mat-card-content {
+  line-height: 1em;
+}
+
+mat-card:hover {
+  cursor: pointer;
+}
+
+
+.price-tag {
+  z-index: 1;
+  position: absolute;
+  top:   1em;
+  right: .5em;
+}
+
+.price-tag > span {
+  border-radius: 10px;
+  background-color: $price-tag-bg-color;
+  opacity: .8;
+  padding: .5em;
+  color: white;
+}
+
+mat-card > img {
+  margin: 0px;
+  height: 14.5vmax;
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+a {
+  text-decoration: none;
+}
