@@ -4,6 +4,7 @@ import { CategoryService } from '@services/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriesRequest, Channel } from '@classes/QueryParams'
 import { InfiniteScrollableComponent } from '../infinite-scrollable/infinite-scrollable.component';
+import { ROUTE_PARAMS } from '@app/enums/route-params';
 
 @Component({
   selector: 'app-categories',
@@ -19,7 +20,7 @@ export class CategoriesComponent extends InfiniteScrollableComponent<Category> {
   }
 
   ngOnInit() {
-    const idSp : number = parseInt(this.route.snapshot.paramMap.get("idSp"));
+    const idSp : number = parseInt(this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_SP));
     const query : CategoriesRequest = {
       idsSalesPoint: [idSp],
       start: 0,
