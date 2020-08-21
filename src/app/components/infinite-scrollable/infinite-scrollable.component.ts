@@ -14,7 +14,7 @@ export abstract class InfiniteScrollableComponent<T> implements OnDestroy {
   private query : CassaWebRequest;
   protected items : T[] = []; 
   public firstFetch : boolean = false;
-  protected fetching : boolean = true;
+  protected fetching : boolean = false;
 
   constructor(private fetchService : FetchService<T>,
               @Inject(Function) private itemProcessFunc ?: (prod : T) => T,
@@ -31,7 +31,7 @@ export abstract class InfiniteScrollableComponent<T> implements OnDestroy {
       throw("You must initialize the query first")
     }
 
-    if(refresh) {
+    if(refresh || this.fetching) {
       this.end = false;
       this.firstFetch = false;
     }
