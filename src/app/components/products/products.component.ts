@@ -4,6 +4,7 @@ import { ProductService } from '@services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Channel } from '@app/classes/QueryParams';
 import { InfiniteScrollableComponent } from '../infinite-scrollable/infinite-scrollable.component';
+import { ROUTE_PARAMS } from '@app/enums/route-params';
 
 @Component({
   selector: 'app-products',
@@ -23,8 +24,8 @@ export class ProductsComponent extends InfiniteScrollableComponent<Product> {
   ngOnInit() {
     const start : number = 0;
     const limit : number = 15;
-    const categoryId : string = this.route.snapshot.paramMap.get('id');
-    const idSp : number = parseInt(this.route.snapshot.paramMap.get('idSp'));
+    const categoryId : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_CAT);
+    const idSp : number = parseInt(this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_SP));
     const query = {
        idsSalesPoint: [idSp],
        idsCategory: [categoryId],
