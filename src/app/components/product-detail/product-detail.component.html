@@ -1,6 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <ng-container *ngIf="productSub | async as products;">
-  <ng-container *ngIf="products[0] as product; else noProduct">
+  <ng-container *ngIf="products[0] as product; else noProducts">
     <app-cassaweb-carousel [slides]=product.images></app-cassaweb-carousel>
     <ng-container *ngIf="quantitySub | async as quantity">
       <div class="content-wrapper">
@@ -34,6 +34,9 @@
       </div>
     </ng-container>
   </ng-container>
+  <ng-template #noProducts>
+    <app-message-template [disableNavBar]="true" title="Nessun prodotto trovato" content="Nessun prodotto trovato"></app-message-template>
+  </ng-template>
 </ng-container>
 
 <ng-template #loading>
