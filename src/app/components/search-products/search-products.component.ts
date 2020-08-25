@@ -9,6 +9,7 @@ import { ProductsRequest } from '@classes/QueryParams'
 import { InfiniteScrollableComponent } from '../infinite-scrollable/infinite-scrollable.component';
 import { ParamsEnum } from '@classes/SearchQueryStringParams'
 import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
+import { ROUTE_PARAMS } from '@app/enums/route-params';
 
 @Component({
   selector: 'app-search-products',
@@ -34,7 +35,7 @@ export class SearchProductsComponent extends InfiniteScrollableComponent<Product
   }
 
   ngOnInit() {
-    this.idSp = parseInt(this.route.snapshot.paramMap.get('idSp'));
+    this.idSp = parseInt(this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_SP));
     this.idLockedCategory =  this.route.snapshot.queryParamMap.get(ParamsEnum.CATEGORY);
     if(this.idLockedCategory) {
       this.idCategory = this.idLockedCategory;
