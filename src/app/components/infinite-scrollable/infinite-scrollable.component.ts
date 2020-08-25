@@ -40,7 +40,6 @@ export abstract class InfiniteScrollableComponent<T> implements OnDestroy {
       return;
     }
     this.fetching = true;
-
     this.subs.add(this.fetchService.getData(this.query).subscribe(
       res => {
         if(this.collectionProcessFunc) {
