@@ -66,7 +66,7 @@ export class NavBarComponent implements OnInit {
         case PageType.PRODUCTS:
           const idCat : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_CAT);
           this.barTitle = this.categoriesService.getData({ids : [idCat]}).pipe(
-            map(res => res.length > 0 ? res[0].description : ""),
+            map(res => res.length > 0 ? res[0].description : "  "),
             tap(res => {
               //Initialize the rest of the components here so that the bar elements are all loaded at once
               this.backRoute = "..";
@@ -96,7 +96,7 @@ export class NavBarComponent implements OnInit {
             this.backLabel = "Torna alla lista prodotti";
             this.backIcon = of("keyboard_arrow_left");
             this.barTitle = this.productsService.getData({ids : [prodId]}).pipe(
-              map(res => res.length > 0 ? res[0].description : "")
+              map(res => res.length > 0 ? res[0].description : "  ")
             );
           }
           break;
