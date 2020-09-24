@@ -9,7 +9,7 @@
           <!--Form?-->
           <div class="summary">
             <span class="product-name">{{product.description}}</span>
-            <span class="product-price">{{product.prices[0].value | currency}}</span>
+            <span class="product-price">{{product.basePrice.value | currency}}</span>
           </div>
           <div class="buy options" *ngIf="quantity.length > 0 && !HIDE_BUY_OPTIONS">
             <mat-form-field appearance="outline" color="accent">

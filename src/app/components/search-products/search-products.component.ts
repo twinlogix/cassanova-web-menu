@@ -68,6 +68,21 @@ function prepareProduct(prod : Product) : Product {
   if(res.images.length == 0) {
     res.images.push({imageUrl : defaultImageUrl});
   }
+
+  for (const price of res.prices) {
+    if (!price.hasOwnProperty('idSalesMode')) {
+      if (price.hasOwnProperty('idSalesPoint')) {
+        if (price.idSalesPoint == this.idSp) {
+          res.basePrice = price;
+          break;
+        }
+      } else {
+        res.basePrice = price;
+      }
+    }
+  }
+  console.log("price:" + res.basePrice)
+
   return res;
 }
 

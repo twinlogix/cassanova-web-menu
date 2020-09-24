@@ -1,5 +1,5 @@
 <a routerLink="/{{redirectRoute}}">
-  <div class="price-tag"><span>{{product.prices[0].value | currency}}</span></div>
+  <div class="price-tag"><span>{{product.basePrice.value | currency}}</span></div>
   <mat-card>
     <img src="{{product.images[0].imageUrl}}">
     <mat-card-content>

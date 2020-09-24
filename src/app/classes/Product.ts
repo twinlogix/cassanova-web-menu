@@ -33,6 +33,7 @@ export interface Product {
   // attributes 	List[Attribute] 	List of all available attributes for the product.
   // modifiers 	List[Modifier] 	List of all available modifier for the product.
   prices : Price[],
+  basePrice : Price,
   images : ProductImage[],
   // externalId 	String 	externalId.
   idSalesPoint : number,

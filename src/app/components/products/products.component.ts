@@ -13,6 +13,8 @@ import { ROUTE_PARAMS } from '@app/enums/route-params';
 })
 export class ProductsComponent extends InfiniteScrollableComponent<Product> {
 
+  private idSp : number;
+
   constructor(
   private productService: ProductService,
   private route: ActivatedRoute,
@@ -25,9 +27,9 @@ export class ProductsComponent extends InfiniteScrollableComponent<Product> {
     const start : number = 0;
     const limit : number = 15;
     const categoryId : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_CAT);
-    const idSp : number = parseInt(this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_SP));
+    this.idSp = parseInt(this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_SP));
     const query = {
-       idsSalesPoint: [idSp],
+       idsSalesPoint: [this.idSp],
        idsCategory: [categoryId],
        enabledForChannels: [Channel.SELF_ORDER],
        start : start,
@@ -47,5 +49,19 @@ function prepareProduct(prod : Product) : Product {
   if(res.images.length == 0) {
     res.images.push({imageUrl : defaultImageUrl});
   }
+
+  for (const price of res.prices) {
+    if (!price.hasOwnProperty('idSalesMode')) {
+      if (price.hasOwnProperty('idSalesPoint')) {
+        if (price.idSalesPoint == this.idSp) {
+          res.basePrice = price;
+          break;
+        }
+      } else {
+        res.basePrice = price;
+      }
+    }
+  }
+
   return res;
 }

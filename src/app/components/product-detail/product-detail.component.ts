@@ -19,6 +19,7 @@ export class ProductDetailComponent implements OnInit {
   public productSub  : Observable<Product[]>;
   private quantitySub : Observable<number[]>;
   private selectedQuantity : number = 1;
+  private idSp : number;
   //Due to permission restrictions to some accounts (apiKeys), some stores are not allowed to access the Stock server.
   //Use this variable to hide all stock information in the template
   private unauthorized : boolean = false;
@@ -27,12 +28,12 @@ export class ProductDetailComponent implements OnInit {
               private route          : ActivatedRoute) { }
 
   ngOnInit() {
-    const idSp : number = Number.parseInt(this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_SP));
+    this.idSp = Number.parseInt(this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_SP));
     const idProd : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_PROD);
     this.productSub = this.productService.getData({ids : [idProd]}).pipe(
       map(res => res.map(prod => this.prepareProduct(prod)))
     );
-    this.quantitySub = this.stockService.getStock({idProduct: [idProd]}, idSp).pipe(
+    this.quantitySub = this.stockService.getStock({idProduct: [idProd]}, this.idSp).pipe(
       tap(res => this.unauthorized = res.toString() === this.stockService.UNAUTHORIZED_MESSAGE),
       map(res => res.length > 0 && res[0].quantity ? Array.from(Array(res[0].quantity), (_, i) => i + 1) : []),
     )
@@ -43,6 +44,21 @@ export class ProductDetailComponent implements OnInit {
     let res = prod;
     res.images = res.images ?? [{imageUrl : defaultImageUrl}]
     res.descriptionExtended = res.descriptionExtended ?? "Nessuna descrizione disponibile."
+
+    for (const price of res.prices) {
+      if (!price.hasOwnProperty('idSalesMode')) {
+        if (price.hasOwnProperty('idSalesPoint')) {
+          if (price.idSalesPoint == this.idSp) {
+            res.basePrice = price;
+            break;
+          }
+        } else {
+          res.basePrice = price;
+        }
+      }
+    }
+    console.log("price:" + res.basePrice)
+
     return res;
   }
 
