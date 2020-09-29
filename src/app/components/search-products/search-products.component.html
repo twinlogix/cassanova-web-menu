@@ -1,0 +1,48 @@
+<div class="page-container">
+  <app-nav-bar></app-nav-bar>
+  <ng-container *ngIf="categoriesSub | async as categories">
+    <form (ngSubmit)="onSubmit()" #searchForm="ngForm" id="search-form">
+      <mat-form-field>
+        <input matInput color="accent" type="text" id="prodName" aria-label="cerca per nome" [(ngModel)]="productName" placeholder="Nome Prodotto" name="prodName"/>
+      </mat-form-field>
+      <mat-expansion-panel >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Opzioni aggiuntive
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-form-field *ngIf="!idLockedCategory">
+          <mat-label>Categoria</mat-label>
+          <mat-select color="accent" id="idCategory" [(ngModel)]="idCategory" name="category" #category="ngModel">
+            <mat-option [value]=undefined></mat-option>
+            <mat-option *ngFor="let cat of categories" [value]="cat.id">{{cat.description}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput color="accent" type="text" id="prodDescr" aria-label="cerca per descrizione" [(ngModel)]="productDescription" placeholder="Descrizione Prodotto" name="prodDescr"/>
+        </mat-form-field>
+      </mat-expansion-panel>
+      <button mat-raised-button aria-label="cerca" type="submit" color="accent"><mat-icon>search</mat-icon></button>
+    </form>
+  </ng-container>
+
+  <ng-container *ngIf="firstFetch">
+    <ng-container *ngIf="items.length > 0; else noProducts">
+      <div class="scroller-wrapper">
+        <virtual-scroller #scroll [bufferAmount]="1" [items]="items" (vsEnd)="onScrollDown($event)" >
+          <div class="item-content-container" *ngFor="let product of scroll.viewPortItems">
+            <app-product-card [product]="product"></app-product-card>
+          </div>
+        </virtual-scroller>
+      </div>
+    </ng-container>
+    <ng-template #noProducts>
+      <app-message-template [disableNavBar]="true" title="Nessun prodotto trovato" content="Nessun prodotto trovato"></app-message-template>
+    </ng-template>
+  </ng-container>
+
+  <!-- No Products -->
+  <ng-template #loading>
+    <p>Caricamento prodotti...</p>
+  </ng-template>
+</div>

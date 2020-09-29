@@ -1,17 +1,5 @@
-<!-- Toolbar -->
-<mat-toolbar color="primary" [ngClass]="{disabled: page.isDisabled()}">
-  <mat-toolbar-row *ngIf="!isPage(page.ERROR) && !isPage(page.SALESPOINT) && !isPage(page.WRONG)">
-      <!-- Home -->
-    <a class="icon-link" aria-label="Vai alle categorie" routerLink="{{page.getSp()}}/{{page.getId()}}/categories" *ngIf="isPage(page.PRODUCTS)"><mat-icon>keyboard_arrow_left</mat-icon></a>
-    <a class="icon-link" aria-label="Vai alle categorie" routerLink="{{page.getSp()}}/{{page.getId()}}/categories" *ngIf="isPage(page.SEARCH)"><mat-icon >close</mat-icon></a>
-    <a class="icon-link" aria-label="Vai ai punti vendita" routerLink="{{page.getSp()}}/salespoint" *ngIf="isPage(page.CATEGORIES)"><mat-icon >store</mat-icon></a>
-    <div aria-hidden="true" class="space"></div>
-    <!-- Padding added when icon present, in order to center the restaurant name -->
-    <h1 class="overflow-text" [ngStyle]="{'padding-right': isPage(page.SEARCH)?'32px':'0px' }">{{page.getSalePointName() | async}}</h1>
-    <div aria-hidden="true" class="space"></div>
-    <a class="icon-link" aria-label="Vai alla pagina di ricerca" routerLink="{{page.getSp()}}/{{page.getId()}}/search" *ngIf="!isPage(page.SEARCH)"><mat-icon >search</mat-icon></a>
-  </mat-toolbar-row>
-</mat-toolbar>
-<!-- Page -->
-<router-outlet></router-outlet>
+<app-message-template *ngIf="navigationDet.navigationPending | async; else authenticated" [title]="'Autenticazione in corso'" [content]="'Attendere...'"></app-message-template>
 
+<ng-template #authenticated>
+    <router-outlet></router-outlet> 
+</ng-template>

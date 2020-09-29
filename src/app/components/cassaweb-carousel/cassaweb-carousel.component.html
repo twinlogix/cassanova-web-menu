@@ -1,0 +1,14 @@
+<!-- <swiper [config]="config" class="swiper-container">
+    <div *ngFor="let slide of slides" class="swiper-slide">
+      <img src="{{slide.imageUrl}}" />
+    </div>
+</swiper> -->
+
+<div class="swiper-container" [swiper]="config">
+  <div class="swiper-wrapper">
+    <div *ngFor="let slide of slides" class="swiper-slide">
+      <img src="{{slide.imageUrl}}" />
+    </div>
+  </div>
+  <div class="swiper-pagination"></div>
+</div>

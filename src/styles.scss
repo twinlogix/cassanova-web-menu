@@ -1,6 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import 'app/styles/toolbar-style.scss';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -44,74 +42,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
-}
-
-/* Dialog dimension */
-.cdk-overlay-pane {
-  width: 60vw;
-}
-
-mat-dialog-container{
-  padding: 2vh 2vw !important;
-}
-
-.carousel{
-  display: inline-block;
-  width: 22vw;
-  height: 22vh;
-  margin: auto;
-  clear: both;
-}
-
-/* Convert carousel icons' color */
-.carousel-control-next-icon, .carousel-control-prev-icon { /* Add .carousel-indicators li for lower indicators */
-  filter: invert(100%);
-}
-
-html, body, mat-dialog-container{
-  overflow: hidden;
-}
-
-/* Little space at the end of virtual scrolling, in order to load new products */
-.cdk-virtual-scroll-content-wrapper{
-  padding-bottom: 20px;
-}
-
-
-/* For phones */
-@media only screen and (max-width: 600px) {
-
-  /* Dialog dimension */
-  .cdk-overlay-pane {
-    width: 100vw;
-    height: 100vh;
-  }
-
-  /* Display toolbar
-  .mat-dialog-container{
-    margin-top: 56px;
-  }
-  */
-
-  .center {
-    width: 100vw;
-  }
-
-  body{
-    background: whitesmoke;
-  }
-
-  .carousel{
-    display: block;
-    width: 90vw;
-    height: 40vh;
-  }
-
-  .line {
-    margin-bottom: 0px !important;
-  }
-
-  .line:nth-child(even) {
-    background-color: #EAEAEA
-  }
 }

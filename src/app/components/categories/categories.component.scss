@@ -1,0 +1,60 @@
+$grid-cols-800:    3;
+$grid-cols-1300:   4;
+$grid-item-hmargin-0:    0px;
+$grid-item-hmargin-550:  0px;
+$grid-item-hmargin-800:  0px;
+$grid-item-hmargin-1300: 0px;
+
+@import "virtual-scroll-style";
+
+a {
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-decoration: none;
+}
+
+.category-name{
+  font-size: 1.1em;
+  position: absolute;
+  bottom: .5em;
+  margin-left: .3em;
+  color: white;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 95%;
+  display: block;
+}
+
+div.cat-container {
+  height: 35vw;
+  overflow: hidden;
+}
+
+div.overlay {
+  background-color: rgba(0,0,0,.13);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  bottom: 100%;
+}
+
+img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  height: 100%;
+  transition: transform .2s;
+  display: block;
+}
+
+div.cat-container:hover img,
+div.cat-container:focus img {
+  transform: scale(1.2);
+}
+
+@media only screen and (min-width: 550px) {
+  .cat-container {
+    height: 30vw;
+  }
+}

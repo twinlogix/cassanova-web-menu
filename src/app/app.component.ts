@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {PageStatusService} from './page-status.service';
+import { NavigationDetectionService } from '@services/navigation-detection.service';
 
 @Component({
   selector: 'app-root',
@@ -7,9 +7,8 @@ import {PageStatusService} from './page-status.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+
+  constructor(public navigationDet : NavigationDetectionService) {}
+
   title = 'cassanova-web-menu';
-
-  constructor(public page: PageStatusService) { }
-
-  public isPage(page: string): boolean { return this.page.isPage(page); }
 }

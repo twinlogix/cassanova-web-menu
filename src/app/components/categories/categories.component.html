@@ -1,0 +1,28 @@
+<div class="page-container">
+  <ng-container *ngIf="firstFetch">
+    <ng-container *ngIf="items.length > 0; else noItems">
+      <app-nav-bar></app-nav-bar>
+      <virtual-scroller #scroll [items]="items" [bufferAmount]="4" (vsEnd)="onScrollDown($event)" >
+        <div class="item-content-container" *ngFor="let category of scroll.viewPortItems">
+          <div class="cat-container">
+            <a routerLink="{{category.id}}">
+              <img src="{{category.imageUrl}}"/>
+              <div class="overlay">
+                <span class="category-name">
+                  {{category.description | uppercase}}
+                </span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </virtual-scroller>
+    </ng-container>
+    <ng-template #noItems>
+      <app-message-template title="Nessuna categoria trovata" content="Nessuna categoria trovata"></app-message-template>
+    </ng-template>
+  </ng-container>
+
+  <ng-template #loading>
+    <p>Recupero dati in corso...</p>
+  </ng-template>
+</div>  

@@ -1,0 +1,22 @@
+<div class="page-container">
+  <ng-container *ngIf="firstFetch">
+    <ng-container *ngIf="items.length > 0; else noProducts">
+      <app-nav-bar></app-nav-bar>
+      <div class="scroller-wrapper">
+        <virtual-scroller #scroll [items]="items" [bufferAmount]="1" (vsEnd)="onScrollDown($event)" >
+          <div class="item-content-container" *ngFor="let product of scroll.viewPortItems">
+            <app-product-card [product]="product"></app-product-card>
+          </div>
+        </virtual-scroller>
+      </div>
+    </ng-container>
+    <ng-template #noProducts>
+      <app-message-template title="Nessun prodotto trovato" content="Nessun prodotto trovato"></app-message-template>
+    </ng-template>
+  </ng-container>
+
+  <!-- No Products -->
+  <ng-template #loading>
+    <p>Caricamento prodotti...</p>
+  </ng-template>
+</div>

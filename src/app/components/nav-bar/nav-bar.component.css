@@ -1,0 +1,75 @@
+mat-toolbar{
+  display: flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* .mat-toolbar.mat-primary{
+  background: #333333;
+}*/
+
+.space{
+  flex-grow: 1;
+}
+
+.mat-toolbar-row {
+  padding: 0 .5em;
+}
+
+mat-toolbar .mat-icon{
+  font-size: xx-large;
+  width: auto;
+  height: auto;
+}
+
+/* Remove blue border when clicking on back arrow */
+mat-toolbar mat-icon:focus{
+  outline: none;
+}
+
+a.customBackButton {
+  display: inline-flex;
+  max-width: 100px;
+  flex-grow: 1;
+}
+
+a.customBackButton > img {
+  width: 100%;
+  height: 100%;
+}
+
+h1 {
+  width: 100%;
+  text-align: center;
+}
+
+div.icon-wrapper {
+  display: inline-flex;
+  flex-grow: 1;
+  width: 100%;
+  max-width: 100px;
+}
+
+div.icon-wrapper-right > a {
+  margin-left: auto;
+}
+
+div.icon-wrapper-left > a {
+  margin-right: auto;
+}
+
+div.title-image-wrapper {
+  height: 100%;
+  width: 100%;
+  display: inline-flex;
+}
+
+div.title-image-wrapper > img {
+  height: 100%;
+  margin: auto;
+}
+
+div.space {
+  width: 100%;
+  max-width: 100px;
+}

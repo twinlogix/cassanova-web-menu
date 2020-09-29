@@ -1,71 +1,59 @@
-.line{
-  height: 12vh;
-  margin-bottom: 2vh;
-  display: block;
-  color: black;
-  text-decoration: none;
-}
+$grid-cols-0:     1  !default;
+$grid-cols-550:   2  !default;
+$grid-cols-800:   3  !default;
+$grid-cols-1300:  4  !default;
 
-.img-container{
+$grid-item-hmargin-0:    2% !default;
+$grid-item-hmargin-550:  1% !default;
+$grid-item-hmargin-800:  .5% !default;
+$grid-item-hmargin-1300: .5% !default;
+
+.page-container {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  width: 35%;
+}
+
+.scroller-wrapper {
+  height: 100%;
+  padding: 0px 1em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+virtual-scroller {
+  height: 100%;
+  width: 100%;
+}
+
+.item-content-container {
+  width: calc((100% - #{$grid-item-hmargin-0} * #{$grid-cols-0} * 2) /  #{$grid-cols-0});
   display: inline-block;
-  vertical-align: middle;
-  overflow-y: hidden;
-  text-align: center;
-  overflow-x: hidden;
+  vertical-align: top;
+  margin-right: $grid-item-hmargin-0;
+  margin-left: $grid-item-hmargin-0;
 }
 
-img{
-  max-height: 100%;
-  max-width: 100%;
-}
-
-.text-container {
-  display: inline-block;
-  width: 65%;
-  vertical-align: middle;
-}
-
-.vertical-align {
-  line-height: 12vh;
-}
-
-/* Disable pointing on list item, if page is disabled */
-.disabled  .line {
-  cursor: not-allowed;
-}
-
-/* Reduce spinner diameter */
-mat-spinner{
-  zoom: 0.5;
-}
-
-/* For phones */
-@media only screen and (max-width: 600px) {
-
-  /* Card */
-  mat-card {
-    box-shadow: none !important;
+@media only screen and (min-width: 550px) {
+  .item-content-container {
+    width: calc((100% - #{$grid-item-hmargin-550} * #{$grid-cols-550} * 2) /  #{$grid-cols-550});
+    margin-right: $grid-item-hmargin-550;
+    margin-left: $grid-item-hmargin-550;
   }
-
-  .line{
-    height: 14vh;
-  }
-
-  .img-container{
-    width: 30vw; /* 30% of .center */
-  }
-
-  .text-container{
-    width: 63vw; /* 62.5% of .center */
-    margin-left: 2vw; /* 0.8% of .center */
-  }
-
 }
-/*
-Bold all line on hover (now is managed in single scss's style, since different bolding are requested)
-.line :hover {
-  font-weight: bold
+
+@media only screen and (min-width: 800px) {
+  .item-content-container {
+    width: calc((100% - #{$grid-item-hmargin-800} * #{$grid-cols-800} * 2) /  #{$grid-cols-800});
+    margin-right: $grid-item-hmargin-800;
+    margin-left: $grid-item-hmargin-800;
+  }
 }
-*/
+
+@media only screen and (min-width: 1300px) {
+  .item-content-container {
+    width: calc((100% - #{$grid-item-hmargin-1300} * #{$grid-cols-1300} * 2) /  #{$grid-cols-1300});
+    margin-right: $grid-item-hmargin-1300;
+    margin-left: $grid-item-hmargin-1300;
+  }
+}

@@ -1,0 +1,70 @@
+@import "virtual-scroll-style";
+
+mat-card {
+  margin-top: 0px;
+  padding: 0px;
+  display: block;
+  line-height: 1em;
+  position: relative;
+  bottom: 2em;
+  height: 80%;
+}
+
+a {
+  text-decoration: none;
+}
+
+mat-card:hover {
+  cursor: pointer;
+}
+
+div.scroller-wrapper {
+  position: relative;
+  padding: .5em;
+}
+
+.item-content-container {
+  padding-top: .5em;
+}
+
+mat-card > img {
+  margin: 0px;
+  height: 16.5vmax;
+  width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+
+mat-card-content {
+  padding: .8em;
+  overflow-wrap: anywhere;
+
+  .first-line {
+    font-size: 1.1em;
+    font-weight: bold;
+  }
+  
+  .second-line {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+  }
+  
+  .salepoint-address{
+    font-size: .9em;
+    white-space: normal;
+  }
+}
+
+.sp-button {
+  z-index: 1;
+  margin: 0px 3%;
+  padding: 1em;
+  border-radius: 40px;
+}
+
+@media only screen and (min-width: 550px) {
+  mat-card {
+    height: 85%;
+  }
+}
