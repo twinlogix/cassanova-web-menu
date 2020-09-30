@@ -7,6 +7,7 @@ import { map, tap } from 'rxjs/operators';
 import { StockService } from '@app/services/stock.service';
 import { Stock } from '@classes/Stock'
 import { ROUTE_PARAMS } from '@app/enums/route-params';
+import {Channel} from "@classes/QueryParams";
 
 @Component({
   selector: 'app-product-detail',
@@ -30,7 +31,10 @@ export class ProductDetailComponent implements OnInit {
   ngOnInit() {
     this.idSp = Number.parseInt(this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_SP));
     const idProd : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_PROD);
-    this.productSub = this.productService.getData({ids : [idProd]}).pipe(
+    this.productSub = this.productService.getData({
+      ids : [idProd],
+      enabledForChannels: [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK]
+    }).pipe(
       map(res => res.map(prod => this.prepareProduct(prod)))
     );
     this.quantitySub = this.stockService.getStock({idProduct: [idProd]}, this.idSp).pipe(

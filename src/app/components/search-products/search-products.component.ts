@@ -5,7 +5,7 @@ import { ProductService } from '@app/services/product.service';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 import { Category } from '@app/classes/Category';
 import { CategoryService } from '@app/services/category.service';
-import { ProductsRequest } from '@classes/QueryParams'
+import {Channel, ProductsRequest} from '@classes/QueryParams'
 import { InfiniteScrollableComponent } from '../infinite-scrollable/infinite-scrollable.component';
 import { ParamsEnum } from '@classes/SearchQueryStringParams'
 import { getQueryPredicate } from '@angular/compiler/src/render3/view/util';
@@ -42,7 +42,12 @@ export class SearchProductsComponent extends InfiniteScrollableComponent<Product
     }
     this.setQuery(this.prepareQuery());
     this.getItems();
-    this.categoriesSub = this.categoryService.getData({idsSalesPoint : [this.idSp], start : 0, limit : 100});  //TODO: remove magic number 100
+    this.categoriesSub = this.categoryService.getData({
+      idsSalesPoint : [this.idSp],
+      enabledForChannels: [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK],
+      start : 0,
+      limit : 100
+    });  //TODO: remove magic number 100
   }
 
   private onSubmit(): void {
