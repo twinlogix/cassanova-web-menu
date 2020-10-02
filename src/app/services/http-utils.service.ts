@@ -3,7 +3,7 @@ import {HttpHeaders, HttpParams, HttpErrorResponse} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Router} from '@angular/router';
 import {environment} from '../../environments/environment';
-import {CategoriesRequest, ProductsRequest, StockRequest} from "@classes/QueryParams"
+import {CategoriesRequest, ProductsRequest, SalesPointRequest, StockRequest} from "@classes/QueryParams"
 import {MIN_LIMIT, MAX_LIMIT, DEFAULT_LIMIT} from "@classes/QueryParams"
 
 const TOKEN_HTTP_HEADERS = {
@@ -31,8 +31,8 @@ export class HttpUtilsService {
   getHostname(): string { return environment.hostname; }
   getTokenHttpOptions(): any  { return TOKEN_HTTP_HEADERS; }
 
-  public getSalesPointRequestURL() : QueryUrl {
-    return {base : `${environment.hostname}/salespoint`, options : {headers : BASIC_HTTP_HEADERS}};
+  public getSalesPointRequestURL(query : SalesPointRequest) : QueryUrl {
+    return {base : `${environment.hostname}/salespoint`, options : {headers : BASIC_HTTP_HEADERS, params : this.getParams(query)}};
   }
 
   public getCategoriesRequestURL(query : CategoriesRequest) : QueryUrl {
@@ -63,7 +63,7 @@ export class HttpUtilsService {
     };
   }
 
-  private getParams(queryParams : CategoriesRequest | ProductsRequest) : HttpParams {
+  private getParams(queryParams : CategoriesRequest | ProductsRequest | SalesPointRequest) : HttpParams {
     let params = new HttpParams();
     
     //Checking (and adding) mandatory parameters

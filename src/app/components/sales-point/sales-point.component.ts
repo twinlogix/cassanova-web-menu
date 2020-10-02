@@ -37,7 +37,7 @@ export class SalesPointComponent implements OnInit {
   }
 
   private getSalesPoint(): Observable<SalesPoint[]> {
-    return this.salesPointService.getData().pipe(
+    return this.salesPointService.getData({hasActiveLicense : true}).pipe(
       map(res => res.map(sp => this.prepareItem(sp)))
     );
   }

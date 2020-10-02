@@ -107,7 +107,7 @@ export class NavBarComponent implements OnInit {
   }
 
   private getLogo(defaultValue : string, logoDim : LogoDim) : Observable<string> {
-    return this.salesPointService.getData().pipe(
+    return this.salesPointService.getData({hasActiveLicense : true}).pipe(
       map(res => res[0]),
       map(res => logoDim === LogoDim.BIG ? res.logoBig ?? defaultValue : res.logoSmall ?? defaultValue)
     )

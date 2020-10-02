@@ -22,7 +22,11 @@ export interface CategoriesRequest extends CassaWebRequest {
   ids?: string[],
   enabledForChannels?: Channel[]
 }
-  
+
+export interface SalesPointRequest extends CassaWebRequest {
+  hasActiveLicense?: boolean
+}
+
 export interface ProductsRequest extends CassaWebRequest {
   ids?: string[],
   idsSalesPoint?: number[],
