@@ -26,7 +26,7 @@
             <p>Non attualmente presente in magazzino</p>
           </div>
           <!--/Form?-->
-          <section>
+          <section *ngIf="product.descriptionExtended != null">
             <h2>Descrizione</h2>
             <p [innerHTML]="product.descriptionExtended | noHTML: 'no-div'"></p>
           </section>

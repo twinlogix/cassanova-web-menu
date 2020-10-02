@@ -47,7 +47,6 @@ export class ProductDetailComponent implements OnInit {
     const defaultImageUrl : string = '/assets/default.png';
     let res = prod;
     res.images = res.images ?? [{imageUrl : defaultImageUrl}]
-    res.descriptionExtended = res.descriptionExtended ?? "Nessuna descrizione disponibile."
 
     for (const price of res.prices) {
       if (!price.hasOwnProperty('idSalesMode')) {
