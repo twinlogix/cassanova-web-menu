@@ -5,7 +5,7 @@
       <mat-form-field>
         <input matInput color="accent" type="text" id="prodName" aria-label="cerca per nome" [(ngModel)]="productName" placeholder="Nome Prodotto" name="prodName"/>
       </mat-form-field>
-      <mat-expansion-panel >
+      <mat-expansion-panel *ngIf="!idLockedCategory"> <!--delete this check once more options become available-->
         <mat-expansion-panel-header>
           <mat-panel-title>
             Opzioni aggiuntive
