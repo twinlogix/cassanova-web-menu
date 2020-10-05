@@ -18,9 +18,9 @@
             <mat-option *ngFor="let cat of categories" [value]="cat.id">{{cat.description}}</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field>
+        <!-- <mat-form-field>
           <input matInput color="accent" type="text" id="prodDescr" aria-label="cerca per descrizione" [(ngModel)]="productDescription" placeholder="Descrizione Prodotto" name="prodDescr"/>
-        </mat-form-field>
+        </mat-form-field> -->
       </mat-expansion-panel>
       <button mat-raised-button aria-label="cerca" type="submit" color="accent"><mat-icon>search</mat-icon></button>
     </form>

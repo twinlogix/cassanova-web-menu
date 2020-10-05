@@ -93,7 +93,7 @@ function prepareProduct(prod : Product) : Product {
 }
 
 function filterProducts(products: Product[]): Product[] {  
-  return products.filter(p => checkDescr(p.descriptionExtended, this.productDescription));
+  return products; //.filter(p => checkDescr(p.descriptionExtended, this.productDescription));
 }
 
 function checkDescr(descr : string, filterDescr : string) : boolean {
