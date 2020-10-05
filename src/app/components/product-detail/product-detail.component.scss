@@ -33,11 +33,24 @@ app-cassaweb-carousel {
 .summary {
   width: 100%;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.summary * {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.summary .product-name {
+  flex-basis: 75%;
 }
 
 .summary .product-price {
-  position: absolute;
-  right: 0;
+  flex-basis: 25%;
+  text-align: end;
 }
 
 .add-to-cart-button {
