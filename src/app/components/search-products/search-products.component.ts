@@ -57,6 +57,9 @@ export class SearchProductsComponent extends InfiniteScrollableComponent<Product
 
   private prepareQuery() : ProductsRequest {
     let query : ProductsRequest = {idsSalesPoint : [this.idSp]};
+    if (this.productName) {
+      query.description = `%${this.productName}%`;
+    }
     if (this.idCategory) {
       query.idsCategory = [this.idCategory];
     }
@@ -86,14 +89,11 @@ function prepareProduct(prod : Product) : Product {
       }
     }
   }
-  console.log("price:" + res.basePrice)
-
   return res;
 }
 
 function filterProducts(products: Product[]): Product[] {  
-  return products.filter(p => p.description.toLowerCase().includes(this.productName) &&
-                              checkDescr(p.descriptionExtended, this.productDescription));
+  return products; //.filter(p => checkDescr(p.descriptionExtended, this.productDescription));
 }
 
 function checkDescr(descr : string, filterDescr : string) : boolean {
