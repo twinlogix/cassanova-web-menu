@@ -24,8 +24,9 @@ export class CategoriesComponent extends InfiniteScrollableComponent<Category> {
     const query : CategoriesRequest = {
       idsSalesPoint: [idSp],
       start: 0,
-      enabledForChannels: [Channel.SELF_ORDER],
-      limit : 15
+      limit : 15,
+      enabledForChannels: [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK],
+      itemListVisibility: true
     }
     this.setQuery(query);
     this.getItems();

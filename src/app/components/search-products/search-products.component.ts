@@ -45,9 +45,9 @@ export class SearchProductsComponent extends InfiniteScrollableComponent<Product
     this.categoriesSub = this.categoryService.getData({
       idsSalesPoint : [this.idSp],
       enabledForChannels: [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK],
+      itemListVisibility: true,
       start : 0,
-      limit : 100,
-      itemListVisibility: true
+      limit : 100
     });  //TODO: remove magic number 100
   }
 
@@ -64,6 +64,8 @@ export class SearchProductsComponent extends InfiniteScrollableComponent<Product
     if (this.idCategory) {
       query.idsCategory = [this.idCategory];
     }
+    query.enabledForChannels = [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK];
+    query.itemListVisibility = true;
     return query;
   }
 }
