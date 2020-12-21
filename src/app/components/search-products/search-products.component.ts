@@ -46,7 +46,8 @@ export class SearchProductsComponent extends InfiniteScrollableComponent<Product
       idsSalesPoint : [this.idSp],
       enabledForChannels: [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK],
       start : 0,
-      limit : 100
+      limit : 100,
+      itemListVisibility: true
     });  //TODO: remove magic number 100
   }
 

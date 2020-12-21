@@ -31,7 +31,8 @@ export class ProductsComponent extends InfiniteScrollableComponent<Product> {
     const query = {
        idsSalesPoint: [this.idSp],
        idsCategory: [categoryId],
-       enabledForChannels: [Channel.SELF_ORDER],
+       enabledForChannels: [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK],
+       itemListVisibility: true,
        start : start,
        limit : limit
     }
