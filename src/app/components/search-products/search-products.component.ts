@@ -44,7 +44,7 @@ export class SearchProductsComponent extends InfiniteScrollableComponent<Product
     this.getItems();
     this.categoriesSub = this.categoryService.getData({
       idsSalesPoint : [this.idSp],
-      enabledForChannels: [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK],
+      enabledForChannels: [Channel.SELF_ORDER],
       itemListVisibility: true,
       start : 0,
       limit : 100
@@ -64,7 +64,7 @@ export class SearchProductsComponent extends InfiniteScrollableComponent<Product
     if (this.idCategory) {
       query.idsCategory = [this.idCategory];
     }
-    query.enabledForChannels = [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK];
+    query.enabledForChannels = [Channel.SELF_ORDER];
     query.itemListVisibility = true;
     return query;
   }

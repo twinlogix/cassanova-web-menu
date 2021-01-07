@@ -33,7 +33,7 @@ export class ProductDetailComponent implements OnInit {
     const idProd : string = this.route.snapshot.paramMap.get(ROUTE_PARAMS.ID_PROD);
     this.productSub = this.productService.getData({
       ids : [idProd],
-      enabledForChannels: [Channel.RISTO, Channel.SALE, Channel.SELF_ORDER, Channel.KIOSK]
+      enabledForChannels: [Channel.SELF_ORDER]
     }).pipe(
       map(res => res.map(prod => this.prepareProduct(prod)))
     );
